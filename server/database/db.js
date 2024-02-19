@@ -57,7 +57,7 @@ class DB{
   }
 
   async getProfile({email, password}){
-    const profile = Profile.findOne({"email": email, "password": password});
+    const profile = Profile.findOne({"email": email});
     return profile;
   }
 }
