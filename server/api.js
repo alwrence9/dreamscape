@@ -39,7 +39,7 @@ async function getProfile(req, res) {
 }
 
 //Create a profile for a user when they sign up
-app.post('/api/v1/profile', createProfile);
+app.post('/api/v1/profile/new', createProfile);
 async function createProfile(req, res) {
   const { email, password, firstname, lastname } = req.body;
   if (email && password && firstname && lastname) {
