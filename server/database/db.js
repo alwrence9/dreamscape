@@ -67,6 +67,11 @@ class DB{
       throw new Error("Invalid fields for profile.")
     }
   }
+
+  async getProfile({email, password}){
+    const profile = Profile.findOne({"email": email, "password": password});
+    return profile;
+  }
 }
 
 module.exports =  DB;
