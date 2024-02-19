@@ -42,11 +42,13 @@ async function getProfile(req, res) {
 app.post('/api/v1/profile/new', createProfile);
 async function createProfile(req, res) {
   const { email, password, firstname, lastname } = req.body;
-  if (email && password && firstname && lastname) {
-    //TO DO: INSERT NEW PROFILE INTO DB
-    return res.status(200).json({ status: 200, message: 'Successful' });
+  const emailPattern = /^([A-z]|[0-9]|\.)+@[a-z]+(\.[a-z]+)+$/g;
+
+  if (email.match(emailPattern) && password && firstname && lastname) {
+    db.insertProfile({ "email": email, "password": password, "firstName": firstname, "lastName": lastname });
+    return res.status(201).json({ status: 201, message: 'Successful' });
   }
-  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
+  return res.status(401).json({ status: 401, message: 'Wrong profile format' });
 
 }
 

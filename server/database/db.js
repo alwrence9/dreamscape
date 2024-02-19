@@ -52,20 +52,8 @@ class DB{
   }
 
   async insertProfile({email, password, firstName, lastName}){
-
-    const emailPattern = /^([A-z]|[0-9]|\.)+@[a-z]+(\.[a-z]+)+$/g;
-    
-    if(!email.match(emailPattern)){
-      throw new Error("Invalid email.")
-    }
-
-    if(password, firstName, lastName){
-      const newProfile = new Profile({"email": email, "password": password, "firstName": firstName, "lastName": lastName});
-      newProfile.save();
-    }
-    else{
-      throw new Error("Invalid fields for profile.")
-    }
+    const newProfile = new Profile({"email": email, "password": password, "firstName": firstName, "lastName": lastName});
+    newProfile.save();
   }
 
   async getProfile({email, password}){
