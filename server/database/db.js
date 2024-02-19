@@ -56,7 +56,7 @@ class DB{
     newProfile.save();
   }
 
-  async getProfile({email, password}){
+  async getProfile({email}){
     const profile = Profile.findOne({"email": email});
     return profile;
   }
