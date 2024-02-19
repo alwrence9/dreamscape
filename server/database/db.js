@@ -53,7 +53,7 @@ class DB{
 
   async insertProfile({email, password, firstName, lastName}){
 
-    const emailPattern = /^([A-z]|[0-9])+@[A-z]+.com$/g;
+    const emailPattern = /^([A-z]|[0-9]|\.)+@[a-z]+(\.[a-z]+)+$/g;
     
     if(!email.match(emailPattern)){
       throw new Error("Invalid email.")
