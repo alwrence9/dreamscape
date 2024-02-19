@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node bin/www.js",
     "env": "touch .env && echo ATLAS_URI= > .env",
-    "test": "echo setup jest pls :)"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
