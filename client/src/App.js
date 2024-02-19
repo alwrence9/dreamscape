@@ -1,21 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Navigation from './components/Navigation.js';
 
 function App() {
   return (
     <>
-      <header>
-        <nav>
-          <h1> Triple Z is Cooking!</h1>
-          <ul>
-              <li> Profile </li>
-              <li> Diet </li>
-              <li> Dream </li>
-              <li> Sleep </li>
-              <li> Mentality </li>
-          </ul>
-        </nav>
-      </header>
+      <Navigation/>
       <section>
         <h3> Sleepy people image </h3>
         <h3> Sleepy people image </h3>
