@@ -5,30 +5,46 @@ import Diet from './Diet.js';
 import Profile from './Profile.js';
 import Mental from './Mental.js';
 import HomePage from './HomePage.js';
-
-
-
-
+import LoginForm from './Login.js';
+import SignupForm from './Signup.js';
 
 function Navigation() {
-  const [selectedComponent, setSelectedComponent] = useState(HomePage);
+  
+  const handleLogin = () => {
+    setLoginClicked(true);
+  };
+
+  const handleSignup = () => {
+    setSignupClicked(true);
+  };
+
+  const [selectedComponent, setSelectedComponent] = useState(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />);
+  const [loginClicked, setLoginClicked] = useState(false);
+  const [signupClicked, setSignupClicked] = useState(false);
+
+  if (loginClicked === true) {
+    setSelectedComponent(<LoginForm />);
+  }
+
+  if (signupClicked === true) {
+    setSelectedComponent(<SignupForm />);
+  }
+
   return (
     <div>
       <header>
         <nav>
-          <h1 onClick={() => setSelectedComponent(HomePage) }>Triple Z is Cooking!</h1>
+          <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>Triple Z is Cooking!</h1>
           <ul>
-            <li onClick={() => setSelectedComponent(Profile)}>Profile</li>
-            <li onClick={() => setSelectedComponent(Diet)}>Diet</li>
-            <li onClick={() => setSelectedComponent(Dream)}>Dream</li>
-            <li onClick={() => setSelectedComponent(Sleep)}>Sleep</li>
-            <li onClick={() => setSelectedComponent(Mental)}>Mentality</li>
+            <li onClick={() => setSelectedComponent(<Profile />)}>Profile</li>
+            <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
+            <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
+            <li onClick={() => setSelectedComponent(<Sleep />)}>Sleep</li>
+            <li onClick={() => setSelectedComponent(<Mental />)}>Mentality</li>
           </ul>
         </nav>
       </header>
-      <section>
-        {selectedComponent}
-      </section>
+      <section>{selectedComponent}</section>
     </div>
   );
 }

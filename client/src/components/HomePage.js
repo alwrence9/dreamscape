@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import LoginForm from './Login.js'
-import SignupForm from './Signup.js'
 
-function HomePage() {
+function HomePage(handleSignup, handleLogin) {
   return <><section>
           <h3> Sleepy people image </h3>
           <h3> Sleepy people image </h3>
           <h3> Sleepy people image </h3>
           <h3> Sleepy people image </h3>
         </section>
-        <button onClick={() => {} }> Login </button>
-        <button onClick={() => {} }> Signup </button>
+        <button onClick={() => {handleLogin(true)} }> Login </button>
+        <button onClick={() => {handleSignup(true)} }> Signup </button>
         </>
 }
 
