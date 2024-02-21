@@ -4,16 +4,19 @@ import Dream from './Dream.js';
 import Diet from './Diet.js';
 import Profile from './Profile.js';
 import Mental from './Mental.js';
+import HomePage from './HomePage.js';
+
+
 
 
 
 function Navigation() {
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(HomePage);
   return (
     <div>
       <header>
         <nav>
-          <h1 onClick={() => setSelectedComponent(homePage) }>Triple Z is Cooking!</h1>
+          <h1 onClick={() => setSelectedComponent(HomePage) }>Triple Z is Cooking!</h1>
           <ul>
             <li onClick={() => setSelectedComponent(Profile)}>Profile</li>
             <li onClick={() => setSelectedComponent(Diet)}>Diet</li>
@@ -23,21 +26,11 @@ function Navigation() {
           </ul>
         </nav>
       </header>
-
       <section>
         {selectedComponent}
       </section>
     </div>
   );
-}
-
-function homePage() {
-  return <section>
-          <h3> Sleepy people image </h3>
-          <h3> Sleepy people image </h3>
-          <h3> Sleepy people image </h3>
-          <h3> Sleepy people image </h3>
-        </section>;
 }
 
 export default Navigation;
