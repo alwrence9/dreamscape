@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
+import Sleep from './Sleep.js';
+import Dream from './Dream.js';
+import Diet from './Diet.js';
+import Profile from './Profile.js';
+import Mental from './Mental.js';
+
+
 
 function Navigation() {
+  const [selectedComponent, setSelectedComponent] = useState(null);
 
-    return (
-    <header>
+  const handleItemClick = (component) => {
+    setSelectedComponent(component);
+  };
+
+  return (
+    <div>
+      <header>
         <nav>
-          <h1> Triple Z is Cooking!</h1>
+          <h1>Triple Z is Cooking!</h1>
           <ul>
-              <li> Profile </li>
-              <li> Diet </li>
-              <li> Dream </li>
-              <li> Sleep </li>
-              <li> Mentality </li>
+            <li onClick={() => handleItemClick(Profile)}>Profile</li>
+            <li onClick={() => handleItemClick(Diet)}>Diet</li>
+            <li onClick={() => handleItemClick(Dream)}>Dream</li>
+            <li onClick={() => handleItemClick(Sleep)}>Sleep</li>
+            <li onClick={() => handleItemClick(Mental)}>Mentality</li>
           </ul>
         </nav>
-    </header>
+      </header>
+
+      <section>
+        {selectedComponent}
+      </section>
+    </div>
   );
 }
 
