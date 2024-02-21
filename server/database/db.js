@@ -1,5 +1,26 @@
 const mongoose = require('mongoose');
 
+const ProfileSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  }
+});
+const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
+
+
 class DB{
   constructor(){
     if (!DB.instance){
@@ -21,7 +42,7 @@ class DB{
         throw new Error("Failed to connect to db.")
       }
       this.db = mongoose.connection;
-      console.log("MongoDB connection successful");
+      console.log("MongoDB connection successful.");
     }
   }
 
@@ -29,6 +50,16 @@ class DB{
     mongoose.connection.close()
     console.log("Database connection closed.");
   }
+
+  async insertProfile({email, password, firstName, lastName}){
+    const newProfile = new Profile({"email": email, "password": password, "firstName": firstName, "lastName": lastName});
+    newProfile.save();
+  }
+
+  async getProfile({email}){
+    const profile = Profile.findOne({"email": email});
+    return profile;
+  }
 }
 
-module.exports =  DB;
+module.exports = DB;
