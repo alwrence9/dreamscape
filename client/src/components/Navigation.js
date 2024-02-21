@@ -9,22 +9,17 @@ import Mental from './Mental.js';
 
 function Navigation() {
   const [selectedComponent, setSelectedComponent] = useState(null);
-
-  const handleItemClick = (component) => {
-    setSelectedComponent(component);
-  };
-
   return (
     <div>
       <header>
         <nav>
-          <h1>Triple Z is Cooking!</h1>
+          <h1 onClick={() => setSelectedComponent(homePage) }>Triple Z is Cooking!</h1>
           <ul>
-            <li onClick={() => handleItemClick(Profile)}>Profile</li>
-            <li onClick={() => handleItemClick(Diet)}>Diet</li>
-            <li onClick={() => handleItemClick(Dream)}>Dream</li>
-            <li onClick={() => handleItemClick(Sleep)}>Sleep</li>
-            <li onClick={() => handleItemClick(Mental)}>Mentality</li>
+            <li onClick={() => setSelectedComponent(Profile)}>Profile</li>
+            <li onClick={() => setSelectedComponent(Diet)}>Diet</li>
+            <li onClick={() => setSelectedComponent(Dream)}>Dream</li>
+            <li onClick={() => setSelectedComponent(Sleep)}>Sleep</li>
+            <li onClick={() => setSelectedComponent(Mental)}>Mentality</li>
           </ul>
         </nav>
       </header>
@@ -34,6 +29,15 @@ function Navigation() {
       </section>
     </div>
   );
+}
+
+function homePage() {
+  return <section>
+          <h3> Sleepy people image </h3>
+          <h3> Sleepy people image </h3>
+          <h3> Sleepy people image </h3>
+          <h3> Sleepy people image </h3>
+        </section>;
 }
 
 export default Navigation;

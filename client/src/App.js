@@ -6,12 +6,6 @@ function App() {
   return (
     <>
       <Navigation/>
-      <section>
-        <h3> Sleepy people image </h3>
-        <h3> Sleepy people image </h3>
-        <h3> Sleepy people image </h3>
-        <h3> Sleepy people image </h3>
-      </section>
     </>
   );
 }
