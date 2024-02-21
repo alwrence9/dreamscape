@@ -20,6 +20,36 @@ const ProfileSchema = mongoose.Schema({
 });
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
 
+const SleepLogSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  date: {
+    day: {
+      type: Number,
+      required: true
+    },
+    month: {
+      type: Number,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    }
+  },
+  hoursSlept: {
+    type: Number,
+    required: true
+  },
+  notes: {
+    type: String,
+    required: true
+  }
+});
+const SleepLog = mongoose.model("SleepLog", SleepLogSchema, "SleepLog");
+
 
 class DB{
   constructor(){
