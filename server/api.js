@@ -55,18 +55,36 @@ async function createProfile(req, res) {
 //Get sleep logs for the week for a specific user
 app.get('/api/v1/sleeplogs/:email', getSleepLogs);
 async function getSleepLogs(req, res) {
-  res.type('json');
-  if (db) {
-    let sleepLogs;
-    try {
-      //TO DO: GET SLEEP LOGS FOR THE WEEK FROM DB BY EMAIL
-      res.json( {"sleeplogs": sleepLogs});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+
+  const test = [
+    new Date('2024-1-1'),
+    new Date('2024-2-1'),
+    new Date('2024-3-1'),
+    new Date('2024-4-1'),
+    new Date('2024-5-1'),
+    new Date('2024-6-1')
+  ];
+
+  const start = Number(req.query.start);
+  const end = Number(req.query.end);
+
+  let results = []
+
+  if(start && end){
+    results = test.filter(
+      (date) => {return start <= date.getTime() && date.getTime() <= end}
+    );
+    
+    results = results.map(
+      (date) => {return date.toString()}
+    )
+
+    res.json({"sleeplogs": results});
+    return;
   }
+
+  res.status(404).send({status: '404', message: 'User not found'});
+
 }
 
 //Creates a sleep log for a specified user
