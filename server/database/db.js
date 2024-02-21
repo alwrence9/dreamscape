@@ -26,8 +26,14 @@ const SleepLogSchema = mongoose.Schema({
     required: true
   },
   date: {
-    type: String,
-    required: true
+    string: {
+      type: String,
+      required: true
+    },
+    sinceEpoch: {
+      type: Number,
+      required: true
+    }
   },
   hoursSlept: {
     type: Number,
