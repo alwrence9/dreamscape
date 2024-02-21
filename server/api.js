@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const DB = require("./database/db.js");
+const jwt = require('jsonwebtoken');
 
 const db = new DB();
 
@@ -16,7 +17,11 @@ async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
     const profile = await db.getProfile( {"email": email} );
-    return res.status(200).json({ status: 200, message: 'Successful' });
+    if (profile) {
+      const token = jwt.sign({email: email}, password);
+      res.status(200).json({ status: 200, message: 'Successful' });
+      return res.json(({token}));
+    }
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 }
