@@ -15,7 +15,7 @@ app.post('api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
-    //TO DO: ADD LOGIN LOGIC AND CHECK IF EMAIL AND PASSWORD ARE CORRECT
+    const profile = await db.getProfile( {"email": email} );
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
@@ -28,7 +28,7 @@ async function getProfile(req, res) {
   if (db) {
     let profile;
     try {
-      //TO DO: GET PROFILE FROM DB BY EMAIL
+      profile = await db.getProfile( {"email": req.params.email} );
       res.json( {"profile": profile});
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
