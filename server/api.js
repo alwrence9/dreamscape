@@ -12,7 +12,7 @@ app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
 
-app.post('api/v1/login', login);
+app.post('/api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
