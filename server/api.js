@@ -56,6 +56,8 @@ async function createProfile(req, res) {
 app.get('/api/v1/sleeplogs/:email', getSleepLogs);
 async function getSleepLogs(req, res) {
 
+  //THIS IS A DEMO FOR HOW DATE QUERY WORKS
+  //START AND END ARE INTEGERS OBTAINED BY THE Date.GetTime() method.
   const test = [
     new Date('2024-1-1'),
     new Date('2024-2-1'),

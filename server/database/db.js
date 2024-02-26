@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Structure for profile
 const ProfileSchema = mongoose.Schema({
   email: {
     type: String,
@@ -20,6 +21,7 @@ const ProfileSchema = mongoose.Schema({
 });
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
 
+//Structure for sleep log entry
 const SleepLogSchema = mongoose.Schema({
   email: {
     type: String,
@@ -50,7 +52,6 @@ const SleepLog = mongoose.model("SleepLog", SleepLogSchema, "SleepLog");
 class DB{
   constructor(){
     if (!DB.instance){
-
       this.db = null;
       DB.instance = this;
 
@@ -58,6 +59,7 @@ class DB{
     return DB.instance;
   }
 
+  //Connect to DB.
   async connect(dbUrl){
     if (!this.db){
       try{
@@ -72,16 +74,19 @@ class DB{
     }
   }
 
+  //Closes connection to DB
   async close(){
     mongoose.connection.close()
     console.log("Database connection closed.");
   }
 
+  //Inserts profile into database
   async insertProfile({email, password, firstName, lastName}){
     const newProfile = new Profile({"email": email, "password": password, "firstName": firstName, "lastName": lastName});
     newProfile.save();
   }
 
+  //Gets a profile based on the email. Email should be unique.
   async getProfile({email}){
     const profile = Profile.findOne({"email": email});
     return profile;
