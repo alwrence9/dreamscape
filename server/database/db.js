@@ -118,6 +118,11 @@ class DB{
     return profile;
   }
 
+  async clearProfiles(){
+    const results = await Profile.deleteMany({"email": { $regex: /.*/}});
+    console.log(`Deleted ${results.deletedCount} profiles`);
+  }
+
   //Inserts dream journal entry into database
   async insertDreamJournal({email, date, title, description}){
     const newDreamJournal = new DreamJournal({"email": email, "date": date, "title": title, "description": description});
@@ -129,6 +134,12 @@ class DB{
     const dreamJournalEntries = DreamJournal.find({"email": email});
     return dreamJournalEntries;
   }
+
+  async clearJournals(){
+  const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} journal entries`);
+  }
+
 }
 
 module.exports = DB;
