@@ -24,6 +24,9 @@ function LoginForm() {
           // New info posted - updates the status in parent component
           //handlePostStatus(true);
           //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
+          //Get authentication token
+          var token = await response.json();
+          localStorage.setItem("token", token);
         } else {
           setMessage('Failed to submit comment');
         }
@@ -51,7 +54,7 @@ function LoginForm() {
           <label>
           Password:
             <input
-              type="text"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
