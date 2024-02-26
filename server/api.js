@@ -28,7 +28,7 @@ async function getProfile(req, res) {
   if (db) {
     let profile;
     try {
-      profile = await db.getProfile( {"email": req.params.email} );
+      profile = await db.getProfile( req.params.email );
       res.json( {"profile": profile});
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
@@ -104,18 +104,21 @@ async function createSleepLog(req, res) {
 //Gets the journal entry for a specified user
 app.get('/api/v1/entries/:email', getEntry);
 async function getEntry(req, res) {
-  res.type('json');
-  if (db) {
-    let entries;
-    try {
-      //TO DO: GET JOURNAL ENTRIES FROM DB BY EMAIL
-      res.json( {"entries": entries});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+
+  const start = Number(req.query.start);
+  const end = Number(req.query.end);
+
+  const results = await db.getDreamJournals( req.params.email );
+
+  if(start && end){
+    results = results.filter(
+      (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
+    );
+
+    return res.json({"dreams": results});
   }
+
+  return res.status(404).send({status: '404', message: 'User not found'});
 }
 
 //Create a new journal entry for a specified user
@@ -123,11 +126,10 @@ app.get('/api/v1/entries/new', createEntry);
 async function createEntry(req, res) {
   const { email, date, subject, description } = req.body;
   if (email && date && subject && description) {
-    //TO DO: INSERT NEW JOURNAL ENTRY INTO DB
+    db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
-
 }
 
 // 404 route

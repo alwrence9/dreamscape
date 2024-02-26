@@ -113,9 +113,21 @@ class DB{
   }
 
   //Gets a profile based on the email. Email should be unique.
-  async getProfile({email}){
+  async getProfile(email){
     const profile = Profile.findOne({"email": email});
     return profile;
+  }
+
+  //Inserts dream journal entry into database
+  async insertDreamJournal({email, date, title, description}){
+    const newDreamJournal = new DreamJournal({"email": email, "date": date, "title": title, "description": description});
+    newDreamJournal.save();
+  }
+
+  //Gets dream journal entries based on the email. Email should be unique.
+  async getDreamJournals(email){
+    const dreamJournalEntries = DreamJournal.find({"email": email});
+    return dreamJournalEntries;
   }
 }
 
