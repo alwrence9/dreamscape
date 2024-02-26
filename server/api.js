@@ -15,7 +15,7 @@ app.post('api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
-    //TO DO: ADD LOGIN LOGIC AND CHECK IF EMAIL AND PASSWORD ARE CORRECT
+    const profile = await db.getProfile( {"email": email} );
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
@@ -28,7 +28,7 @@ async function getProfile(req, res) {
   if (db) {
     let profile;
     try {
-      //TO DO: GET PROFILE FROM DB BY EMAIL
+      profile = await db.getProfile( {"email": req.params.email} );
       res.json( {"profile": profile});
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
@@ -42,11 +42,13 @@ async function getProfile(req, res) {
 app.post('/api/v1/profile/new', createProfile);
 async function createProfile(req, res) {
   const { email, password, firstname, lastname } = req.body;
-  if (email && password && firstname && lastname) {
-    //TO DO: INSERT NEW PROFILE INTO DB
-    return res.status(200).json({ status: 200, message: 'Successful' });
+  const emailPattern = /^([A-z]|[0-9]|\.)+@[a-z]+(\.[a-z]+)+$/g;
+
+  if (email.match(emailPattern) && password && firstname && lastname) {
+    db.insertProfile({ "email": email, "password": password, "firstName": firstname, "lastName": lastname });
+    return res.status(201).json({ status: 201, message: 'Successful' });
   }
-  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
+  return res.status(401).json({ status: 401, message: 'Wrong profile format' });
 
 }
 
