@@ -25,16 +25,14 @@ async function login(req, res) {
 app.get('/api/v1/profile/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
-  if (db) {
-    let profile;
-    try {
-      profile = await db.getProfile( req.params.email );
-      res.json( {"profile": profile});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+  
+  let profile = await db.getProfile( req.params.email );
+  
+  if(profile){
+    return res.json( {"profile": profile});
+  }
+  else{
+    return res.status(404).send({status: '404', message: "Profile not found"});
   }
 }
 
