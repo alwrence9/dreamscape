@@ -127,11 +127,14 @@ async function getEntry(req, res) {
 //Create a new journal entry for a specified user
 app.get('/api/v1/entries/new', createEntry);
 async function createEntry(req, res) {
+
   const { email, date, subject, description } = req.body;
-  if (email && date && subject && description) {
+
+  if (email && date.string && date.sinceEpoch && subject && description) {
     db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
+
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 }
 
