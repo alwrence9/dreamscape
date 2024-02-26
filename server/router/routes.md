@@ -1,5 +1,5 @@
 routes: 
-/api/v1 : router
+/api/v1 : router which i the main of everything
 /login
 /profile/new
 /profile/:email

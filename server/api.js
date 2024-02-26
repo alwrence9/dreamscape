@@ -107,8 +107,9 @@ async function createEntry(req, res) {
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
-
 }
+app.get('/api/v1/questions-type', getQuestionsType);
+
 
 // 404 route
 app.use((req, res) => {
