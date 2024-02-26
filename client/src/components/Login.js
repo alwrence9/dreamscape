@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -61,6 +62,14 @@ function LoginForm() {
         <button type="submit">Submit</button>
       </form>
       <p>{resultText}</p>
+
+      {/* Login with google?
+      <div>
+        <h2>React Google Login</h2>
+        <br />
+        <br />
+        <GoogleLogin onSuccess={resultText} onError={resultText} />
+      </div> */}
     </>
   );
 }
