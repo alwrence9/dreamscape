@@ -63,6 +63,7 @@ Do you ever change work shifts?
 Daytime Sequelae / Misc
 How does poor sleep interfere with your performance the following day?
 Is your job performance affected?
+
 Do you fall asleep at unexpected times during the day?
 What would you like to see changed about your sleep?
 How would improved sleep affect your daytime functioning?

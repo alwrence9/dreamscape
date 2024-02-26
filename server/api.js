@@ -108,7 +108,12 @@ async function createEntry(req, res) {
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 }
-app.get('/api/v1/questions-type', getQuestionsType);
+
+//TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done
+//and functions to categorize sleepers into chronotypes and sleepers for insomnia
+// app.get('/api/v1/questions-type', getQuestionsType);
+// app.get('/api/v1/questions-insomnia', getQuestionsInsomnia);
+
 
 
 // 404 route

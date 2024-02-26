@@ -8,8 +8,8 @@ routes:
 /entries/:email
 /entries/new
 
-/questions-type GET
-/questions-insomnia GET
+/questions-type GET doing it 
+/questions-insomnia GET doing it
 
 function to categorize the 4 types of sleepers
 function to categorize the 4 levels of insomnia
