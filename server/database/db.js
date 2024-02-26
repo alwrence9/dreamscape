@@ -48,6 +48,32 @@ const SleepLogSchema = mongoose.Schema({
 });
 const SleepLog = mongoose.model("SleepLog", SleepLogSchema, "SleepLog");
 
+//Structure for dream journal entry
+const DreamSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  date: {
+    string: {
+      type: String,
+      required: true
+    },
+    sinceEpoch: {
+      type: Number,
+      required: true
+    }
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  }
+});
+const DreamJournal = mongoose.model("DreamJournal", DreamSchema, "DreamJournal");
 
 class DB{
   constructor(){
