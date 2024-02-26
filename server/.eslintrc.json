@@ -12,6 +12,7 @@
     "rules": {
         "prefer-const": "warn",
         "array-callback-return": "error",
-        "eqeqeq": "warn"
+        "eqeqeq": "warn",
+        "no-const-assign": "error"
     }
 }

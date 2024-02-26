@@ -108,17 +108,20 @@ async function getEntry(req, res) {
   const start = Number(req.query.start);
   const end = Number(req.query.end);
 
-  const results = await db.getDreamJournals( req.params.email );
+  let results = await db.getDreamJournals( req.params.email );
 
   if(start && end){
     results = results.filter(
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
 
+  }
+
+  if (results.length != 0){
     return res.json({"dreams": results});
   }
 
-  return res.status(404).send({status: '404', message: 'User not found'});
+  return res.status(404).send({status: '404', message: 'No entries found for that user'});
 }
 
 //Create a new journal entry for a specified user
