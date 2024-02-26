@@ -22,13 +22,13 @@ function SignupForm() {
         });
   
         if (response.ok) {
-          setMessage('Comment submitted successfully');
+          setMessage('Signed in successfully');
           // New info posted - updates the status in parent component
           //handlePostStatus(true);
           //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
 
         } else {
-          setMessage('Failed to submit comment');
+          setMessage('Failed to sign up');
         }
       } catch (error) {
         setMessage('Error:', error);

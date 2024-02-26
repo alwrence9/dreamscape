@@ -20,7 +20,7 @@ function LoginForm() {
         });
   
         if (response.ok) {
-          setMessage('Comment submitted successfully');
+          setMessage('Logged in successfully');
           // New info posted - updates the status in parent component
           //handlePostStatus(true);
           //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
@@ -28,40 +28,37 @@ function LoginForm() {
           var token = await response.json();
           localStorage.setItem("token", token);
         } else {
-          setMessage('Failed to submit comment');
+          setMessage('Failed to login');
         }
       } catch (error) {
         setMessage('Error:', error);
       }
     }
     else {
-      setMessage('Username and comment can not be empty');
+      setMessage('Enter both username and password');
     }
   };
 
     return (
     <>
-      <form>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-          Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <label>
+        Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <button type="submit">Submit</button>
       </form>
       <p>{resultText}</p>
     </>
