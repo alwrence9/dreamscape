@@ -1,0 +1,155 @@
+{
+    "questions": [
+      {
+        "type": "Chronotypes",
+        "question": "Are you naturally inclined to wake up early in the morning or stay up late at night?",
+        "choices": {
+          "Lion": "A. Early morning",
+          "Wolf": "B. Late night",
+          "Bear": "C. In between",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you have a family history of being either an early bird or a night owl?",
+        "choices": {
+          "Lion": "A. Yes, early bird",
+          "Wolf": "B. Yes, night owl",
+          "Bear": "C. No specific pattern",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "When do you feel most alert and energetic during the day - morning, afternoon, or evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Afternoon",
+          "Bear": "C. Evening",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you find it easy to wake up early and be productive in the morning?",
+        "choices": {
+          "Lion": "A. Yes",
+          "Wolf": "B. Somewhat",
+          "Bear": "C. No, prefer staying up late",
+          "Dolphin": "D. No, struggle with waking up early"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you experience difficulties falling asleep at night or waking up in the morning?",
+        "choices": {
+          "Lion": "A. Rarely",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Frequently",
+          "Dolphin": "D. Regularly"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Are you more comfortable with socializing in the morning or in the evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Evening",
+          "Bear": "C. Late evening",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "How well do you adapt to traditional office hours, starting early in the morning?",
+        "choices": {
+          "Lion": "A. Very well",
+          "Wolf": "B. Well",
+          "Bear": "C. Not well",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you prefer having meals and exercising in the morning or in the evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Evening",
+          "Bear": "C. Either",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Have you noticed changes in your sleep patterns based on the seasons or geographical location?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Minor changes",
+          "Bear": "C. Significant changes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Would you describe yourself as open to trying new things and experiences?",
+        "choices": {
+          "Lion": "A. Yes, very open",
+          "Wolf": "B. Open, but cautious",
+          "Bear": "C. Somewhat resistant",
+          "Dolphin": "D. Not very open"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Are you generally organized, goal-oriented, and responsible in your daily life?",
+        "choices": {
+          "Lion": "A. Very much so",
+          "Wolf": "B. Moderately",
+          "Bear": "C. Not particularly",
+          "Dolphin": "D. It varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Would you say you are cooperative, friendly, and considerate towards others?",
+        "choices": {
+          "Lion": "A. Yes",
+          "Wolf": "B. Mostly",
+          "Bear": "C. Not particularly",
+          "Dolphin": "D. It varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you often experience high levels of anxiety or nervousness?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Yes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you find that you are more productive and alert during the late evening?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Yes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Have you ever experienced difficulty sleeping or maintaining a regular sleep pattern?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Rarely",
+          "Bear": "C. Occasionally",
+          "Dolphin": "D. Frequently"
+        }
+      }
+    ]
+}
+  
