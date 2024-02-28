@@ -14,6 +14,7 @@ li {
   width: 150px;
   text-align: center;
 }
+
 li:hover {
   background-color: darkcyan;
 }
@@ -66,4 +67,8 @@ body {
 
 section {
   background-color: darkgray;
+}
+
+p, label {
+  color: white;
 }
