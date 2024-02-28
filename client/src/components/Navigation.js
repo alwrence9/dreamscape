@@ -10,10 +10,12 @@ import SignupForm from './Signup.js';
 
 function Navigation() {
 
+  const [token, setToken] = useState();
+
   const handleLogin = () => {
     setLoginClicked(true);
     setSignupClicked(false);
-    setSelectedComponent(<LoginForm />);
+    setSelectedComponent(<LoginForm setToken={setToken}/>);
   };
 
   const handleSignup = () => {
@@ -23,7 +25,7 @@ function Navigation() {
   };
 
   const [selectedComponent, setSelectedComponent] = useState(
-    <HomePage handleSignup={handleSignup} handleLogin={handleLogin} />
+    <HomePage handleSignup={handleSignup} handleLogin={handleLogin} token={token} />
   );
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);

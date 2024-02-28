@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-function LoginForm() {
+function LoginForm({setToken}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [resultText, setMessage] = useState('');
@@ -28,6 +28,7 @@ function LoginForm() {
           //Get authentication token
           var token = await response.json();
           localStorage.setItem("token", token);
+          setToken(token);
         } else {
           setMessage('Failed to login');
         }
