@@ -23,6 +23,8 @@ const server = app.listen(port, () => {
 })
 
 process.on('SIGINT', async () => {
-  await db.close();
-  server.close( () => console.log("Closing server.") );
+  server.close( async () => {
+    await db.close();
+    console.log("Closing server.");
+  });
 });
