@@ -38,6 +38,10 @@ td {
   padding: 50px;
 }
 
+td:hover {
+  background-color: darkcyan;
+}
+
 ul {
   display: flex;
   flex-direction: row;
