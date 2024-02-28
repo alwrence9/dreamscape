@@ -52,39 +52,53 @@ async function createProfile(req, res) {
 
 //Get sleep logs for the week for a specific user
 app.get('/api/v1/sleeplogs/:email', getSleepLogs);
-async function getSleepLogs(req, res) {
+// async function getSleepLogs(req, res) {
 
-  //THIS IS A DEMO FOR HOW DATE QUERY WORKS
-  //START AND END ARE INTEGERS OBTAINED BY THE Date.GetTime() method.
-  const test = [
-    new Date('2024-1-1'),
-    new Date('2024-2-1'),
-    new Date('2024-3-1'),
-    new Date('2024-4-1'),
-    new Date('2024-5-1'),
-    new Date('2024-6-1')
-  ];
+//   //THIS IS A DEMO FOR HOW DATE QUERY WORKS
+//   //START AND END ARE INTEGERS OBTAINED BY THE Date.GetTime() method.
+//   const test = [
+//     new Date('2024-1-1'),
+//     new Date('2024-2-1'),
+//     new Date('2024-3-1'),
+//     new Date('2024-4-1'),
+//     new Date('2024-5-1'),
+//     new Date('2024-6-1')
+//   ];
 
+//   const start = Number(req.query.start);
+//   const end = Number(req.query.end);
+
+//   let results = []
+
+//   if(start && end){
+//     results = test.filter(
+//       (date) => {return start <= date.getTime() && date.getTime() <= end}
+//     );
+    
+//     results = results.map(
+//       (date) => {return date.toString()}
+//     )
+
+//     res.json({"sleeplogs": results});
+//     return;
+//   }
+
+//   res.status(404).send({status: '404', message: 'User not found'});
+
+// }
+async function getSleepLogs(req,res){
   const start = Number(req.query.start);
   const end = Number(req.query.end);
-
-  let results = []
-
+  let results = await db.getSleepLogs( req.params.email);
   if(start && end){
-    results = test.filter(
-      (date) => {return start <= date.getTime() && date.getTime() <= end}
+    results = results.filter(
+      (sleepLogEntry) => {return start <= sleepLogEntry.date.sinceEpoch && sleepLogEntry.date.sinceEpoch <= end}
     );
-    
-    results = results.map(
-      (date) => {return date.toString()}
-    )
-
-    res.json({"sleeplogs": results});
-    return;
   }
-
-  res.status(404).send({status: '404', message: 'User not found'});
-
+  if (results.length != 0){
+    return res.json({"sleepLogs": results});
+  }
+  return res.status(404).send({status: '404', message: 'No entries found for that user'});
 }
 
 //Creates a sleep log for a specified user
