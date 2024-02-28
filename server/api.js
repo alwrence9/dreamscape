@@ -125,16 +125,14 @@ async function login(req, res) {
 app.get('/api/v1/profile/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
-  if (db) {
-    let profile;
-    try {
-      profile = await db.getProfile( {"email": req.params.email} );
-      res.json( {"profile": profile});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+  
+  let profile = await db.getProfile( req.params.email );
+  
+  if(profile){
+    return res.json( {"profile": profile});
+  }
+  else{
+    return res.status(404).send({status: '404', message: "Profile not found"});
   }
 }
 
@@ -155,18 +153,38 @@ async function createProfile(req, res) {
 //Get sleep logs for the week for a specific user
 app.get('/api/v1/sleeplogs/:email', getSleepLogs);
 async function getSleepLogs(req, res) {
-  res.type('json');
-  if (db) {
-    let sleepLogs;
-    try {
-      //TO DO: GET SLEEP LOGS FOR THE WEEK FROM DB BY EMAIL
-      res.json( {"sleeplogs": sleepLogs});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+
+  //THIS IS A DEMO FOR HOW DATE QUERY WORKS
+  //START AND END ARE INTEGERS OBTAINED BY THE Date.GetTime() method.
+  const test = [
+    new Date('2024-1-1'),
+    new Date('2024-2-1'),
+    new Date('2024-3-1'),
+    new Date('2024-4-1'),
+    new Date('2024-5-1'),
+    new Date('2024-6-1')
+  ];
+
+  const start = Number(req.query.start);
+  const end = Number(req.query.end);
+
+  let results = []
+
+  if(start && end){
+    results = test.filter(
+      (date) => {return start <= date.getTime() && date.getTime() <= end}
+    );
+    
+    results = results.map(
+      (date) => {return date.toString()}
+    )
+
+    res.json({"sleeplogs": results});
+    return;
   }
+
+  res.status(404).send({status: '404', message: 'User not found'});
+
 }
 
 //Creates a sleep log for a specified user
@@ -184,30 +202,38 @@ async function createSleepLog(req, res) {
 //Gets the journal entry for a specified user
 app.get('/api/v1/entries/:email', getEntry);
 async function getEntry(req, res) {
-  res.type('json');
-  if (db) {
-    let entries;
-    try {
-      //TO DO: GET JOURNAL ENTRIES FROM DB BY EMAIL
-      res.json( {"entries": entries});
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
+
+  const start = Number(req.query.start);
+  const end = Number(req.query.end);
+
+  let results = await db.getDreamJournals( req.params.email );
+
+  if(start && end){
+    results = results.filter(
+      (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
+    );
+
   }
+
+  if (results.length != 0){
+    return res.json({"dreams": results});
+  }
+
+  return res.status(404).send({status: '404', message: 'No entries found for that user'});
 }
 
 //Create a new journal entry for a specified user
 app.get('/api/v1/entries/new', createEntry);
 async function createEntry(req, res) {
+
   const { email, date, subject, description } = req.body;
-  if (email && date && subject && description) {
-    //TO DO: INSERT NEW JOURNAL ENTRY INTO DB
+
+  if (email && date.string && date.sinceEpoch && subject && description) {
+    db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
-  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 
+  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 }
 
 // 404 route
