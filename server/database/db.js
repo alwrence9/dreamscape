@@ -139,6 +139,23 @@ class DB{
   const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
+   //Inserts dream journal entry into database
+   async insertSleepLog({email, date, hoursSlept, notes}){
+    const newSleepLog = new SleepLog({"email": email, "date": date, "hoursSlept": hoursSlept, "notes": notes});
+    newSleepLog.save();
+  }
+
+  //Gets dream journal entries based on the email. Email should be unique.
+  async getSleepLog(email){
+    const dreamJournalEntries = DreamJournal.find({"email": email});
+    return dreamJournalEntries;
+  }
+
+  async clearSleepLog(){
+  const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} journal entries`);
+  }
+
 
 }
 
