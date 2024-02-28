@@ -6,7 +6,6 @@ const db = new DB();
 
 app.use(express.static('../client/build'));
 app.use(express.json());
-
 app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
@@ -25,9 +24,7 @@ async function login(req, res) {
 app.get('/api/v1/profile/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
-  
   let profile = await db.getProfile( req.params.email );
-  
   if(profile){
     return res.json( {"profile": profile});
   }
@@ -41,7 +38,6 @@ app.post('/api/v1/profile/new', createProfile);
 async function createProfile(req, res) {
   const { email, password, firstname, lastname } = req.body;
   const emailPattern = /^([A-z]|[0-9]|\.|-)+@[a-z]+(\.[a-z]+)+$/g;
-
   if (email.match(emailPattern) && password && firstname && lastname) {
     db.insertProfile({ "email": email, "password": password, "firstName": firstname, "lastName": lastname });
     return res.status(201).json({ status: 201, message: 'Successful' });
@@ -106,33 +102,27 @@ app.post('/api/v1/sleeplogs/new', createSleepLog);
 async function createSleepLog(req, res) {
   const { date, email, sleephours, comment } = req.body;
   if (date && email && sleephours && comment) {
-    //TO DO: INSERT NEW SLEEPLOG INTO DB
+    await db.insertSleepLog({"email": email, "date": date, "hoursSlept": sleephours, "comment": comment});
     return res.status(200).json({ status: 200, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
-
 }
 
 //Gets the journal entry for a specified user
 app.get('/api/v1/entries/:email', getEntry);
 async function getEntry(req, res) {
-
   const start = Number(req.query.start);
   const end = Number(req.query.end);
-
   let results = await db.getDreamJournals( req.params.email );
 
   if(start && end){
     results = results.filter(
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
-
   }
-
   if (results.length != 0){
     return res.json({"dreams": results});
   }
-
   return res.status(404).send({status: '404', message: 'No entries found for that user'});
 }
 

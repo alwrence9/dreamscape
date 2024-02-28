@@ -19,6 +19,49 @@ const ProfileSchema = mongoose.Schema({
     required: true
   }
 });
+const QuestionSchema = mongoose.Schema({
+  type: {
+    type: String,
+    required: true
+  },
+  question: {
+    type: String,
+    required: true
+  },
+  choices: {
+      lion: {
+        type: String,
+        required: true
+      },
+      dolphin: {
+        type: Number,
+        required: true
+      },
+      bear: {
+        type: String,
+        required: true
+      },
+      wolf: {
+        type: String,
+        required: true
+      },
+      episodic: {
+        type: String,
+        required: true
+      },
+      persistent: {
+        type: String,
+        required: true
+      },
+      reccurent: {
+        type: String,
+        required: true
+      }       
+  }
+});
+const Question = mongoose.model("Question", QuestionSchema, "Questions");
+
+
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
 
 //Structure for sleep log entry
@@ -154,6 +197,21 @@ class DB{
   async clearSleepLogs(){
   const results = await SleepLog.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} sleep log entries`);
+  }
+  //Insert questions into the database
+  async insertQuestions({type, question, choices}){
+    const newQuestion = new Question({"type": type, "question": question, "choices": choices});
+    newQuestion.save();
+  }
+  //Gets sleep log entries based on the email. Email should be unique.
+  async getQuestions(){
+    const questions = await Question.find({"email": email});
+    return questions;
+  }
+  //Clear all sleep log entries
+  async clearQuestions(){
+  const results = await Questions.deleteMany({"email": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} questions`);
   }
 
 
