@@ -4,7 +4,18 @@ function Sleep() {
 
     return (
     <>
-      <h1> Sleep </h1>
+      <div className="sleep-container">
+        <table className="sleep-table">
+          <tr>
+            <td>Quiz</td>
+            <td>Info</td>
+          </tr>
+          <tr>
+            <td>Sleep Metrics</td>
+            <td>Excersises & Support</td>
+          </tr>
+        </table> 
+      </div>
     </>
   );
 }
