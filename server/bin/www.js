@@ -22,7 +22,7 @@ const server = app.listen(port, () => {
   console.log(`App listening on port ${port}.`);
 })
 
-process.on('SIGINT', () => {
-  db.close();
-  server.close( () => {console.log("Closing server.")} );
+process.on('SIGINT', async () => {
+  await db.close();
+  server.close( () => console.log("Closing server.") );
 });

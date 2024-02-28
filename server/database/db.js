@@ -102,7 +102,7 @@ class DB{
 
   //Closes connection to DB
   async close(){
-    mongoose.connection.close()
+    await mongoose.connection.close()
     console.log("Database connection closed.");
   }
 
