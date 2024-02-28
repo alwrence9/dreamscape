@@ -12,7 +12,7 @@ app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
 
-app.post('api/v1/login', login);
+app.post('/api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
@@ -47,7 +47,7 @@ async function getProfile(req, res) {
 app.post('/api/v1/profile/new', createProfile);
 async function createProfile(req, res) {
   const { email, password, firstname, lastname } = req.body;
-  const emailPattern = /^([A-z]|[0-9]|\.)+@[a-z]+(\.[a-z]+)+$/g;
+  const emailPattern = /^([A-z]|[0-9]|\.|-)+@[a-z]+(\.[a-z]+)+$/g;
 
   if (email.match(emailPattern) && password && firstname && lastname) {
     db.insertProfile({ "email": email, "password": password, "firstName": firstname, "lastName": lastname });

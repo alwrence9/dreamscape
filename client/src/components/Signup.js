@@ -22,65 +22,59 @@ function SignupForm() {
         });
   
         if (response.ok) {
-          setMessage('Comment submitted successfully');
+          setMessage('Signed in successfully');
           // New info posted - updates the status in parent component
           //handlePostStatus(true);
           //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
-          //Get authentication token
-          var token = await response.json();
-          localStorage.setItem("token", token);
 
         } else {
-          setMessage('Failed to submit comment');
+          setMessage('Failed to sign up');
         }
       } catch (error) {
         setMessage('Error:', error);
       }
     }
     else {
-      setMessage('Username and comment can not be empty');
+      setMessage('None of the fields can be empty');
     }
   };
 
     return (
     <>
-      <form>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-          Password:
-            <input
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <label>
-          First name:
-            <input
-              type="text"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-          </label>
-          <label>
-          Last name:
-            <input
-              type="text"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-            />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <label>
+        Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <label>
+        First name:
+          <input
+            type="text"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+        </label>
+        <label>
+        Last name:
+          <input
+            type="text"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+          />
+        </label>
+        <button type="submit">Submit</button>
       </form>
       <p>{resultText}</p>
     </>
