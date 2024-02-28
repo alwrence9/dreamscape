@@ -10,7 +10,7 @@ import SignupForm from './Signup.js';
 
 function Navigation() {
 
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const handleLogin = () => {
     setLoginClicked(true);
