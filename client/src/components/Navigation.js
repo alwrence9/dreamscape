@@ -9,32 +9,32 @@ import LoginForm from './Login.js';
 import SignupForm from './Signup.js';
 
 function Navigation() {
-  
+
   const handleLogin = () => {
     setLoginClicked(true);
+    setSignupClicked(false);
+    setSelectedComponent(<LoginForm />);
   };
 
   const handleSignup = () => {
     setSignupClicked(true);
+    setLoginClicked(false);
+    setSelectedComponent(<SignupForm />);
   };
 
-  const [selectedComponent, setSelectedComponent] = useState(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />);
+  const [selectedComponent, setSelectedComponent] = useState(
+    <HomePage handleSignup={handleSignup} handleLogin={handleLogin} />
+  );
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
-
-  if (loginClicked === true) {
-    setSelectedComponent(<LoginForm />);
-  }
-
-  if (signupClicked === true) {
-    setSelectedComponent(<SignupForm />);
-  }
 
   return (
     <div>
       <header>
         <nav>
-          <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>Triple Z is Cooking!</h1>
+          <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>
+            Triple Z is Cooking!
+          </h1>
           <ul>
             <li onClick={() => setSelectedComponent(<Profile />)}>Profile</li>
             <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
