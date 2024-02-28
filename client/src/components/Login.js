@@ -39,7 +39,37 @@ function LoginForm({setToken}) {
     else {
       setMessage('Enter both username and password');
     }
+  
   };
+
+  //GOOGLE HANDLING METHODS
+  const handleLogin = async googleData => {
+    let data;
+    try {
+      const res = await fetch("/auth", {
+          method: "POST",
+          body: JSON.stringify({
+          token: googleData.credential
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (!res.ok) {
+        throw new Error("Failed to connect- HTTP status " + res.status);
+      }
+      data = await res.json();
+    } catch (e) {
+      //should give an appropriate error message
+      alert("Failed to login");
+      return;
+    }
+    // we will come back to this, since our server will be replying with our info
+  }
+  
+  const handleError = error => {
+    alert("Error logging in");
+  }
 
     return (
     <>
@@ -64,13 +94,13 @@ function LoginForm({setToken}) {
       </form>
       <p>{resultText}</p>
 
-      {/* Login with google?
-      <div>
-        <h2>React Google Login</h2>
-        <br />
-        <br />
-        <GoogleLogin onSuccess={resultText} onError={resultText} />
-      </div> */}
+      <div className="App">
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={handleError}        
+        />
+      </div>
+
     </>
   );
 }
