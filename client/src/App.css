@@ -1,0 +1,45 @@
+header {
+  margin-top: 0;
+  border: 3px black solid;
+  border-bottom: none;
+}
+
+nav {
+  background-color: #282c34;
+  min-height: 15vh;
+}
+
+li {
+  list-style-type: none;
+  width: 150px;
+  text-align: center;
+}
+li:hover {
+  background-color: darkcyan;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  align-items: end;
+  margin-top: 75px;
+  border: 3px black solid;
+  border-left: none;
+  border-right: none;
+}
+
+h1 {
+  color:aliceblue;
+  text-align: center;
+}
+
+body {
+  background-color: #282c34;
+}
+
+section {
+  background-color: darkgray;
+}
