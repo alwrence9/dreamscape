@@ -18,9 +18,9 @@ async function login(req, res) {
   if (email && password) {
     const profile = await db.getProfile( {"email": email} );
     if (profile) {
-      const token = jwt.sign({email: email}, password);
-      res.status(200).json({ status: 200, message: 'Successful' });
-      return res.json(({token}));
+      const token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), email: email}, password);
+      //res.status(200).json({ status: 200, message: 'Successful' });
+      return res.json((JSON.stringify({token})));
     }
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
