@@ -1,6 +1,6 @@
 import { React, useState} from 'react';
 
-function HomePage({ handleSignup, handleLogin, token }) {
+function HomePage({ handleSignup, handleLogin }) {
   return (
     <>
       <section>
@@ -9,12 +9,6 @@ function HomePage({ handleSignup, handleLogin, token }) {
         <h3> Sleepy people image </h3>
         <h3> Sleepy people image </h3>
       </section>
-      {!token &&
-        <>
-          <button onClick={() => handleLogin(true)}> Login </button> 
-          <button onClick={() => handleSignup(true)}> Signup </button>
-        </>
-      }
     </>
   );
 }

@@ -34,7 +34,19 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>
+          <h1 onClick={() => { 
+              if (!token) {
+                setSelectedComponent(
+                <>
+                  <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+                  <button onClick={() => handleLogin(true)}> Login </button> 
+                  <button onClick={() => handleSignup(true)}> Signup </button>
+                </>)
+              }
+              else {
+                setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)
+              }
+            } }>
             Triple Z is Cooking!
           </h1>
           <ul>
