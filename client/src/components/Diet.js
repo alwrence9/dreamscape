@@ -85,8 +85,44 @@ function Diet() {
           in your purse or bag for emergencies.
           </p>
       </ol>
-      
-    </>
+      <h3>Healthy Eating Plate</h3>
+      <p>Use the Healthy Eating Plate as a guide for creating healthy, balanced meals—whether served at the table or packed in a lunch box.</p>
+      <ul>
+        <li>HEALTHY OILS</li>
+        <li>WATER</li>
+        <li>VEGETABLES</li>
+        <li>FRUITS</li>
+        <li>HEALTHY PROTEIN</li>
+        <li>WHOLE GRAINS</li>
+      </ul>
+      <h4>Building a Healthy and Balanced Diet</h4>
+
+  <p>Make most of your meal vegetables and fruits – ½ of your plate. Aim for color and variety, and remember that potatoes don’t count as vegetables on the Healthy Eating Plate because of their negative impact on blood sugar.</p>
+
+  <h4>Go for whole grains – ¼ of your plate.</h4>
+  <p>Whole and intact grains—whole wheat, barley, wheat berries, quinoa, oats, brown rice, and foods made with them, such as whole wheat pasta—have a milder effect on blood sugar and insulin than white bread, white rice, and other refined grains.</p>
+
+  <h4>Protein power – ¼ of your plate.</h4>
+  <p>Fish, poultry, beans, and nuts are all healthy, versatile protein sources—they can be mixed into salads, and pair well with vegetables on a plate. Limit red meat, and avoid processed meats such as bacon and sausage.</p>
+
+  <h4>Healthy plant oils – in moderation.</h4>
+  <p>Choose healthy vegetable oils like olive, canola, soy, corn, sunflower, peanut, and others, and avoid partially hydrogenated oils, which contain unhealthy trans fats. Remember that low-fat does not mean “healthy.”</p>
+
+  <h4>Drink water, coffee, or tea.</h4>
+  <p>Skip sugary drinks, limit milk and dairy products to one to two servings per day, and limit juice to a small glass per day.</p>
+
+  <h4>Stay active.</h4>
+  <p>The red figure running across the Healthy Eating Plate’s placemat is a reminder that staying active is also important in weight control.</p>
+  <h3>The main message of the Healthy Eating Plate is to focus on diet quality:</h3>
+  <p>The type of carbohydrate in the diet is more important than the amount of carbohydrate in the diet,  <br></br>
+    because some sources of carbohydrate—like vegetables (other than potatoes), fruits, whole grains, <br></br>
+     and beans—are healthier than others. The Healthy Eating Plate also advises consumers to avoid sugary beverages, <br></br>
+      a major source of calories—usually with little nutritional value—in the American diet. The Healthy Eating Plate <br></br> 
+      encourages consumers to use healthy oils, and it does not set a maximum on the percentage of calories people <br></br> 
+      should get each day from healthy sources of fat. In this way, the Healthy Eating Plate recommends the opposite <br></br>
+       of the low-fat message promoted for decades by the USDA.
+  </p>
+  </>
   );
 }
 
