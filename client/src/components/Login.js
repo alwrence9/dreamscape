@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function LoginForm({setToken}) {
   const [email, setEmail] = useState('');
@@ -65,10 +66,27 @@ function LoginForm({setToken}) {
       return;
     }
     // we will come back to this, since our server will be replying with our info
+    setEmail(data.user.name);
   }
-  
+
   const handleError = error => {
     alert("Error logging in");
+  }
+
+  const handleLogout = async () => {
+    await fetch("/logout");
+    setEmail("");
+  }
+
+  const protectedRoute = async () => {
+    const response = await fetch("/protected");
+    if (response.status === 200) {
+      alert("You are authorized to see this!");
+    } else if (response.status === 401)  {
+      alert("You are not authorized to see this!");
+    } else {
+      alert("Something went wrong!");
+    }
   }
 
     return (
