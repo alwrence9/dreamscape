@@ -1,6 +1,7 @@
 const {app} = require('../api');
 const { config } = require('dotenv');
 const path = require('path');
+const DB = require("../database/db.js");
 
 const port = process.env.PORT || 3000;
 
@@ -10,6 +11,8 @@ const envPath = path.resolve(currentDirectory, '../.env');
 config({ path: envPath });
 
 const dbUrl = process.env.ATLAS_URI;
+const db = new DB();
+db.connect(dbUrl);
 
 const server = app.listen(port, () => {
   if(!dbUrl) {
@@ -19,6 +22,21 @@ const server = app.listen(port, () => {
   console.log(`App listening on port ${port}.`);
 })
 
-process.on('SIGINT', () => {
-  server.close( () => {console.log("Closing server.")} );
+const sockets = new Set();
+server.on('connection', (socket) => {
+  sockets.add(socket);
+  server.once('close', () => {
+    sockets.delete(socket);
+  });
+});
+
+process.on('SIGINT', async () => {
+  for (const socket of sockets) {
+    socket.destroy();
+    sockets.delete(socket);
+  }
+  server.close( async () => {
+    await db.close();
+    console.log("Closing server.");
+  });
 });
