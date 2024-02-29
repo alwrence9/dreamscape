@@ -84,7 +84,7 @@ function Navigation() {
           <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>
             Triple Z is Cooking!
           </h1>
-          <ul>
+          <ul class="navigation">
             <li onClick={() => setSelectedComponent(<Profile />)}>Profile</li>
             <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
             <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
