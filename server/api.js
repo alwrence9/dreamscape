@@ -51,70 +51,56 @@ async function createProfile(req, res) {
     db.insertProfile({ "email": email, "password": password, "firstName": firstname, "lastName": lastname });
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
-  return res.status(401).json({ status: 401, message: 'Wrong profile format' });
+  return res.status(401).json({ status: 401, message: 'Profile missing information' });
 
 }
 
 //Get sleep logs for the week for a specific user
 app.get('/api/v1/sleeplogs/:email', getSleepLogs);
-// async function getSleepLogs(req, res) {
+async function getSleepLogs(req, res){
 
-//   //THIS IS A DEMO FOR HOW DATE QUERY WORKS
-//   //START AND END ARE INTEGERS OBTAINED BY THE Date.GetTime() method.
-//   const test = [
-//     new Date('2024-1-1'),
-//     new Date('2024-2-1'),
-//     new Date('2024-3-1'),
-//     new Date('2024-4-1'),
-//     new Date('2024-5-1'),
-//     new Date('2024-6-1')
-//   ];
-
-//   const start = Number(req.query.start);
-//   const end = Number(req.query.end);
-
-//   let results = []
-
-//   if(start && end){
-//     results = test.filter(
-//       (date) => {return start <= date.getTime() && date.getTime() <= end}
-//     );
-    
-//     results = results.map(
-//       (date) => {return date.toString()}
-//     )
-
-//     res.json({"sleeplogs": results});
-//     return;
-//   }
-
-//   res.status(404).send({status: '404', message: 'User not found'});
-
-// }
-async function getSleepLogs(req,res){
   const start = Number(req.query.start);
   const end = Number(req.query.end);
+  
   let results = await db.getSleepLogs( req.params.email);
+
   if(start && end){
     results = results.filter(
       (sleepLogEntry) => {return start <= sleepLogEntry.date.sinceEpoch && sleepLogEntry.date.sinceEpoch <= end}
     );
   }
+
   if (results.length != 0){
     return res.json({"sleepLogs": results});
   }
+
   return res.status(404).send({status: '404', message: 'No entries found for that user'});
 }
 
 //Creates a sleep log for a specified user
 app.post('/api/v1/sleeplogs/new', createSleepLog);
 async function createSleepLog(req, res) {
-  const { date, email, sleephours, comment } = req.body;
-  if (date && email && sleephours && comment) {
-    //TO DO: INSERT NEW SLEEPLOG INTO DB
-    return res.status(200).json({ status: 200, message: 'Successful' });
+
+  let { email, date, sleephours, comment } = req.body;
+
+  if(!comment){
+    comment = "";
   }
-  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
+
+  if(!date){
+    return res.status(401).json({ status: 401, message: 'Sleep log missing date.' });
+  }
+
+  if (date.string && date.sinceEpoch && email && sleephours && comment !== undefined) {
+    db.insertSleepLog({
+      "email": email,
+      "date": date,
+      "hoursSlept": sleephours,
+      "notes": comment
+    });
+    return res.status(200).json({ status: 201, message: 'Successful' });
+  }
+  return res.status(401).json({ status: 401, message: 'Sleep log missing information' });
 
 }
 
@@ -151,13 +137,22 @@ async function getEntry(req, res) {
 app.get('/api/v1/entries/new', createEntry);
 async function createEntry(req, res) {
 
-  const { email, date, subject, description } = req.body;
+  let { email, date, subject, description } = req.body;
 
-  if (email && date.string && date.sinceEpoch && subject && description) {
-    db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
-    return res.status(200).json({ status: 200, message: 'Successful' });
+  if(!date){
+    return res.status(401).json({ status: 401, message: ' comment format' });
   }
-  return res.status(401).json({ status: 401, message: 'Wrong comment format' });
+
+  if(!description){
+    description = "";
+  }
+
+  if (email && date.string && date.sinceEpoch && subject) {
+
+    db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
+    return res.status(200).json({ status: 201, message: 'Successful' });
+  }
+  return res.status(401).json({ status: 401, message: 'Journal entry missing information' });
 }
 
 //TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done

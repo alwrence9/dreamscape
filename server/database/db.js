@@ -139,8 +139,9 @@ class DB{
   const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
-   //Inserts dream journal entry into database
-   async insertSleepLog({email, date, hoursSlept, notes}){
+
+  //Inserts dream journal entry into database
+  async insertSleepLog({email, date, hoursSlept, notes}){
     const newSleepLog = new SleepLog({"email": email, "date": date, "hoursSlept": hoursSlept, "notes": notes});
     newSleepLog.save();
   }
