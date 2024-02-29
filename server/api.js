@@ -26,7 +26,7 @@ app.get('/api/v1/profile/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
   
-  let profile = await db.getProfile( req.params.email );
+  const profile = await db.getProfile( req.params.email );
   
   if(profile){
     return res.json( {"profile": profile});
@@ -95,7 +95,7 @@ async function getSleepLogs(req,res){
       (sleepLogEntry) => {return start <= sleepLogEntry.date.sinceEpoch && sleepLogEntry.date.sinceEpoch <= end}
     );
   }
-  if (results.length != 0){
+  if (results.length !== 0){
     return res.json({"sleepLogs": results});
   }
   return res.status(404).send({status: '404', message: 'No entries found for that user'});
@@ -129,7 +129,7 @@ async function getEntry(req, res) {
 
   }
 
-  if (results.length != 0){
+  if (results.length !== 0){
     return res.json({"dreams": results});
   }
 
