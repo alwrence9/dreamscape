@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const DB = require("./database/db.js");
+const jwt = require('jsonwebtoken');
 
 const db = new DB();
 
@@ -11,12 +12,16 @@ app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
 
-app.post('api/v1/login', login);
+app.post('/api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
     const profile = await db.getProfile( {"email": email} );
-    return res.status(200).json({ status: 200, message: 'Successful' });
+    if (profile) {
+      const token = jwt.sign({email: email}, password);
+      res.status(200).json({ status: 200, message: 'Successful' });
+      return res.json(({token}));
+    }
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
 }
@@ -119,14 +124,20 @@ async function getEntry(req, res) {
 
   const start = Number(req.query.start);
   const end = Number(req.query.end);
+  const date = req.query.date;
 
   let results = await db.getDreamJournals( req.params.email );
+
+  if(date){
+    results = results.filter(
+      (journalEntry) => {return journalEntry.date.string == date}
+    );
+  }
 
   if(start && end){
     results = results.filter(
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
-
   }
 
   if (results.length != 0){
