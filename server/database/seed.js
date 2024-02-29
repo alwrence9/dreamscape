@@ -31,6 +31,16 @@ async function init_db(){
       "description": "Class was cancelled, but I showed up anyways. 😎"
     }
   );
+
+  await db.insertDreamJournal(
+    {
+      "email": "chadrew.brozay@gmail.com",
+      "date": { "string": "2-27-2024", "sinceEpoch": 1709010000000 },
+      "title": "Haunting Students",
+      "description": "My students keep sending me soup pictures and the Key to the Misty Mountain"
+    }
+  );
+
   console.log("Insert data complete.");
 }
 

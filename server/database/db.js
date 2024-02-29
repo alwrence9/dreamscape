@@ -19,11 +19,8 @@ const ProfileSchema = mongoose.Schema({
     required: true
   }
 });
-const QuestionSchema = mongoose.Schema({
-  type: {
-    type: String,
-    required: true
-  },
+
+const ChronotypeQuestionSchema = mongoose.Schema({
   question: {
     type: String,
     required: true
@@ -34,7 +31,7 @@ const QuestionSchema = mongoose.Schema({
         required: true
       },
       dolphin: {
-        type: Number,
+        type: String,
         required: true
       },
       bear: {
@@ -44,7 +41,17 @@ const QuestionSchema = mongoose.Schema({
       wolf: {
         type: String,
         required: true
-      },
+      }
+  }
+});
+const ChronotypeQuestion = mongoose.model("ChronotypeQuestion", ChronotypeQuestionSchema, "ChronotypeQuestions");
+
+const InsomniaQuestionSchema = mongoose.Schema({
+  question: {
+    type: String,
+    required: true
+  },
+  choices: {
       episodic: {
         type: String,
         required: true
@@ -59,7 +66,7 @@ const QuestionSchema = mongoose.Schema({
       }       
   }
 });
-const Question = mongoose.model("Question", QuestionSchema, "Questions");
+const InsomniaQuestion = mongoose.model("InsomniaQuestion", InsomniaQuestionSchema, "InsomniaQuestions");
 
 
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
@@ -145,7 +152,7 @@ class DB{
 
   //Closes connection to DB
   async close(){
-    mongoose.connection.close()
+    await mongoose.connection.close()
     console.log("Database connection closed.");
   }
 
@@ -182,8 +189,9 @@ class DB{
   const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
-   //Inserts dream journal entry into database
-   async insertSleepLog({email, date, hoursSlept, notes}){
+
+  //Inserts dream journal entry into database
+  async insertSleepLog({email, date, hoursSlept, notes}){
     const newSleepLog = new SleepLog({"email": email, "date": date, "hoursSlept": hoursSlept, "notes": notes});
     newSleepLog.save();
   }
