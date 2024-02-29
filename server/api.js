@@ -110,14 +110,20 @@ async function getEntry(req, res) {
 
   const start = Number(req.query.start);
   const end = Number(req.query.end);
+  const date = req.query.date;
 
   let results = await db.getDreamJournals( req.params.email );
+
+  if(date){
+    results = results.filter(
+      (journalEntry) => {return journalEntry.date.string == date}
+    );
+  }
 
   if(start && end){
     results = results.filter(
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
-
   }
 
   if (results.length != 0){
