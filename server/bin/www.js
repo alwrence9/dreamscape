@@ -22,7 +22,21 @@ const server = app.listen(port, () => {
   console.log(`App listening on port ${port}.`);
 })
 
-process.on('SIGINT', () => {
-  db.close();
-  server.close( () => {console.log("Closing server.")} );
+const sockets = new Set();
+server.on('connection', (socket) => {
+  sockets.add(socket);
+  server.once('close', () => {
+    sockets.delete(socket);
+  });
+});
+
+process.on('SIGINT', async () => {
+  for (const socket of sockets) {
+    socket.destroy();
+    sockets.delete(socket);
+  }
+  server.close( async () => {
+    await db.close();
+    console.log("Closing server.");
+  });
 });
