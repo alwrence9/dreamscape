@@ -6,6 +6,7 @@ function Sleep({handleQuiz, handleMetrics, handleSupport, handleInfo}) {
     <>
       <div className="sleep-container">
         <table className="sleep-table">
+          <tbody>
           <tr>
             <td onClick={() => handleQuiz(true)}>Quiz</td>
             <td onClick={() => handleInfo(true)}>Info</td>
@@ -14,6 +15,7 @@ function Sleep({handleQuiz, handleMetrics, handleSupport, handleInfo}) {
             <td onClick={() => handleMetrics(true)}>Sleep Metrics</td>
             <td onClick={() => handleSupport(true)}>Excersises & Support</td>
           </tr>
+          </tbody>
         </table> 
       </div>
     </>
