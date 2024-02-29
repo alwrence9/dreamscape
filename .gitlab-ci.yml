@@ -1,5 +1,9 @@
 image: node:18.18.0
 
+workflow:
+  rules:
+    if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
 stages:
   - lint
   - test
