@@ -4,6 +4,7 @@ const DB = require("./database/db.js");
 const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
 const dotenv = require('dotenv');
+const session = require('express-session');
 dotenv.config();
 
 const db = new DB();
@@ -17,66 +18,66 @@ app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
 
-app.post("/auth", async (req, res) => {
-  //TODO: should validate that the token was sent first
+//Important: for production, you must use HTTPS for the session cookie
+//This assumes that your package.json has a start script that runs the
+// server with NODE_ENV set to development or test or production
+let secure = true;
+if (app.get('env') === 'development' || app.get('env') === 'test') {
+  secure = false;
+}
+
+// Use the session middleware, expires after 20 minutes
+app.use(session({
+  secret: process.env.SECRET, //used to sign the session id
+  name: 'id', //name of the session id cookie
+  saveUninitialized: false, //don't create session until something stored
+  resave: false,
+  cookie: { 
+    maxAge: 120000, //time in ms
+    //should only sent over https, but set to false for testing and dev on localhost
+    secure: secure, 
+    httpOnly: false, //can't be accessed via JS
+    sameSite: 'strict' //only sent for requests to same origin
+  }
+}));
+
+app.post("/auth", async (req, res,) => {
   const {token} = req.body;
-  const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID
-  });
-  if (!ticket) 
-    return res.sendStatus(401); //unauthorized (token invalid)
-  const { name, email, picture } = ticket.getPayload();
+  if (token) {
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.GOOGLE_CLIENT_ID
+    });
+    if (!ticket) 
+      return res.sendStatus(401); //unauthorized (token invalid)
+    const { name, email, picture } = ticket.getPayload();
 
-  const user = {"name" : name, "email": email, "picture": picture};
-  const existsAlready = users.findIndex(element => element.email === email);
-  if (existsAlready < 0) {
-    //insert
-    users.push(user);
-  } else {
-    //update
-    users[existsAlready] = user;
-  }
-
-  //Important: for production, you must use HTTPS for the session cookie
-  //This assumes that your package.json has a start script that runs the
-  // server with NODE_ENV set to development or test or production
-  let secure = true;
-  if (app.get('env') === 'development' || app.get('env') === 'test') {
-    secure = false;
-  }
-  const session = require('express-session');
-  // Use the session middleware, expires after 20 minutes
-  app.use(session({
-    secret: process.env.SECRET, //used to sign the session id
-    name: 'id', //name of the session id cookie
-    saveUninitialized: false, //don't create session until something stored
-    resave: false,
-    cookie: { 
-      maxAge: 120000, //time in ms
-      //should only sent over https, but set to false for testing and dev on localhost
-      secure: secure, 
-      httpOnly: true, //can't be accessed via JS
-      sameSite: 'strict' //only sent for requests to same origin
+    const user = {"name" : name, "email": email, "picture": picture};
+    const existsAlready = users.findIndex(element => element.email === email);
+    if (existsAlready < 0) {
+      //insert
+      users.push(user);
+    } else {
+      //update
+      users[existsAlready] = user;
     }
-  }));
 
-   //create a session, using email as the unique identifier
-   req.session.regenerate(function(err) {
-    if (err) {
-      return res.sendStatus(500); //server error, couldn't create the session
+    // //create a session, using email as the unique identifier
+    req.session.regenerate(function(err) {
+      if (err) {
+        return res.sendStatus(500); //server error, couldn't create the session
+      }
+      //store the user's info in the session
+      req.session.user = user;
+      res.json({user: user});
+    });
     }
-    //store the user's info in the session
-    req.session.user = user;
-    res.json({user: user});
-  });
-
-
+  }
   // TODO: you may want to upsert (update or insert if new) the user's name, email and picture in the database - step 4
 
   //TODO: create a session cookie send it back to the client - step 5
 
-});
+);
 
 //middleware to verify the session
 function isAuthenticated(req, res, next) {
