@@ -19,7 +19,7 @@ async function getSleepLogs(req, res){
     );
   }
 
-  if (results.length != 0){
+  if (results.length !== 0){
     return res.json({"sleepLogs": results});
   }
 
@@ -30,17 +30,21 @@ async function getSleepLogs(req, res){
 router.post('/new', createSleepLog);
 async function createSleepLog(req, res) {
 
-  let { email, date, sleephours, comment } = req.body;
+  const { email, date, sleephours, optionalComment } = req.body;
 
-  if(!comment){
+  let comment
+  if(!optionalComment){
     comment = "";
+  }
+  else{
+    comment = optionalComment;
   }
 
   if(!date){
     return res.status(401).json({ status: 401, message: 'Sleep log missing date.' });
   }
 
-  if (date.string && date.sinceEpoch && email && sleephours && comment !== undefined) {
+  if (date.string && date.sinceEpoch && email && sleephours) {
     db.insertSleepLog({
       "email": email,
       "date": date,
