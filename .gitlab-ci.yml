@@ -21,7 +21,7 @@ lint-server:
   script:
     - npm install && npm install eslint
     - cd server && npm run lint
-  allow_failure: true
+  allow_failure: false
 
 server-test:
   stage: test
@@ -29,3 +29,4 @@ server-test:
     - cd server
     - npm install
     - npm run test
+  allow_failure: false
