@@ -19,6 +19,56 @@ const ProfileSchema = mongoose.Schema({
     required: true
   }
 });
+
+const ChronotypeQuestionSchema = mongoose.Schema({
+  question: {
+    type: String,
+    required: true
+  },
+  choices: {
+      lion: {
+        type: String,
+        required: true
+      },
+      dolphin: {
+        type: String,
+        required: true
+      },
+      bear: {
+        type: String,
+        required: true
+      },
+      wolf: {
+        type: String,
+        required: true
+      }
+  }
+});
+const ChronotypeQuestion = mongoose.model("ChronotypeQuestion", ChronotypeQuestionSchema, "ChronotypeQuestions");
+
+const InsomniaQuestionSchema = mongoose.Schema({
+  question: {
+    type: String,
+    required: true
+  },
+  choices: {
+      episodic: {
+        type: String,
+        required: true
+      },
+      persistent: {
+        type: String,
+        required: true
+      },
+      reccurent: {
+        type: String,
+        required: true
+      }       
+  }
+});
+const InsomniaQuestion = mongoose.model("InsomniaQuestion", InsomniaQuestionSchema, "InsomniaQuestions");
+
+
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
 
 //Structure for sleep log entry
@@ -134,11 +184,44 @@ class DB{
     const dreamJournalEntries = DreamJournal.find({"email": email});
     return dreamJournalEntries;
   }
-
+  //Clear all dream log entries
   async clearJournals(){
   const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
+
+  //Inserts dream journal entry into database
+  async insertSleepLog({email, date, hoursSlept, notes}){
+    const newSleepLog = new SleepLog({"email": email, "date": date, "hoursSlept": hoursSlept, "notes": notes});
+    newSleepLog.save();
+  }
+
+  //Gets sleep log entries based on the email. Email should be unique.
+  async getSleepLogs(email){
+    const sleepLogEntries = SleepLog.find({"email": email});
+    return sleepLogEntries;
+  }
+  //Clear all sleep log entries
+  async clearSleepLogs(){
+  const results = await SleepLog.deleteMany({"email": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} sleep log entries`);
+  }
+  //Insert questions into the database
+  async insertQuestions({type, question, choices}){
+    const newQuestion = new Question({"type": type, "question": question, "choices": choices});
+    newQuestion.save();
+  }
+  //Gets sleep log entries based on the email. Email should be unique.
+  async getQuestions(){
+    const questions = await Question.find({"email": email});
+    return questions;
+  }
+  //Clear all sleep log entries
+  async clearQuestions(){
+  const results = await Questions.deleteMany({"email": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} questions`);
+  }
+
 
 }
 

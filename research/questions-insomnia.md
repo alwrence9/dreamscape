@@ -14,6 +14,7 @@ How long have you had this sleep pattern?
 What was your sleep like before you developed this problem?
 What treatments have you tried for your sleep problem?
 Did any of these treatments help?
+
 Behavioral Insomnia
 Do you watch television, read, work, or eat during the night? In bed?
 How do you sleep away from home (e.g., on vacation)?
@@ -23,15 +24,18 @@ What do you do while awake at night?
 Was there a precipitating event when your insomnia first began (e.g., hospitalization, stressful event)?
 Do you take naps during the day?
 Do you look at the clock during the night?
+
 Cognitive Features
 Do you feel frustrated or tense when seeing your bed or bedroom?
 Do you think about your sleep difficulty during the day?
 Are you afraid of not sleeping? What do you think will happen to you?
 How does difficulty sleeping affect your life?
+
 Medical
 Do you have any medical problems? (Review of systems)
 Do you have any pain at night?\
 What medications do you take? What dosages? How often?
+
 ETOH/Drugs
 Do you drink alcohol? How much? How often?
 Do you take any non-prescribed drugs? Diet pills?
@@ -47,6 +51,7 @@ Do you ever awaken gasping for breath?
 Has your bed partner noticed any unusual breathing pattern?
 Do you have any difficulty breathing through your nose?
 Have you ever had surgery on your nose or throat?
+
 Psychiatric
 Have you ever been treated for emotional or psychological problems?
 Have you felt depressed recently?
@@ -63,6 +68,7 @@ Do you ever change work shifts?
 Daytime Sequelae / Misc
 How does poor sleep interfere with your performance the following day?
 Is your job performance affected?
+
 Do you fall asleep at unexpected times during the day?
 What would you like to see changed about your sleep?
 How would improved sleep affect your daytime functioning?
