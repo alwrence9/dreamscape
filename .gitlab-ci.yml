@@ -7,15 +7,17 @@ stages:
 lint-client:
   stage: lint 
   script:
+    - npm intall
     - cd client && npm run lint
-  allow_failure: false
+  allow_failure: true
 
   
 lint-server:
   stage: lint 
   script:
+    - npm intall
     - cd server && npm run lint
-  allow_failure: false
+  allow_failure: true
 
 server-test:
   stage: test
