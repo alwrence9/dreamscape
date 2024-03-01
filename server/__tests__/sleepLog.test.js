@@ -19,28 +19,42 @@ const entry2 = {
 
 const data=[entry1, entry2];
 
-describe('GET /api/v1/sleeplogs/:email', () => {
-  test('It should respond with 2 sleep logs', async () => {
-    jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
-    const response = await request(app).get('/api/v1/sleeplogs/chadrew.brodzay@gmail.com');
-    expect(response.status).toBe(200);
-    expect(response.body.sleepLogs[0].notes).toEqual("I woke up at 1:00 because of a dream where my students worship me.");
-    expect(response.body.sleepLogs[1].notes).toEqual("I had the best sleep ever.");
-  });
+test('It should respond with 2 sleep logs', async () => {
+  jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
+  const response = await request(app).get('/api/v1/sleeplogs/chadrew.brodzay@gmail.com');
+  expect(response.status).toBe(200);
+  expect(response.body.sleepLogs[0].notes).toEqual("I woke up at 1:00 because of a dream where my students worship me.");
+  expect(response.body.sleepLogs[1].notes).toEqual("I had the best sleep ever.");
 });
 
-describe('POST /api/v1/profile/new', () => {
-  test('It should create a new profile', async () => {
-    const newEntry = {
-      "email": "chadrew.brodzay@gmail.com",
-      "date": { "string": "2-27-2024", "sinceEpoch": 1708923600000 },
-      "hoursSlept": 1,
-      "notes": "I had no sleep because I had to grade my students."
-    }
-    jest.spyOn(DB.prototype, 'insertSleepLog').mockImplementation(() => {});
-    const response = await request(app).post('/api/v1/sleeplogs/new').send(newEntry);
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe('Successful');
-  });
+test('It should respond with 2 sleep logs', async () => {
+  jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
+  const start = new Date("2-25-2024");
+  const end = new Date("2-27-2024");
+  const response = await request(app).get(`/api/v1/sleeplogs/chadrew.brodzay@gmail.com?start=${start.getTime()}&end=${end.getTime()}`);
+  expect(response.status).toBe(200);
+  expect(response.body.sleepLogs[0].notes).toEqual("I woke up at 1:00 because of a dream where my students worship me.");
+});
+
+test('It should respond with 2 sleep logs', async () => {
+  jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
+  const start = new Date("2-27-2024");
+  const end = new Date("2-29-2024");
+  const response = await request(app).get(`/api/v1/sleeplogs/chadrew.brodzay@gmail.com?start=${start.getTime()}&end=${end.getTime()}`);
+  expect(response.status).toBe(200);
+  expect(response.body.sleepLogs[0].notes).toEqual("I had the best sleep ever.");
+});
+
+test('It should create a new profile', async () => {
+  const newEntry = {
+    "email": "chadrew.brodzay@gmail.com",
+    "date": { "string": "2-27-2024", "sinceEpoch": 1708923600000 },
+    "hoursSlept": 1,
+    "notes": "I had no sleep because I had to grade my students."
+  }
+  jest.spyOn(DB.prototype, 'insertSleepLog').mockImplementation(() => {});
+  const response = await request(app).post('/api/v1/sleeplogs/new').send(newEntry);
+  expect(response.status).toBe(201);
+  expect(response.body.message).toBe('Successful');
 });
 
