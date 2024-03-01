@@ -35,7 +35,7 @@ async function init_db(){
 
   await db.insertDreamJournal(
     {
-      "email": "chadrew.brozay@gmail.com",
+      "email": "chadrew.brodzay@gmail.com",
       "date": { "string": "2-27-2024", "sinceEpoch": 1709010000000 },
       "title": "Haunting Students",
       "description": "My students keep sending me soup pictures and the Key to the Misty Mountain."
@@ -44,7 +44,7 @@ async function init_db(){
 
   await db.insertSleepLog(
     {
-      "email": "chadrew.brozay@gmail.com",
+      "email": "chadrew.brodzay@gmail.com",
       "date": { "string": "2-26-2024", "sinceEpoch": 1708923600000 },
       "hoursSlept": 10,
       "notes": "I woke up at 1:00 because of a dream where my students worship me."
@@ -53,7 +53,7 @@ async function init_db(){
 
   await db.insertSleepLog(
     {
-      "email": "chadrew.brozay@gmail.com",
+      "email": "chadrew.brodzay@gmail.com",
       "date": { "string": "2-27-2024", "sinceEpoch": 1709010000000 },
       "hoursSlept": 10,
       "notes": "I woke up at 1:00 because of a dream where my students worship me."

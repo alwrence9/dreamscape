@@ -30,7 +30,7 @@ async function getSleepLogs(req, res){
 router.post('/new', createSleepLog);
 async function createSleepLog(req, res) {
 
-  const { email, date, sleephours, optionalComment } = req.body;
+  const { email, date, hoursSlept, optionalComment } = req.body;
 
   let comment
   if(!optionalComment){
@@ -44,14 +44,14 @@ async function createSleepLog(req, res) {
     return res.status(401).json({ status: 401, message: 'Sleep log missing date.' });
   }
 
-  if (date.string && date.sinceEpoch && email && sleephours) {
+  if (date.string && date.sinceEpoch && email && hoursSlept) {
     db.insertSleepLog({
       "email": email,
       "date": date,
-      "hoursSlept": sleephours,
+      "hoursSlept": hoursSlept,
       "notes": comment
     });
-    return res.status(200).json({ status: 201, message: 'Successful' });
+    return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Sleep log missing information' });
 
