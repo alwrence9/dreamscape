@@ -81,7 +81,7 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>
+          <h1 id="title" onClick={() => setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)}>
             Dreamscape
           </h1>
           <ul className="navigation">

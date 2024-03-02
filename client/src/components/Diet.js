@@ -14,7 +14,7 @@ function Diet() {
       </p>
 
       <h4>A healthy diet can help lower your risk of heart disease and stroke by:</h4>
-      <ul>
+      <ul className="infoLi">
         <li> Improving your cholesterol levels </li>
         <li> Reducing your blood pressure </li>
         <li> Helping you manage your body weight </li>
