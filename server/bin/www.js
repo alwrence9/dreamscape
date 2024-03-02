@@ -22,6 +22,8 @@ const server = app.listen(port, () => {
   console.log(`App listening on port ${port}.`);
 })
 
+server.setMaxListeners(15);
+
 const sockets = new Set();
 server.on('connection', (socket) => {
   sockets.add(socket);
