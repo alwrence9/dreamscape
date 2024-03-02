@@ -2,7 +2,7 @@
   "name": "dreamscape",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install && npm run env",
     "start": "cd server && npm run start"
   },
   "author": "",
