@@ -9,13 +9,13 @@ nav {
   min-height: 15vh;
 }
 
-li {
+.navigation > li {
   list-style-type: none;
   width: 150px;
   text-align: center;
 }
 
-li:hover {
+.navigation > li:hover {
   background-color: darkcyan;
 }
 
@@ -43,7 +43,7 @@ td:hover {
   background-color: darkcyan;
 }
 
-ul {
+.navigation  {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
