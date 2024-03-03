@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "start": "node bin/www.js",
+    "seed": "node database/seed.js",
     "env": "touch .env && echo ATLAS_URI= > .env",
     "test": "jest",
     "lint": "eslint **/*.js"
