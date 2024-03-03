@@ -16,7 +16,7 @@ async function getEntry(req, res) {
 
   if(date){
     results = results.filter(
-      (journalEntry) => {return journalEntry.date.string == date}
+      (journalEntry) => {return journalEntry.date.string === date}
     );
   }
 
@@ -25,7 +25,7 @@ async function getEntry(req, res) {
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
   }
-  if (results.length != 0){
+  if (results.length !== 0){
     return res.json({"dreams": results});
   }
   return res.status(404).send({status: '404', message: 'No entries found for that user'});
@@ -35,14 +35,18 @@ async function getEntry(req, res) {
 router.get('/new', createEntry);
 async function createEntry(req, res) {
 
-  let { email, date, subject, description } = req.body;
+  const {email, date, subject, optionalDescription } = req.body;
 
   if(!date){
     return res.status(401).json({ status: 401, message: ' comment format' });
   }
 
-  if(!description){
+  let description
+  if(!optionalDescription){
     description = "";
+  }
+  else{
+    description = optionalDescription;
   }
 
   if (email && date.string && date.sinceEpoch && subject) {
