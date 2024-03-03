@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sleep from './Sleep.js';
 import Dream from './Dream.js';
 import Diet from './Diet.js';
@@ -25,10 +25,24 @@ function Navigation() {
   };
 
   const handleLogout = async () => {
-    var resp = fetch('/logout');
+    const session = token;
+    var resp = await fetch('/logout', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ session }),
+    });
     if (resp.ok) {
+      setToken();
       setLoggedOut(true);
       localStorage.clear();
+      setSelectedComponent(
+        <>
+          <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+          <button onClick={() => handleLogin(true)}> Login </button> 
+          <button onClick={() => handleSignup(true)}> Signup </button>
+        </>)
     }
   }
 
@@ -42,6 +56,21 @@ function Navigation() {
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
   const [loggedOut, setLoggedOut] = useState(false);
+
+  // useEffect(()=> {
+  //   let mounted = true;
+  //   fetch('/protected').then((resp) => {
+  //     if (resp.status === 200) {
+  //       return resp.json().then((data)=> {
+
+  //       })
+  //     }
+  //     else {
+  //       return resp.json();
+  //     }
+  //   });
+  //   return () => mounted = false;
+  // }, [])
 
   return (
     <div>

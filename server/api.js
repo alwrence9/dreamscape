@@ -49,7 +49,6 @@ app.post("/auth", async (req, res,) => {
       }
       //store the user's info in the session
       req.session.user = user;
-      //res.json({user: user});
     });
     }
 
@@ -63,7 +62,7 @@ app.post("/auth", async (req, res,) => {
 
 //middleware to verify the session
 function isAuthenticated(req, res, next) {
-  if (!req.session.user){
+  if (!req.session){
     return res.sendStatus(401); //unauthorized
   }
   next();
@@ -78,7 +77,7 @@ app.get("/protected",
   }
 );
 
-app.get("/logout", isAuthenticated, function (req, res) {
+app.delete("/logout", isAuthenticated, function (req, res) {
   //destroy the session
   req.session.destroy(function(err) {
     //callback invoked after destroy returns

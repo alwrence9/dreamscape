@@ -63,11 +63,6 @@ function SignupForm({setToken}) {
     alert("Error logging in");
   }
 
-  const handleLogout = async () => {
-    await fetch("/logout");
-    setEmail("");
-  }
-
   const protectedRoute = async () => {
     const response = await fetch("/protected");
     if (response.status === 200) {
