@@ -18,28 +18,8 @@ app.get('/', (req, res)=>{
   res.json({"Soup" : "Soupreme"});
 });
 
-//Important: for production, you must use HTTPS for the session cookie
-//This assumes that your package.json has a start script that runs the
-// server with NODE_ENV set to development or test or production
-let secure = true;
-if (app.get('env') === 'development' || app.get('env') === 'test') {
-  secure = false;
-}
-
 // Use the session middleware, expires after 20 minutes
-app.use(session({
-  secret: process.env.SECRET, //used to sign the session id
-  name: 'id', //name of the session id cookie
-  saveUninitialized: false, //don't create session until something stored
-  resave: false,
-  cookie: { 
-    maxAge: 120000, //time in ms
-    //should only sent over https, but set to false for testing and dev on localhost
-    secure: secure, 
-    httpOnly: false, //can't be accessed via JS
-    sameSite: 'strict' //only sent for requests to same origin
-  }
-}));
+app.use(session({secret: 'shhhhhhh'})); 
 
 app.post("/auth", async (req, res,) => {
   const {token} = req.body;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function LoginForm({setToken}) {
   const [email, setEmail] = useState('');
@@ -44,29 +43,16 @@ function LoginForm({setToken}) {
   };
 
   //GOOGLE HANDLING METHODS
-  const handleLogin = async googleData => {
-    let data;
-    try {
-      const res = await fetch("/auth", {
-          method: "POST",
-          body: JSON.stringify({
-          token: googleData.credential
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      if (!res.ok) {
-        throw new Error("Failed to connect- HTTP status " + res.status);
+  const handleLogin = response => {
+    fetch('/auth', {
+      method : 'POST',
+      body: JSON.stringify({
+            "token" : response.credential
+      }),
+      headers: {
+        'Content-Type' : 'application/json'
       }
-      data = await res.json();
-    } catch (e) {
-      //should give an appropriate error message
-      alert("Failed to login");
-      return;
-    }
-    // we will come back to this, since our server will be replying with our info
-    setEmail(data.user.name);
+    });
   }
 
   const handleError = error => {
