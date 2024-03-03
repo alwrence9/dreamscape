@@ -15,15 +15,16 @@ function Navigation() {
   const handleLogin = () => {
     setLoginClicked(true);
     setSignupClicked(false);
-    setSelectedComponent(<LoginForm setToken={setToken} handleLogin={login} handleError={handleError}/>);
+    setSelectedComponent(<LoginForm setToken={setToken} handleLogin={handleGoogleLogin} handleError={handleError}/>);
   };
 
   const handleSignup = () => {
     setSignupClicked(true);
     setLoginClicked(false);
-    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={login} handleError={handleError}/>);
+    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} handleError={handleError}/>);
   };
 
+  //This ends the user's session and clears local storage so the token isn't there anymore
   const handleLogout = async () => {
     const session = token;
     var resp = await fetch('/api/v1/logout', {
@@ -46,8 +47,8 @@ function Navigation() {
     }
   }
 
-  //GOOGLE HANDLING METHODS
-  const login = async response => {
+  //For google login
+  const handleGoogleLogin = async response => {
     const resp = await fetch('/api/v1/googleLogin', {
       method : 'POST',
       body: JSON.stringify({
@@ -59,8 +60,12 @@ function Navigation() {
     });
     if (resp.ok) {
       const token = await resp.json();
+      //Store token so we can then check if a session is going on 
+      //Inside of the object there is email and token 
+      //(this email can be used to fetch stuff related to profile)
       localStorage.setItem("token", token);
       setToken(token);
+      //Redirect to home page once logged in
       setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
                   <button onClick={() => handleLogout()}> Logout </button></>);
     }
@@ -80,18 +85,6 @@ function Navigation() {
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
   const [loggedOut, setLoggedOut] = useState(true);
-
-  useEffect(()=> {
-    fetch('/api/v1/protected').then((resp) => {
-      if (resp.status === 200) {
-        setLoggedOut(false);
-      }
-      else {
-        return resp.json();
-      }
-    });
-    //return () => mounted = false;
-  }, [], loggedOut)
 
   return (
     <div>
@@ -115,7 +108,9 @@ function Navigation() {
             Triple Z is Cooking!
           </h1>
           <ul>
-            <li onClick={() => setSelectedComponent(<Profile />)}>Profile</li>
+            {token && 
+              <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
+            }
             <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
             <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
             <li onClick={() => setSelectedComponent(<Sleep />)}>Sleep</li>

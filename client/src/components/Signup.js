@@ -8,9 +8,9 @@ function SignupForm({setToken, handleLogin, handleError}) {
   const [lastname, setLastname] = useState('');
   const [resultText, setMessage] = useState('');
 
+  //For signing up regularly
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     // Check if both username and comment are not empty
     if (email.trim() !== '' && password.trim() !== '' && firstname.trim() !== '' && lastname.trim() !== '') {
       try {
@@ -24,10 +24,6 @@ function SignupForm({setToken, handleLogin, handleError}) {
   
         if (response.ok) {
           setMessage('Signed in successfully');
-          // New info posted - updates the status in parent component
-          //handlePostStatus(true);
-          //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
-
         } else {
           setMessage('Failed to sign up');
         }
@@ -39,17 +35,6 @@ function SignupForm({setToken, handleLogin, handleError}) {
       setMessage('None of the fields can be empty');
     }
   };
-
-  const protectedRoute = async () => {
-    const response = await fetch("/protected");
-    if (response.status === 200) {
-      alert("You are authorized to see this!");
-    } else if (response.status === 401)  {
-      alert("You are not authorized to see this!");
-    } else {
-      alert("Something went wrong!");
-    }
-  }
 
     return (
     <>

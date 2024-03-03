@@ -6,9 +6,9 @@ function LoginForm({setToken, handleLogin, handleError}) {
   const [password, setPassword] = useState('');
   const [resultText, setMessage] = useState('');
 
+  //For logging in regularly
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+    e.preventDefault(); 
     // Check if both username and comment are not empty
     if (email.trim() !== '' && password.trim() !== '') {
       try {
