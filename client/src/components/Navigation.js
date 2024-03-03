@@ -24,11 +24,23 @@ function Navigation() {
     setSelectedComponent(<SignupForm />);
   };
 
+  const handleLogout = async () => {
+    var resp = fetch('/logout');
+    if (resp.ok) {
+      setLoggedOut(true);
+    }
+  }
+
   const [selectedComponent, setSelectedComponent] = useState(
-    <HomePage handleSignup={handleSignup} handleLogin={handleLogin} token={token} />
+    <>
+      <HomePage handleSignup={handleSignup} handleLogin={handleLogin} token={token} />
+      <button onClick={() => handleLogin(true)}> Login </button> 
+      <button onClick={() => handleSignup(true)}> Signup </button>
+    </>
   );
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
+  const [loggedOut, setLoggedOut] = useState(false);
 
   return (
     <div>
@@ -41,6 +53,7 @@ function Navigation() {
                   <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
                   <button onClick={() => handleLogin(true)}> Login </button> 
                   <button onClick={() => handleSignup(true)}> Signup </button>
+                  <button onClick={() => handleLogout()}> Logout </button>
                 </>)
               }
               else {

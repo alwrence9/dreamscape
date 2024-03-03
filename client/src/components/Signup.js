@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
 function SignupForm() {
   const [email, setEmail] = useState('');
@@ -39,6 +40,40 @@ function SignupForm() {
     }
   };
 
+  
+  //GOOGLE HANDLING METHODS
+  const handleLogin = response => {
+    fetch('/auth', {
+      method : 'POST',
+      body: JSON.stringify({
+            "token" : response.credential
+      }),
+      headers: {
+        'Content-Type' : 'application/json'
+      }
+    });
+  }
+
+  const handleError = error => {
+    alert("Error logging in");
+  }
+
+  const handleLogout = async () => {
+    await fetch("/logout");
+    setEmail("");
+  }
+
+  const protectedRoute = async () => {
+    const response = await fetch("/protected");
+    if (response.status === 200) {
+      alert("You are authorized to see this!");
+    } else if (response.status === 401)  {
+      alert("You are not authorized to see this!");
+    } else {
+      alert("Something went wrong!");
+    }
+  }
+
     return (
     <>
       <form onSubmit={handleSubmit}>
@@ -77,6 +112,13 @@ function SignupForm() {
         <button type="submit">Submit</button>
       </form>
       <p>{resultText}</p>
+
+      <div className="App">
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={handleError}        
+        />
+      </div>
     </>
   );
 }
