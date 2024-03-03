@@ -9,7 +9,6 @@ dotenv.config();
 
 const db = new DB();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const users = new Array();
 
 app.use(express.static('../client/build'));
 app.use(express.json());
@@ -33,13 +32,12 @@ app.post("/auth", async (req, res,) => {
     const { name, email, picture } = ticket.getPayload();
 
     const user = {"name" : name, "email": email, "picture": picture};
-    const existsAlready = users.findIndex(element => element.email === email);
-    if (existsAlready < 0) {
-      //insert
-      users.push(user);
-    } else {
-      //update
-      users[existsAlready] = user;
+    const profile = await db.getProfile( req.params.email );
+    if (!profile) {
+      //insert new profile using google info
+      var firstname = name.split(" ")[0];
+      var lastname = name.split(" ")[1];
+      await db.insertProfile({ "email": email, "password": token, "firstName": firstname, "lastName": lastname });
     }
 
     // //create a session, using email as the unique identifier
