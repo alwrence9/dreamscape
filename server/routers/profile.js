@@ -27,7 +27,7 @@ async function createProfile(req, res) {
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Profile missing information' });
-
+  
 }
 
 module.exports = {"profileRouter": router};

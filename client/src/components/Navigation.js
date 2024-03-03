@@ -40,7 +40,6 @@ function Navigation() {
     });
     if (resp.ok) {
       setToken();
-      setLoggedOut(true);
       localStorage.clear();
       setSelectedComponent(
         <>
@@ -155,7 +154,7 @@ function Navigation() {
             } }>
             Triple Z is Cooking!
           </h1>
-          <ul>
+          <ul className="navigation">
             {token && 
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
@@ -165,6 +164,7 @@ function Navigation() {
               handleSupport={handleSupport} handleInfo={handleInfo} />)}>Sleep</li>
             <li onClick={() => setSelectedComponent(<Mental />)}>Mentality</li>
           </ul>
+
         </nav>
       </header>
       <section>{selectedComponent}</section>
