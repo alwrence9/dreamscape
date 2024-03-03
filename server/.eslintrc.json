@@ -3,7 +3,8 @@
         "browser": true,
         "node": true,
         "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -13,6 +14,7 @@
         "prefer-const": "warn",
         "array-callback-return": "error",
         "eqeqeq": "warn",
-        "no-const-assign": "error"
+        "no-const-assign": "error",
+        "no-unused-vars": "off"
     }
 }

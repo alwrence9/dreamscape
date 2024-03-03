@@ -50,3 +50,14 @@ Adapting to one’s natural chronotype can improve your sleep quality, energy, a
     - Wake up : 6AM 
     - Bed time: 11PM
     - Most productive: 3PM - 7PM
+
+Reference for research:
+https://www.sleepfoundation.org/how-sleep-works/chronotypes
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9399511/
+https://sleepdoctor.com/how-sleep-works/chronotypes/
+
+Questions are derived from these sources of chronotypes:
+https://psychcentral.com/quizzes/chronotype-quiz
+https://sleepdoctor.com/sleep-quizzes/chronotype-quiz/
+https://sleepopolis.com/chronotypes-quiz/
+

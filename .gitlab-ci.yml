@@ -1,0 +1,32 @@
+image: node:18.18.0
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+stages:
+  - lint
+  - test
+
+lint-client:
+  stage: lint 
+  script:
+    - npm install && npm install eslint && npm install eslint-plugin-react
+    - cd client && npm run lint
+  allow_failure: false
+
+  
+lint-server:
+  stage: lint 
+  script:
+    - npm install && npm install eslint
+    - cd server && npm run lint
+  allow_failure: false
+
+server-test:
+  stage: test
+  script:
+    - cd server
+    - npm install
+    - npm run test
+  allow_failure: false
