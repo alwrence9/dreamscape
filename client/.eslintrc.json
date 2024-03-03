@@ -19,6 +19,12 @@
         "array-callback-return": "error",
         "eqeqeq": "warn",
         "no-const-assign": "error",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "react/prop-types": "off"
+    },
+    "settings": {
+        "react": {
+          "version": "detect"
+        }
     }
 }

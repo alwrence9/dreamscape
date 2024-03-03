@@ -8,7 +8,7 @@ const db = new DB();
 router.get('/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
-  let profile = await db.getProfile( req.params.email );
+  const profile = await db.getProfile( req.params.email );
   if(profile){
     return res.json( {"profile": profile});
   }

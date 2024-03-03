@@ -207,22 +207,6 @@ class DB{
   const results = await SleepLog.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} sleep log entries`);
   }
-  //Insert questions into the database
-  async insertQuestions({type, question, choices}){
-    const newQuestion = new Question({"type": type, "question": question, "choices": choices});
-    newQuestion.save();
-  }
-  //Gets sleep log entries based on the email. Email should be unique.
-  async getQuestions(){
-    const questions = await Question.find({"email": email});
-    return questions;
-  }
-  //Clear all sleep log entries
-  async clearQuestions(){
-  const results = await Questions.deleteMany({"email": { $regex: /.*/}});
-  console.log(`Deleted ${results.deletedCount} questions`);
-  }
-
 
 }
 
