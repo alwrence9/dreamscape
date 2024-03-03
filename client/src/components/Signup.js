@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-function SignupForm({setToken}) {
+function SignupForm({setToken, handleLogin, handleError}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -39,29 +39,6 @@ function SignupForm({setToken}) {
       setMessage('None of the fields can be empty');
     }
   };
-
-  
-  //GOOGLE HANDLING METHODS
-  const handleLogin = async response => {
-    const resp = await fetch('/auth', {
-      method : 'POST',
-      body: JSON.stringify({
-            "token" : response.credential
-      }),
-      headers: {
-        'Content-Type' : 'application/json'
-      }
-    });
-    if (resp.ok) {
-      const token = await resp.json();
-      localStorage.setItem("token", token);
-      setToken(token);
-    }
-  }
-
-  const handleError = error => {
-    alert("Error logging in");
-  }
 
   const protectedRoute = async () => {
     const response = await fetch("/protected");

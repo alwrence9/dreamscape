@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
-function LoginForm({setToken}) {
+function LoginForm({setToken, handleLogin, handleError}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [resultText, setMessage] = useState('');
@@ -64,6 +65,12 @@ function LoginForm({setToken}) {
       </form>
       <p>{resultText}</p>
 
+      <div className="App">
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={handleError}        
+        />
+      </div>
     </>
   );
 }
