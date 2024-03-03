@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-function LoginForm({setToken, handleLogin, handleError}) {
+function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [resultText, setMessage] = useState('');
@@ -27,8 +27,9 @@ function LoginForm({setToken, handleLogin, handleError}) {
           //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
           //Get authentication token
           var token = await response.json();
-          localStorage.setItem("token", token);
           setToken(token);
+          localStorage.setItem("token", token);
+          setDefaultComponent();
         } else {
           setMessage('Failed to login');
         }

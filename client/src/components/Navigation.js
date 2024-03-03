@@ -19,13 +19,15 @@ function Navigation() {
   const handleLogin = () => {
     setLoginClicked(true);
     setSignupClicked(false);
-    setSelectedComponent(<LoginForm setToken={setToken} handleLogin={handleGoogleLogin} handleError={handleError}/>);
+      setSelectedComponent(<LoginForm setToken={setToken} handleLogin={handleGoogleLogin} 
+        handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
   };
 
   const handleSignup = () => {
     setSignupClicked(true);
     setLoginClicked(false);
-    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} handleError={handleError}/>);
+    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} 
+      handleError={handleError} setSelected={setSelectedComponent}/>);
   };
 
   //This ends the user's session and clears local storage so the token isn't there anymore
@@ -66,8 +68,8 @@ function Navigation() {
       //Store token so we can then check if a session is going on 
       //Inside of the object there is email and token 
       //(this email can be used to fetch stuff related to profile)
-      localStorage.setItem("token", token);
       setToken(token);
+      localStorage.setItem("token", token);
       //Redirect to home page once logged in
       setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
                   <button onClick={() => handleLogout()}> Logout </button></>);
@@ -78,13 +80,24 @@ function Navigation() {
     alert("Error logging in");
   }
 
-  const [selectedComponent, setSelectedComponent] = useState(
-    <>
-      <HomePage handleSignup={handleSignup} handleLogin={handleLogin} token={token} />
-      <button onClick={() => handleLogin(true)}> Login </button> 
-      <button onClick={() => handleSignup(true)}> Signup </button>
-    </>
-  );
+  const defaultComponent = <>
+    <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+    {!token && 
+      <>
+        <button onClick={() => handleLogin(true)}> Login </button> 
+        <button onClick={() => handleSignup(true)}> Signup </button>
+      </>
+    }
+    {token && 
+      <button onClick={() => handleLogout()}> Logout </button>
+    }
+  </>
+
+  const setDefaultComponent = () => {
+    setSelectedComponent(defaultComponent);
+  }
+
+  const [selectedComponent, setSelectedComponent] = useState(defaultComponent);
 
   const handleQuiz = () => {
     setQuizClicked(true);
@@ -137,21 +150,7 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 onClick={() => { 
-                setSelectedComponent(
-                <>
-                  <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-                  {!token && 
-                    <>
-                      <button onClick={() => handleLogin(true)}> Login </button> 
-                      <button onClick={() => handleSignup(true)}> Signup </button>
-                    </>
-                  }
-                  {token && 
-                    <button onClick={() => handleLogout()}> Logout </button>
-                  }
-                </>)
-            } }>
+          <h1 onClick={() => { setDefaultComponent(); } }>
             Triple Z is Cooking!
           </h1>
           <ul className="navigation">

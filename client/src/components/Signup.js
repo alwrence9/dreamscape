@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import LoginForm from './Login.js';
 
-function SignupForm({setToken, handleLogin, handleError}) {
+function SignupForm({setToken, handleLogin, handleError, setSelected}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -24,6 +25,8 @@ function SignupForm({setToken, handleLogin, handleError}) {
   
         if (response.ok) {
           setMessage('Signed in successfully');
+          setSelected(<LoginForm setToken={setToken} handleLogin={handleLogin} 
+            handleError={handleError} setSelected={setSelected}/>);
         } else {
           setMessage('Failed to sign up');
         }
