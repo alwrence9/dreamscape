@@ -26,7 +26,7 @@ function Navigation() {
 
   const handleLogout = async () => {
     const session = token;
-    var resp = await fetch('/logout', {
+    var resp = await fetch('/api/v1/logout', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function Navigation() {
 
   //GOOGLE HANDLING METHODS
   const login = async response => {
-    const resp = await fetch('/auth', {
+    const resp = await fetch('/api/v1/googleLogin', {
       method : 'POST',
       body: JSON.stringify({
             "token" : response.credential
@@ -79,40 +79,38 @@ function Navigation() {
   );
   const [loginClicked, setLoginClicked] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
-  const [loggedOut, setLoggedOut] = useState(false);
+  const [loggedOut, setLoggedOut] = useState(true);
 
-  // useEffect(()=> {
-  //   let mounted = true;
-  //   fetch('/protected').then((resp) => {
-  //     if (resp.status === 200) {
-  //       return resp.json().then((data)=> {
-
-  //       })
-  //     }
-  //     else {
-  //       return resp.json();
-  //     }
-  //   });
-  //   return () => mounted = false;
-  // }, [])
+  useEffect(()=> {
+    fetch('/api/v1/protected').then((resp) => {
+      if (resp.status === 200) {
+        setLoggedOut(false);
+      }
+      else {
+        return resp.json();
+      }
+    });
+    //return () => mounted = false;
+  }, [], loggedOut)
 
   return (
     <div>
       <header>
         <nav>
           <h1 onClick={() => { 
-              if (!token) {
                 setSelectedComponent(
                 <>
                   <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-                  <button onClick={() => handleLogin(true)}> Login </button> 
-                  <button onClick={() => handleSignup(true)}> Signup </button>
+                  {!token && 
+                    <>
+                      <button onClick={() => handleLogin(true)}> Login </button> 
+                      <button onClick={() => handleSignup(true)}> Signup </button>
+                    </>
+                  }
+                  {token && 
+                    <button onClick={() => handleLogout()}> Logout </button>
+                  }
                 </>)
-              }
-              else {
-                setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-                  <button onClick={() => handleLogout()}> Logout </button></>)
-              }
             } }>
             Triple Z is Cooking!
           </h1>

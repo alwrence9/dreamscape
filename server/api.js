@@ -20,8 +20,9 @@ app.get('/', (req, res)=>{
 // Use the session middleware, expires after 20 minutes
 app.use(session({secret: 'shhhhhhh'})); 
 
-app.post("/auth", async (req, res,) => {
+app.post('/api/v1/googleLogin', async (req, res,) => {
   const {token} = req.body;
+  let { name, email, picture } = {};
   if (token) {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -29,7 +30,7 @@ app.post("/auth", async (req, res,) => {
     });
     if (!ticket) 
       return res.sendStatus(401); //unauthorized (token invalid)
-    const { name, email, picture } = ticket.getPayload();
+    ({ name, email, picture } = ticket.getPayload());
 
     const user = {"name" : name, "email": email, "picture": picture};
     const profile = await db.getProfile( req.params.email );
@@ -50,7 +51,7 @@ app.post("/auth", async (req, res,) => {
     });
     }
 
-    return res.json((JSON.stringify({token})));
+    return res.json((JSON.stringify({"email": email, "token": token })));
   }
   // TODO: you may want to upsert (update or insert if new) the user's name, email and picture in the database - step 4
 
@@ -67,7 +68,7 @@ function isAuthenticated(req, res, next) {
 }
 
 //route for authenticated users only
-app.get("/protected",
+app.get("/api/v1/protected",
   isAuthenticated,
   function (req, res) {
     //would actually be doing something
@@ -75,7 +76,7 @@ app.get("/protected",
   }
 );
 
-app.delete("/logout", isAuthenticated, function (req, res) {
+app.delete("/api/v1/logout", isAuthenticated, function (req, res) {
   //destroy the session
   req.session.destroy(function(err) {
     //callback invoked after destroy returns
@@ -95,8 +96,15 @@ async function login(req, res) {
       const profile = await db.getProfile(email);
       if (profile) {
         const token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), email: email}, password);
-        //res.status(200).json({ status: 200, message: 'Successful' });
-        return res.json((JSON.stringify({token})));
+        //Create session using email as unique identifier
+        req.session.regenerate(function(err) {
+          if (err) {
+            return res.sendStatus(500); //server error, couldn't create the session
+          }
+          //store the user's info in the session
+          req.session.user = email;
+        });
+        return res.json((JSON.stringify({"email": email, "token": token })));
       }
     } catch(e) {
       return res.sendStatus(500); 
