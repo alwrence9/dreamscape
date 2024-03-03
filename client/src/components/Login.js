@@ -51,6 +51,7 @@ function LoginForm({setToken, handleLogin, handleError}) {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </label>
         <label>
@@ -59,6 +60,7 @@ function LoginForm({setToken, handleLogin, handleError}) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </label>
         <button type="submit">Submit</button>

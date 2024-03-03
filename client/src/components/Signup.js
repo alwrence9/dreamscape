@@ -45,6 +45,7 @@ function SignupForm({setToken, handleLogin, handleError}) {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </label>
         <label>
@@ -53,6 +54,7 @@ function SignupForm({setToken, handleLogin, handleError}) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </label>
         <label>
@@ -61,6 +63,7 @@ function SignupForm({setToken, handleLogin, handleError}) {
             type="text"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
+            required
           />
         </label>
         <label>
@@ -69,6 +72,7 @@ function SignupForm({setToken, handleLogin, handleError}) {
             type="text"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
+            required
           />
         </label>
         <button type="submit">Submit</button>
