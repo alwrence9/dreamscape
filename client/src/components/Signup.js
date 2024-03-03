@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-function SignupForm() {
+function SignupForm({setToken}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -42,8 +42,8 @@ function SignupForm() {
 
   
   //GOOGLE HANDLING METHODS
-  const handleLogin = response => {
-    fetch('/auth', {
+  const handleLogin = async response => {
+    const resp = await fetch('/auth', {
       method : 'POST',
       body: JSON.stringify({
             "token" : response.credential
@@ -52,6 +52,11 @@ function SignupForm() {
         'Content-Type' : 'application/json'
       }
     });
+    if (resp.ok) {
+      const token = await resp.json();
+      localStorage.setItem("token", token);
+      setToken(token);
+    }
   }
 
   const handleError = error => {

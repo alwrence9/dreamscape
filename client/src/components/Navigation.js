@@ -21,13 +21,14 @@ function Navigation() {
   const handleSignup = () => {
     setSignupClicked(true);
     setLoginClicked(false);
-    setSelectedComponent(<SignupForm />);
+    setSelectedComponent(<SignupForm setToken={setToken}/>);
   };
 
   const handleLogout = async () => {
     var resp = fetch('/logout');
     if (resp.ok) {
       setLoggedOut(true);
+      localStorage.clear();
     }
   }
 
@@ -53,11 +54,11 @@ function Navigation() {
                   <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
                   <button onClick={() => handleLogin(true)}> Login </button> 
                   <button onClick={() => handleSignup(true)}> Signup </button>
-                  <button onClick={() => handleLogout()}> Logout </button>
                 </>)
               }
               else {
-                setSelectedComponent(<HomePage handleSignup={handleSignup} handleLogin={handleLogin} />)
+                setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+                  <button onClick={() => handleLogout()}> Logout </button></>)
               }
             } }>
             Triple Z is Cooking!

@@ -49,9 +49,11 @@ app.post("/auth", async (req, res,) => {
       }
       //store the user's info in the session
       req.session.user = user;
-      res.json({user: user});
+      //res.json({user: user});
     });
     }
+
+    return res.json((JSON.stringify({token})));
   }
   // TODO: you may want to upsert (update or insert if new) the user's name, email and picture in the database - step 4
 
@@ -92,11 +94,15 @@ app.post('/api/v1/login', login);
 async function login(req, res) {
   const { email, password} = req.body;
   if (email && password) {
-    const profile = await db.getProfile( {"email": email} );
-    if (profile) {
-      const token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), email: email}, password);
-      //res.status(200).json({ status: 200, message: 'Successful' });
-      return res.json((JSON.stringify({token})));
+    try {
+      const profile = await db.getProfile(email);
+      if (profile) {
+        const token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), email: email}, password);
+        //res.status(200).json({ status: 200, message: 'Successful' });
+        return res.json((JSON.stringify({token})));
+      }
+    } catch(e) {
+      return res.sendStatus(500); 
     }
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
