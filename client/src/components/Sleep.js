@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import './Sleep.css';
 
 function Sleep({handleQuiz, handleMetrics, handleSupport, handleInfo}) {
 
