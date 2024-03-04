@@ -41,7 +41,7 @@ const InsomniaQuestionSchema = mongoose.Schema({
         type: String,
         required: true
       },
-      reccurent: {
+      recurrent: {
         type: String,
         required: true
       }       
@@ -172,6 +172,8 @@ class DB{
     console.log(`Deleted ${results.deletedCount} profiles`);
   }
 
+
+
   //Inserts dream journal entry into database
   async insertDreamJournal({email, date, title, description}){
     const newDreamJournal = new DreamJournal({"email": email, "date": date, "title": title, "description": description});
@@ -188,6 +190,9 @@ class DB{
   const results = await DreamJournal.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
+
+
+
 
   //Inserts dream journal entry into database
   async insertSleepLog({email, date, hoursSlept, notes}){
@@ -206,6 +211,9 @@ class DB{
   console.log(`Deleted ${results.deletedCount} sleep log entries`);
   }
 
+
+
+
   //Inserts chronotype question into database
   async insertChronotypeQuestion({question, lion, dolphin, bear, wolf}){
     const newQuestion = new ChronotypeQuestion({"question": question, "choices": {"lion": lion, "dolphin": dolphin, "bear": bear, "wolf": wolf} });
@@ -217,15 +225,18 @@ class DB{
     const questions = ChronotypeQuestion.find({"question": { $regex: /.*/}});
     return questions;
   }
+
   //Clear all chronotype questions
   async clearChronotypeQuestion(){
   const results = await ChronotypeQuestion.deleteMany({"question": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} chronotype questions`);
   }
 
+
+
   //Inserts insomnia question into database
-  async insertInsomniaQuestion({question, episodic, persistant, reccurent}){
-    const newQuestion = new InsomniaQuestion({"question": question, "choices": {"episodic": episodic, "persistant": persistant, "reccurent": reccurent} });
+  async insertInsomniaQuestion({question, episodic, persistent, recurrent}){
+    const newQuestion = new InsomniaQuestion({"question": question, "choices": {"episodic": episodic, "persistent": persistent, "recurrent": recurrent} });
     newQuestion.save();
   }
 
