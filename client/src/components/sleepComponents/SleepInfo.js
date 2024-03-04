@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import React from 'react';
-=======
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
->>>>>>> 8daa651eee40ae804985be8b1117d4f4f0366e0c
 
 function SleepInfo() {
 
