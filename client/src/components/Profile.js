@@ -8,7 +8,8 @@ function Profile() {
 
   async function fetchProfile() {
     //Email should be changed to the actual email of the loged in user
-    const url = '/api/v1/profile/chadrew.brozay@gmail.com';
+    var email = JSON.parse(localStorage.getItem("token")).email;
+    const url = `/api/v1/profile/${email}`;
     try {
       const response = await fetch(url);
       const res = await response.json();

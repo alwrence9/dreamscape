@@ -9,8 +9,6 @@ function HomePage({ handleSignup, handleLogin }) {
         <h3> Sleepy people image </h3>
         <h3> Sleepy people image </h3>
       </section>
-      <button onClick={() => handleLogin(true)}> Login </button>
-      <button onClick={() => handleSignup(true)}> Signup </button>
     </>
   );
 }
