@@ -10,8 +10,8 @@ function Sleep({handleQuiz, handleMetrics, handleSupport, handleInfo}) {
         <table className="sleep-table">
           <tbody>
           <tr>
-            <td onClick={() => handleQuiz(true)}>Quiz</td>
-            <td onClick={() => handleInfo(true)}>Info</td>
+            <td onClick={() => handleQuiz(true)}>My Chronotypes</td>
+            <td onClick={() => handleInfo(true)}>Chronotypes Information</td>
           </tr>
           <tr>
             <td onClick={() => handleMetrics(true)}>Sleep Metrics</td>
