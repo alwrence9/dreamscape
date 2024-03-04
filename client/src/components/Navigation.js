@@ -155,8 +155,8 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 id="title" onClick={() => { setDefaultComponent(); } }>
-            Dreamscape
+          <h1 onClick={() => { setDefaultComponent(); } }>
+            <span id="title">Dreamscape</span>
           </h1>
           <ul className="navigation">
             {token && 
