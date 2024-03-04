@@ -4,7 +4,6 @@ const DB = require('../database/db.js');
 
 jest.mock('../database/db.js');
 
-const ChadrewBrozay = { email: 'chadrew.brodzay@example.com', password: "password", firstName: 'Chadrew', lastName: 'Brodzay' }
 const GooseGoosersson = { email: 'goose.goosersson@example.com', password: "password", firstName: 'Goose', lastName: 'Goosersson' }
 
 test('It should respond with user profile for a valid email', async () => {

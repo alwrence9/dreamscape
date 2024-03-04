@@ -27,7 +27,7 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[1].notes).toEqual("I had the best sleep ever.");
 });
 
-test('It should respond with 2 sleep logs', async () => {
+test('It should respond with 1 sleep logs', async () => {
   jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
   const start = new Date("2-25-2024");
   const end = new Date("2-27-2024");
@@ -36,7 +36,7 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[0].notes).toEqual("I woke up at 1:00 because of a dream where my students worship me.");
 });
 
-test('It should respond with 2 sleep logs', async () => {
+test('It should respond with 1 sleep logs', async () => {
   jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
   const start = new Date("2-27-2024");
   const end = new Date("2-29-2024");
@@ -45,7 +45,7 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[0].notes).toEqual("I had the best sleep ever.");
 });
 
-test('It should create a new profile', async () => {
+test('It should create a new sleep log', async () => {
   const newEntry = {
     "email": "chadrew.brodzay@gmail.com",
     "date": { "string": "2-27-2024", "sinceEpoch": 1708923600000 },
