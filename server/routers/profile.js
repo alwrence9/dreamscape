@@ -8,7 +8,7 @@ const db = new DB();
 router.get('/:email', getProfile);
 async function getProfile(req, res) {
   res.type('json');
-  let profile = await db.getProfile( req.params.email );
+  const profile = await db.getProfile( req.params.email );
   if(profile){
     return res.json( {"profile": profile});
   }
@@ -27,7 +27,7 @@ async function createProfile(req, res) {
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Profile missing information' });
-
+  
 }
 
 module.exports = {"profileRouter": router};

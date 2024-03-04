@@ -6,7 +6,7 @@ function SleepInfo() {
     return (
     <>
       <h2>Chronotypes:</h2>
-  <p>Chronotypes are natural preferences of the body for wakefulness and sleep. An individual’s chronotype is influenced by genetics and driven by their circadian rhythm. Chronotypes affect sleep as well as performance and activity throughout the day. Adapting to one’s natural chronotype can improve your sleep quality, energy, and mood.</p>
+  <p>Chronotypes are natural preferences of the body for wakefulness and sleep. An individual&apos;s chronotype is influenced by genetics and driven by their circadian rhythm. Chronotypes affect sleep as well as performance and activity throughout the day. Adapting to one’s natural chronotype can improve your sleep quality, energy, and mood.</p>
 
   <h3>Determinants of Chronotype:</h3>
   <ul className="infoLi">
@@ -19,7 +19,7 @@ function SleepInfo() {
   <ul className="infoLi">
     <li>Scientists use questionnaires to categorize morningness vs. eveningness.</li>
     <li>Popular questionnaires: Morning-Eveningness Questionnaire (MEQ) and Munich ChronoType Questionnaire (MCTQ).</li>
-    <li>Dr. Michael Breus's online quiz identifies four animal-based chronotypes: bear, wolf, lion, and dolphin.</li>
+    <li>Dr. Michael Breus&apos;s online quiz identifies four animal-based chronotypes: bear, wolf, lion, and dolphin.</li>
   </ul>
 
   <h3>Factors Influencing Chronotype:</h3>
@@ -63,7 +63,7 @@ function SleepInfo() {
   <h4>Dolphin Chronotype:</h4>
   <ul className="infoLi">
     <li>Described as insomniacs.</li>
-    <li>Named after real dolphins' ability to stay alert while sleeping.</li>
+    <li>Named after real dolphins&apos; ability to stay alert while sleeping.</li>
     <li>10% of the population</li>
     <li>Wake up: 6 AM</li>
     <li>Bed time: 11 PM</li>
