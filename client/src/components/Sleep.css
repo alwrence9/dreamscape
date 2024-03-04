@@ -19,6 +19,7 @@ td {
   padding: 50px;
   color: #2196f3;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
   td:hover {
