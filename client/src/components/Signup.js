@@ -41,6 +41,7 @@ function SignupForm({setToken, handleLogin, handleError, setSelected}) {
 
     return (
     <>
+      <h1> Signup </h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email:
