@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
