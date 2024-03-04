@@ -46,8 +46,10 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <button onClick={() => handleLogin(true)}> Login </button> 
-          <button onClick={() => handleSignup(true)}> Signup </button>
+          <div className="homeItems">
+            <li onClick={() => handleLogin(true)}> Login </li> 
+            <li onClick={() => handleSignup(true)}> Signup </li>
+          </div>
         </>)
     }
   }
@@ -72,7 +74,8 @@ function Navigation() {
       localStorage.setItem("token", token);
       //Redirect to home page once logged in
       setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-                  <button onClick={() => handleLogout()}> Logout </button></>);
+      <div className="homeItems">
+                  <li onClick={() => handleLogout()}> Logout </li> </div></>);
     }
   }
 
@@ -82,15 +85,17 @@ function Navigation() {
 
   const defaultComponent = <>
     <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+    <div className="homeItems">
     {!token && 
       <>
-        <button onClick={() => handleLogin(true)}> Login </button> 
-        <button onClick={() => handleSignup(true)}> Signup </button>
+        <li onClick={() => handleLogin(true)}> Login </li> 
+        <li onClick={() => handleSignup(true)}> Signup </li>
       </>
     }
     {token && 
-      <button onClick={() => handleLogout()}> Logout </button>
+      <li onClick={() => handleLogout()}> Logout </li>
     }
+    </div>
   </>
 
   const setDefaultComponent = () => {
