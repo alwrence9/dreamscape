@@ -15,14 +15,24 @@ function SleepMetrics() {
     }
   };
 
-  const data = [
-    {
-      x: sleepResult.map((entry) => entry.date),
-      y: sleepResult.map((entry) => entry.hours),
-      type: 'bar',
-      marker: { color: 'rgba(75, 192, 192, 0.6)' },
-    },
-  ];
+  const idealSleepData = {
+    x: sleepResult.map((entry) => entry.date),
+    y: Array(sleepResult.length).fill(8),
+    type: 'scatter',
+    mode: 'lines',
+    name: 'Ideal Number of Sleep Hours',
+    line: { color: 'red', dash: 'dash' }, 
+  };
+
+  const userSleepData = {
+    x: sleepResult.map((entry) => entry.date),
+    y: sleepResult.map((entry) => entry.hours),
+    type: 'bar',
+    name: 'Your Number of Sleep Hours',
+    marker: { color: 'rgba(75, 192, 192, 0.6)' },
+  };
+
+  const data = [userSleepData, idealSleepData];
 
   const layout = {
     title: 'Sleep Metrics Bar Chart',
