@@ -123,6 +123,11 @@ function Diet() {
       should get each day from healthy sources of fat. In this way, the Healthy Eating Plate recommends the opposite <br></br>
        of the low-fat message promoted for decades by the USDA.
   </p>
+  <p>Source</p>
+  <ul>
+    <li><a href="https://www.heartandstroke.ca/healthy-living/healthy-eating/healthy-eating-basics">Heart & Stroke</a></li>
+    <li><a href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">Harvard</a></li>
+  </ul>
   </>
   );
 }

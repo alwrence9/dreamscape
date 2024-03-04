@@ -35,6 +35,10 @@ function Mental() {
          continued interaction with our team of professionals, or by connecting you with elite professionals and <br></br>
          care providers that understand your specific needs wherever you live.
       </p>
+      <p>Source:</p>
+      <ul>
+        <li><a href="https://seasonsbeachcottage.com/?gclid=EAIaIQobChMIlcXHgPu8hAMVbTrUAR0GQAoyEAAYASAAEgK-TfD_BwE"> Seasons Beach Cottage</a></li>
+      </ul>
     </>
   );
 }
