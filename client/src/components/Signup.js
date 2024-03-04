@@ -24,9 +24,9 @@ function SignupForm({setToken, handleLogin, handleError, setSelected}) {
         });
   
         if (response.ok) {
-          setMessage('Signed in successfully');
-          setSelected(<LoginForm setToken={setToken} handleLogin={handleLogin} 
-            handleError={handleError} setSelected={setSelected}/>);
+          setMessage('Account created! Please go back to login');
+          // setSelected(<LoginForm setToken={setToken} handleLogin={handleLogin} 
+          //   handleError={handleError} setSelected={setSelected}/>);
         } else {
           setMessage('Failed to sign up');
         }
