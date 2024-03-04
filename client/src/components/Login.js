@@ -22,9 +22,6 @@ function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   
         if (response.ok) {
           setMessage('Logged in successfully');
-          // New info posted - updates the status in parent component
-          //handlePostStatus(true);
-          //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
           //Get authentication token
           var token = await response.json();
           setToken(token);
