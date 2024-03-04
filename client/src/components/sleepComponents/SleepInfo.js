@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+/* eslint-disable react/no-unescaped-entities */
+import React, { useState } from 'react';
+>>>>>>> 8daa651eee40ae804985be8b1117d4f4f0366e0c
 
 function SleepInfo() {
 
@@ -68,6 +73,14 @@ function SleepInfo() {
     <li>Bed time: 11 PM</li>
     <li>Most productive: 3 PM - 7 PM</li>
   </ul>
+  <p> 
+    Reference for research: <br></br>
+    <ul>
+    <li><a href="https://www.sleepfoundation.org/how-sleep-works/chronotypes"> Sleep Foundation </a></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9399511/"> NBCI </a></li>
+    <li><a href="https://sleepdoctor.com/how-sleep-works/chronotypes/"> Sleep Doctor </a></li>
+    </ul>
+  </p>
     </>
   );
 }

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-// import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
-function LoginForm() {
+function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [resultText, setMessage] = useState('');
 
+  //For logging in regularly
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+    e.preventDefault(); 
     // Check if both username and comment are not empty
     if (email.trim() !== '' && password.trim() !== '') {
       try {
@@ -22,12 +22,11 @@ function LoginForm() {
   
         if (response.ok) {
           setMessage('Logged in successfully');
-          // New info posted - updates the status in parent component
-          //handlePostStatus(true);
-          //TO DO: LOG USER IN AUTOMATICALLY WHEN THEY SIGN UP OR LEAD THEM TO LOGIN PAGE
           //Get authentication token
           var token = await response.json();
+          setToken(token);
           localStorage.setItem("token", token);
+          setDefaultComponent();
         } else {
           setMessage('Failed to login');
         }
@@ -38,6 +37,7 @@ function LoginForm() {
     else {
       setMessage('Enter both username and password');
     }
+  
   };
 
     return (
@@ -49,6 +49,7 @@ function LoginForm() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </label>
         <label>
@@ -57,19 +58,19 @@ function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </label>
         <button type="submit">Submit</button>
       </form>
       <p>{resultText}</p>
 
-      {/* Login with google?
-      <div>
-        <h2>React Google Login</h2>
-        <br />
-        <br />
-        <GoogleLogin onSuccess={resultText} onError={resultText} />
-      </div> */}
+      <div className="App">
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={handleError}        
+        />
+      </div>
     </>
   );
 }
