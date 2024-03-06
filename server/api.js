@@ -13,6 +13,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { sleepRouter } = require("./routers/sleepLog.js");
 const { profileRouter } = require("./routers/profile.js");
 const { dreamRouter } = require("./routers/dreamJournal.js");
+const { questionsRouter } = require("./routers/quiz.js");
 
 
 app.use(express.static('../client/build'));
