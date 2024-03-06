@@ -5,10 +5,10 @@ const DB = require("../database/db.js");
 const db = new DB();
 
 //Create a new journal entry for a specified user
-router.get('/new', createEntry);
+router.post('/new', createEntry);
 async function createEntry(req, res) {
 
-  const {email, date, subject, optionalDescription } = req.body;
+  const {email, date, title, optionalDescription } = req.body;
 
   if(!date){
     return res.status(401).json({ status: 401, message: 'Missing date for dream journal entry' });
@@ -22,10 +22,10 @@ async function createEntry(req, res) {
     description = optionalDescription;
   }
 
-  if (email && date.string && date.sinceEpoch && subject) {
+  if (email && date.string && date.sinceEpoch && title) {
 
-    db.insertDreamJournal({"email": email, "date": date, "title": subject, "description": description});
-    return res.status(200).json({ status: 201, message: 'Successful' });
+    db.insertDreamJournal({"email": email, "date": date, "title": title, "description": description});
+    return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Dream journal entry missing information' });
 }
