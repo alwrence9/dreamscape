@@ -120,7 +120,7 @@ async function login(req, res) {
 
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/sleeplogs", sleepRouter);
-app.use("/api/v1/entries", dreamRouter);
+app.use("/api/v1/dreams", dreamRouter);
 app.use("/api/v1/quiz", questionsRouter);
 
 
