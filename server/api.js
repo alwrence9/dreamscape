@@ -23,7 +23,11 @@ app.get('/', (req, res)=>{
 });
 
 // Use the session middleware, expires after 20 minutes
-app.use(session({secret: 'shhhhhhh'})); 
+app.use(session({
+  secret: 'shhhhhhh',
+  resave: false,
+  saveUninitialized: true,
+})); 
 
 app.post('/api/v1/googleLogin', async (req, res,) => {
   const {token} = req.body;
