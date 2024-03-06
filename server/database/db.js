@@ -124,6 +124,21 @@ const DreamSchema = mongoose.Schema({
 });
 const DreamJournal = mongoose.model("DreamJournal", DreamSchema, "DreamJournal");
 
+const TarotSchema = mongoose.Schema({
+  name:{
+    type: String,
+    required:true
+  },
+  description:{
+    type:String,
+    required:true
+  },
+  image:{
+    type:String
+  }
+});
+const TarotCard = mongoose.model("TarotCard", TarotSchema, "TarotCard");
+
 class DB{
   constructor(){
     if (!DB.instance){
@@ -250,6 +265,26 @@ class DB{
   async clearInsomniaQuestion(){
   const results = await InsomniaQuestion.deleteMany({"question": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} insomnia questions`);
+  }
+
+
+
+  //Inserts tarot card into database
+  async insertTarotCard({name, description, image}){
+    const newTarot = new TarotCard({"name": name, "description": description, "image": image });
+    newTarot.save();
+  }
+
+  //Gets tarot cards
+  async getTarotCards(){
+  const cards = TarotCard.find({"name": { $regex: /.*/}});
+  return cards;
+  }
+
+  //Clear all tarot cards
+  async clearTarotCards(){
+  const results = await TarotCard.deleteMany({"name": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} Tarot cards`);
   }
 
 }
