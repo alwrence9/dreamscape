@@ -59,8 +59,7 @@ function Dream() {
           required/>
 
         <textarea value={description} 
-          onChange={(e) => setDescription(e.target.value)}
-          required> </textarea>
+          onChange={(e) => setDescription(e.target.value)}> </textarea>
 
         <button type="submit">Save</button>
       </form>
