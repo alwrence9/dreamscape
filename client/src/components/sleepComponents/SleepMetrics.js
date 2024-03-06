@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import Plot from 'react-plotly.js';
 
 function SleepMetrics() {
+  const storedToken = localStorage.getItem("token");
+  const email = storedToken ? JSON.parse(storedToken).email : null
+  if (email==null) {
+    return(
+      <h4>You have to login first in order to use this service</h4>
+    );
+  }
   const [sleepResult, setSleepResult] = useState([]);
   const [entereddDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
@@ -15,6 +22,7 @@ function SleepMetrics() {
     }
   };
 
+  console.log(email);
   const idealSleepData = {
     x: sleepResult.map((entry) => entry.date),
     y: Array(sleepResult.length).fill(8),
