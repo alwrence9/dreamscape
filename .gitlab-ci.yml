@@ -30,3 +30,11 @@ server-test:
     - npm install
     - npm run test
   allow_failure: false
+
+client-build:
+  stage: test
+  script:
+    - cd client
+    - npm install
+    - npm run build
+  allow_failure: false

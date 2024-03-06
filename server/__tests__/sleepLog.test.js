@@ -27,7 +27,7 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[1].notes).toEqual("I had the best sleep ever.");
 });
 
-test('It should respond with 2 sleep logs', async () => {
+test('It should respond with 1 sleep logs', async () => {
   jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
   const start = new Date("2-25-2024");
   const end = new Date("2-27-2024");
@@ -36,7 +36,7 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[0].notes).toEqual("I woke up at 1:00 because of a dream where my students worship me.");
 });
 
-test('It should respond with 2 sleep logs', async () => {
+test('It should respond with 1 sleep logs', async () => {
   jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
   const start = new Date("2-27-2024");
   const end = new Date("2-29-2024");
@@ -45,7 +45,16 @@ test('It should respond with 2 sleep logs', async () => {
   expect(response.body.sleepLogs[0].notes).toEqual("I had the best sleep ever.");
 });
 
-test('It should create a new profile', async () => {
+test('It should respond with 0 sleep logs, 404', async () => {
+  jest.spyOn(DB.prototype, 'getSleepLogs').mockResolvedValue(data);
+  const start = new Date("3-27-2024");
+  const end = new Date("3-29-2024");
+  const response = await request(app).get(`/api/v1/sleeplogs/chadrew.brodzay@gmail.com?start=${start.getTime()}&end=${end.getTime()}`);
+  expect(response.status).toBe(404);
+  expect(response.body.message).toEqual("No entries found for that user");
+});
+
+test('It should create a new sleep log', async () => {
   const newEntry = {
     "email": "chadrew.brodzay@gmail.com",
     "date": { "string": "2-27-2024", "sinceEpoch": 1708923600000 },
@@ -58,3 +67,27 @@ test('It should create a new profile', async () => {
   expect(response.body.message).toBe('Successful');
 });
 
+test('It should return 401, missing date', async () => {
+  const newEntry = {
+    "email": "chadrew.brodzay@gmail.com",
+    "hoursSlept": 1,
+    "notes": "I had no sleep because I had to grade my students."
+  }
+  jest.spyOn(DB.prototype, 'insertSleepLog').mockImplementation(() => {});
+  const response = await request(app).post('/api/v1/sleeplogs/new').send(newEntry);
+  expect(response.status).toBe(401);
+  expect(response.body.message).toBe('Sleep log missing date.');
+});
+
+test('It should return 401, not enough info', async () => {
+  const newEntry = {
+    "email": "chadrew.brodzay@gmail.com",
+    "date": { "string": "2-27-2024"},
+    "hoursSlept": 1,
+    "notes": "I had no sleep because I had to grade my students."
+  }
+  jest.spyOn(DB.prototype, 'insertSleepLog').mockImplementation(() => {});
+  const response = await request(app).post('/api/v1/sleeplogs/new').send(newEntry);
+  expect(response.status).toBe(401);
+  expect(response.body.message).toBe('Sleep log missing information');
+});

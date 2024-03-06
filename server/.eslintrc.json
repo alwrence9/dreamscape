@@ -14,7 +14,6 @@
         "prefer-const": "warn",
         "array-callback-return": "error",
         "eqeqeq": "warn",
-        "no-const-assign": "error",
-        "no-unused-vars": "off"
+        "no-const-assign": "error"
     }
 }
