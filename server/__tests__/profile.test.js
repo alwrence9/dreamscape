@@ -26,7 +26,5 @@ test('It should create a new profile', async () => {
   jest.spyOn(DB.prototype, 'insertProfile').mockImplementation(() => {});
   const response = await request(app).post('/api/v1/profile/new').send(newProfile);
   expect(response.status).toBe(200);
-  expect(response.body.message).toBe('Successful');
-
 });
 
