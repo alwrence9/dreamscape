@@ -129,9 +129,20 @@ const TarotSchema = mongoose.Schema({
     type: String,
     required:true
   },
-  description:{
+  number:{
+    type:Number,
+    required:true
+  },
+  arcana:{
     type:String,
     required:true
+  },
+  suit:{
+    type:String,
+    required:true
+  },
+  description:{
+    type:String
   },
   image:{
     type:String
@@ -270,8 +281,8 @@ class DB{
 
 
   //Inserts tarot card into database
-  async insertTarotCard({name, description, image}){
-    const newTarot = new TarotCard({"name": name, "description": description, "image": image });
+  async insertTarotCard({name, number, arcana, suit, description, image}){
+    const newTarot = new TarotCard({"name": name, "number": number, "arcana": arcana, "suit": suit, "description": description, "image": image });
     newTarot.save();
   }
 
