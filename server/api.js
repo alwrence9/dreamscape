@@ -121,6 +121,8 @@ async function login(req, res) {
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/sleeplogs", sleepRouter);
 app.use("/api/v1/entries", dreamRouter);
+app.use("/api/v1/quiz", questionsRouter);
+
 
 //TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done
 //and functions to categorize sleepers into chronotypes and sleepers for insomnia
