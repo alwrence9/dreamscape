@@ -1,5 +1,5 @@
 {
-  "description": "tarot cards and basic information about them, as well as references to corresponding scans",
+  "description": "tarot cards and basic information about them, as well as references to corresponding scans https://www.kaggle.com/datasets/lsind18/tarot-json",
   "cards": [
     {
       "name": "The Fool",
