@@ -99,7 +99,7 @@ async function login(req, res) {
   if (email && password) {
     try {
       const profile = await db.getProfile(email);
-      if (profile) {
+      if (profile && profile.password === password) {
         const token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), email: email}, password);
         //Create session using email as unique identifier
         req.session.regenerate(function(err) {

@@ -27,7 +27,7 @@ function Navigation() {
     setSignupClicked(true);
     setLoginClicked(false);
     setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} 
-      handleError={handleError} setSelected={setSelectedComponent}/>);
+      handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
   };
 
   //This ends the user's session and clears local storage so the token isn't there anymore
