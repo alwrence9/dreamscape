@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
 function SleepMetrics() {
@@ -9,14 +9,31 @@ function SleepMetrics() {
       <h4>You have to login first in order to use this service</h4>
     );
   }
-  const [sleepResult, setSleepResult] = useState([]);
-  const [entereddDate, setDate] = useState('');
+
+  const [sleepLogs, setSleepLogs] = useState([]);
+  const [enteredDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
 
+  async function fetchSleepLogs() {
+    const url = `${'/api/v1/sleeplogs/chadrew.brodzay@gmail.com'}`;
+    try {
+      const response = await fetch(url);
+      const res = await response.json();
+      setSleepLogs(res.sleepLogs);
+      console.log(res.sleepLogs);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    fetchSleepLogs()
+  }, []);
+
   const addSleepData = () => {
-    if (entereddDate && enteredHours) {
-      const newSleepData = [...sleepResult, { date: entereddDate, hours: parseFloat(enteredHours) }];
-      setSleepResult(newSleepData);
+    if (enteredDate && enteredHours) {
+      const newSleepData = [...sleepLogs, { date: {string: enteredDate}, hoursSlept: parseFloat(enteredHours) }];
+      setSleepLogs(newSleepData);
       setDate('');
       setHours('');
     }
@@ -24,8 +41,8 @@ function SleepMetrics() {
 
   console.log(email);
   const idealSleepData = {
-    x: sleepResult.map((entry) => entry.date),
-    y: Array(sleepResult.length).fill(8),
+    x: sleepLogs.map((entry) => entry.date.string),
+    y: Array(sleepLogs.length).fill(8),
     type: 'scatter',
     mode: 'lines',
     name: 'Ideal Number of Sleep Hours',
@@ -33,8 +50,8 @@ function SleepMetrics() {
   };
 
   const userSleepData = {
-    x: sleepResult.map((entry) => entry.date),
-    y: sleepResult.map((entry) => entry.hours),
+    x: sleepLogs.map((entry) => entry.date.string),
+    y: sleepLogs.map((entry) => entry.hoursSlept),
     type: 'bar',
     name: 'Your Number of Sleep Hours',
     marker: { color: 'rgba(75, 192, 192, 0.6)' },
@@ -53,7 +70,7 @@ function SleepMetrics() {
       <h1>Sleep Metrics</h1>
       <div>
         <label>Date:</label>
-        <input type="date" value={entereddDate} onChange={(e) => setDate(e.target.value)} />
+        <input type="date" value={enteredDate} onChange={(e) => setDate(e.target.value)} />
       </div>
       <div>
         <label>Sleep Hours:</label>
@@ -61,18 +78,18 @@ function SleepMetrics() {
       </div>
       <button onClick={addSleepData}>Add Sleep hours</button>
 
-      {sleepResult.length > 0 && (
+      {sleepLogs.length > 0 && (
         <div>
           <h2>Entered Data:</h2>
           <ul>
-            {sleepResult.map((entry, index) => (
-              <li key={index}>{`${entry.date}: ${entry.hours} hours`}</li>
+            {sleepLogs.map((entry, index) => (
+              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours`}</li>
             ))}
           </ul>
         </div>
       )}
 
-      {sleepResult.length > 0 && (
+      {sleepLogs.length > 0 && (
         <div>
           <h2>Result:</h2>
           <Plot data={data} layout={layout} />
