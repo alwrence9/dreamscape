@@ -13,16 +13,16 @@ function SleepMetrics() {
   const [sleepLogs, setSleepLogs] = useState([]);
   const [enteredDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
+  const [enteredNote, setNote] = useState('');
   const [sinceEpoch, setsinceEpoch] = useState(0);
 
   async function fetchSleepLogs() {
-    const url = `${'/api/v1/sleeplogs/chadrew.brodzay@gmail.com'}`;
+    const url = `${'/api/v1/sleeplogs/'+email}`;
     try {
       const response = await fetch(url);
       const res = await response.json();
       res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
       setSleepLogs(res.sleepLogs);
-      console.log(res.sleepLogs);
     } catch (e) {
       console.log(e);
     }
@@ -34,12 +34,13 @@ function SleepMetrics() {
 
 
   const addSleepData = () => {
-    if (enteredDate && enteredHours && sinceEpoch) {
-      const newSleepData = [...sleepLogs, { date: {string: enteredDate, sinceEpoch }, hoursSlept: parseFloat(enteredHours) }];
+    if (enteredDate && enteredHours && sinceEpoch && enteredNote) {
+      const newSleepData = [...sleepLogs, { date: {string: enteredDate, sinceEpoch }, hoursSlept: parseFloat(enteredHours), notes:enteredNote }];
       newSleepData.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
       setSleepLogs(newSleepData);
       setDate('');
       setHours('');
+      setNote('')
       setsinceEpoch(0);
     }
   };
@@ -90,6 +91,10 @@ function SleepMetrics() {
         <label>Sleep Hours:</label>
         <input type="number" value={enteredHours} onChange={(e) => setHours(e.target.value)} />
       </div>
+      <div>
+        <label>Descrption:</label>
+        <input type="text" value={enteredNote} onChange={(e) => setNote(e.target.value)} />
+      </div>
       <button onClick={addSleepData}>Add Sleep hours</button>
 
       {sleepLogs.length > 0 && (
@@ -97,7 +102,7 @@ function SleepMetrics() {
           <h2>Entered Data:</h2>
           <ul>
             {sleepLogs.map((entry, index) => (
-              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours`}</li>
+              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours, Note: ${entry.notes}`}</li>
             ))}
           </ul>
         </div>
