@@ -42,6 +42,7 @@ function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
 
     return (
     <>
+      <h1> Login </h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email:
