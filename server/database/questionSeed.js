@@ -15,20 +15,17 @@ async function init_questions_db(){
   await db.clearChronotypeQuestion();
   await db.clearInsomniaQuestion();
 
-  const result = fs.readFile("./database/questions.json")
-  .then((data) => {
-    return JSON.parse(data);
-  })
-  .then((json) => {
-    for (const question of json.questions){
-      if(question.type === "Chronotypes"){
-        db.insertChronotypeQuestion( {"question": question.question, "lion": question.choices.Lion, "dolphin": question.choices.Dolphin, "bear": question.choices.Bear, "wolf": question.choices.Wolf} );
-      }
-      else if(question.type === "Insomnia"){
-        db.insertInsomniaQuestion( {"question": question.question, "episodic": question.choices.Episodic, "persistent": question.choices.Persistent, "recurrent": question.choices.Recurrent} );
-      }
+  const result = await fs.readFile("./database/questions.json");
+  const json = JSON.parse(result);
+
+  for (const question of json.questions){
+    if(question.type === "Chronotypes"){
+      db.insertChronotypeQuestion( {"question": question.question, "lion": question.choices.Lion, "dolphin": question.choices.Dolphin, "bear": question.choices.Bear, "wolf": question.choices.Wolf} );
     }
-  });
+    else if(question.type === "Insomnia"){
+      db.insertInsomniaQuestion( {"question": question.question, "episodic": question.choices.Episodic, "persistent": question.choices.Persistent, "recurrent": question.choices.Recurrent} );
+    }
+  }
 
   console.log("Insert data complete.");
 }
