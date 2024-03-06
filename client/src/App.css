@@ -37,7 +37,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   font-size: 21px;
-  align-items: end;
+  align-items: flex-end;
   border: 3px rgb(248, 73, 225) solid;
   border-left: none;
   border-right: none;

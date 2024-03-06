@@ -64,4 +64,4 @@ async function init_db(){
 }
 
 db.connect(dbUrl).then( ()=> init_db() );
-setTimeout(db.close, 5000);
+setTimeout(db.close, 3000);

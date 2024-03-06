@@ -1,26 +1,6 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
 
-//Structure for profile
-const ProfileSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  }
-});
-
 const ChronotypeQuestionSchema = mongoose.Schema({
   question: {
     type: String,
@@ -61,7 +41,7 @@ const InsomniaQuestionSchema = mongoose.Schema({
         type: String,
         required: true
       },
-      reccurent: {
+      recurrent: {
         type: String,
         required: true
       }       
@@ -69,7 +49,25 @@ const InsomniaQuestionSchema = mongoose.Schema({
 });
 const InsomniaQuestion = mongoose.model("InsomniaQuestion", InsomniaQuestionSchema, "InsomniaQuestions");
 
-
+//Structure for profile
+const ProfileSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  }
+});
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
 
 //Structure for sleep log entry
@@ -174,6 +172,8 @@ class DB{
     console.log(`Deleted ${results.deletedCount} profiles`);
   }
 
+
+
   //Inserts dream journal entry into database
   async insertDreamJournal({email, date, title, description}){
     const newDreamJournal = new DreamJournal({"email": email, "date": date, "title": title, "description": description});
@@ -191,6 +191,9 @@ class DB{
   console.log(`Deleted ${results.deletedCount} journal entries`);
   }
 
+
+
+
   //Inserts dream journal entry into database
   async insertSleepLog({email, date, hoursSlept, notes}){
     const newSleepLog = new SleepLog({"email": email, "date": date, "hoursSlept": hoursSlept, "notes": notes});
@@ -206,6 +209,47 @@ class DB{
   async clearSleepLogs(){
   const results = await SleepLog.deleteMany({"email": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} sleep log entries`);
+  }
+
+
+
+
+  //Inserts chronotype question into database
+  async insertChronotypeQuestion({question, lion, dolphin, bear, wolf}){
+    const newQuestion = new ChronotypeQuestion({"question": question, "choices": {"lion": lion, "dolphin": dolphin, "bear": bear, "wolf": wolf} });
+    newQuestion.save();
+  }
+
+  //Gets chronotype questions
+  async getChronotypeQuestion(){
+    const questions = ChronotypeQuestion.find({"question": { $regex: /.*/}});
+    return questions;
+  }
+
+  //Clear all chronotype questions
+  async clearChronotypeQuestion(){
+  const results = await ChronotypeQuestion.deleteMany({"question": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} chronotype questions`);
+  }
+
+
+
+  //Inserts insomnia question into database
+  async insertInsomniaQuestion({question, episodic, persistent, recurrent}){
+    const newQuestion = new InsomniaQuestion({"question": question, "choices": {"episodic": episodic, "persistent": persistent, "recurrent": recurrent} });
+    newQuestion.save();
+  }
+
+  //Gets insomnia questions
+  async getInsomniaQuestion(){
+  const questions = InsomniaQuestion.find({"question": { $regex: /.*/}});
+  return questions;
+  }
+
+  //Clear all insomnia questions
+  async clearInsomniaQuestion(){
+  const results = await InsomniaQuestion.deleteMany({"question": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} insomnia questions`);
   }
 
 }
