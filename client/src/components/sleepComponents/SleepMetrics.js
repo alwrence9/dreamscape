@@ -13,12 +13,14 @@ function SleepMetrics() {
   const [sleepLogs, setSleepLogs] = useState([]);
   const [enteredDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
+  const [sinceEpoch, setsinceEpoch] = useState(0);
 
   async function fetchSleepLogs() {
     const url = `${'/api/v1/sleeplogs/chadrew.brodzay@gmail.com'}`;
     try {
       const response = await fetch(url);
       const res = await response.json();
+      res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
       setSleepLogs(res.sleepLogs);
       console.log(res.sleepLogs);
     } catch (e) {
@@ -30,16 +32,18 @@ function SleepMetrics() {
     fetchSleepLogs()
   }, []);
 
+
   const addSleepData = () => {
-    if (enteredDate && enteredHours) {
-      const newSleepData = [...sleepLogs, { date: {string: enteredDate}, hoursSlept: parseFloat(enteredHours) }];
+    if (enteredDate && enteredHours && sinceEpoch) {
+      const newSleepData = [...sleepLogs, { date: {string: enteredDate, sinceEpoch }, hoursSlept: parseFloat(enteredHours) }];
+      newSleepData.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
       setSleepLogs(newSleepData);
       setDate('');
       setHours('');
+      setsinceEpoch(0);
     }
   };
 
-  console.log(email);
   const idealSleepData = {
     x: sleepLogs.map((entry) => entry.date.string),
     y: Array(sleepLogs.length).fill(8),
@@ -67,6 +71,7 @@ function SleepMetrics() {
 
   function formatDate(str) {
     const d = new Date(str);
+    setsinceEpoch(d.getTime());
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
     const year = d.getFullYear();
