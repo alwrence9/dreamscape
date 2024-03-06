@@ -65,12 +65,21 @@ function SleepMetrics() {
     yaxis: { title: 'Sleep Hours' },
   };
 
+  function formatDate(str) {
+    const d = new Date(str);
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
+    const year = d.getFullYear();
+    const formattedDate = `${month}-${day}-${year}`;
+    return formattedDate;
+  } 
+
   return (
     <div>
       <h1>Sleep Metrics</h1>
       <div>
         <label>Date:</label>
-        <input type="date" value={enteredDate} onChange={(e) => setDate(e.target.value)} />
+        <input type="date" value={enteredDate} onChange={(e) => setDate(formatDate(e.target.value))}/>
       </div>
       <div>
         <label>Sleep Hours:</label>
