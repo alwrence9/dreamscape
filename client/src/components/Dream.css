@@ -1,0 +1,25 @@
+button {
+  width: 10%;
+  align-self: end;
+  margin-right: 10%;
+}
+
+textarea {
+  min-height: 250px;
+  width: 80%;
+  align-self: center;
+  margin-bottom: 2%;
+  background-color: #B4D2DC;
+}
+
+input {
+  width: 30%;
+  margin-bottom: 1%;
+  margin-left: 9.5%;
+  background-color: #B4D2DC;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}

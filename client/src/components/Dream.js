@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './Dream.css';
 
 function Dream() {
   const [resultText, setMessage] = useState('');
 
+  const [entries, setEntries] = useState([]);
+
   const [title, setTitle] = useState('Title');
   const [optionalDescription, setDescription] = useState('Write all about your dreams here!');
   const [dateValue, setDate] = useState('');
+  //Getting email from local storage
+  var email = JSON.parse(localStorage.getItem("token")).email;
 
   //For logging in regularly
   const handleSubmit = async (e) => {
@@ -15,8 +20,6 @@ function Dream() {
 
       //Structuring date like this so it is easier to sort entries by order in the future
       const date = { "string": dateValue, "sinceEpoch": new Date(dateValue).getTime() }
-      //Getting email from local storage
-      var email = JSON.parse(localStorage.getItem("token")).email;
 
       //Adding new dream entry to api
       try {
@@ -41,13 +44,30 @@ function Dream() {
     else {
       setMessage('Enter both username and password');
     }
+
+    useEffect(()=> {
+      const fetchEntries = async () => {
+        try {
+          const response = await fetch(`/api/v1/dreams/${email}`);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setEntries(data);
+          }
+        } catch (error) {
+          setMessage('Error:', error);
+        }
+      }
+
+      fetchEntries();
+    }, []);
   
   };
   
     return (
     <>
       <h1> Dream </h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
           value={title} 
           onChange={(e) => setTitle(e.target.value)}
@@ -63,7 +83,12 @@ function Dream() {
         <button type="submit">Save</button>
       </form>
 
-      <p>{resultText}</p>
+      <details>
+        <summary>This section is for dream entries</summary>
+        <p>{entries}</p>
+      </details>
+
+      <section>{entries.map((entry)=> {return <p key={entry.title}>entry</p> })}</section>
     </>
   );
 }

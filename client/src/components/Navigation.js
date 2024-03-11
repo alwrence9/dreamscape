@@ -163,7 +163,9 @@ function Navigation() {
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
             <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
-            <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
+            {token && 
+              <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
+            }
             <li onClick={() => setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics}
               handleSupport={handleSupport} handleInfo={handleInfo} />)}>Sleep</li>
             <li onClick={() => setSelectedComponent(<Mental />)}>Mentality</li>
