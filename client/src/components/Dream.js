@@ -4,14 +4,14 @@ function Dream() {
   const [resultText, setMessage] = useState('');
 
   const [title, setTitle] = useState('Title');
-  const [description, setDescription] = useState('Write all about your dreams here!');
+  const [optionalDescription, setDescription] = useState('Write all about your dreams here!');
   const [dateValue, setDate] = useState('');
 
   //For logging in regularly
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     // Check if both title and description are not empty
-    if (title.trim() !== '' && description.trim() !== '') {
+    if (title.trim() !== '' && optionalDescription.trim() !== '') {
 
       //Structuring date like this so it is easier to sort entries by order in the future
       const date = { "string": dateValue, "sinceEpoch": new Date(dateValue).getTime() }
@@ -25,7 +25,7 @@ function Dream() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, date, title, description }),
+          body: JSON.stringify({ email, date, title, optionalDescription }),
         });
   
         if (response.ok) {
@@ -54,11 +54,10 @@ function Dream() {
           required/>
 
         <input type="date"
-          onChange={(e) => {setDate(e.target.value);
-          console.log(dateValue);}}
+          onChange={(e) => setDate(e.target.value)}
           required/>
 
-        <textarea value={description} 
+        <textarea value={optionalDescription} 
           onChange={(e) => setDescription(e.target.value)}> </textarea>
 
         <button type="submit">Save</button>
