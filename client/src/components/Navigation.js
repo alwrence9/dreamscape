@@ -4,7 +4,7 @@ import Dream from './Dream.js';
 import Diet from './Diet.js';
 import Profile from './Profile.js';
 import Mental from './Mental.js';
-import HomePage from './HomePage.js';
+import {HomePage, HomePageFooter} from './HomePage.js';
 import LoginForm from './Login.js';
 import SignupForm from './Signup.js';
 import Quiz from './sleepComponents/Quiz.js';
@@ -73,9 +73,14 @@ function Navigation() {
       setToken(token);
       localStorage.setItem("token", token);
       //Redirect to home page once logged in
-      setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-      <div className="homeItems">
-                  <li onClick={() => handleLogout()}> Logout </li> </div></>);
+      setSelectedComponent(
+        <>
+          <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+          <div className="homeItems">
+            <li onClick={() => handleLogout()}> Logout </li>
+          </div>
+        </>
+      );
     }
   }
 
@@ -103,6 +108,7 @@ function Navigation() {
   }
 
   const [selectedComponent, setSelectedComponent] = useState(defaultComponent);
+  const [selectedFooter, setSelectedFooter] = useState(<HomePageFooter/>);
 
   const handleQuiz = () => {
     setQuizClicked(true);
@@ -172,6 +178,7 @@ function Navigation() {
         </nav>
       </header>
       <section>{selectedComponent}</section>
+      <footer>{selectedFooter}</footer>
     </div>
   );
 }

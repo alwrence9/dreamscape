@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line react/prop-types
 function HomePage({ handleSignup, handleLogin }) {
   return (
     <>
@@ -12,4 +11,16 @@ function HomePage({ handleSignup, handleLogin }) {
   );
 }
 
-export default HomePage;
+function HomePageFooter() {
+  return (
+    <div id="footer-content">
+      <h3>420-620-DW Web Development Project</h3>
+      <p>By: Hooman Afshari, Sila Ben Khelifa, Ashley Vu and Farhan Khandaker</p>
+      <div id="sources">
+        <h3>Sources & Attributions</h3>
+      </div>
+    </div>
+  );
+}
+
+export {HomePage, HomePageFooter};
