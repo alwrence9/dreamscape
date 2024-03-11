@@ -13,8 +13,10 @@ function SleepMetrics() {
   const [sleepLogs, setSleepLogs] = useState([]);
   const [enteredDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
-  const [enteredNote, setNote] = useState('');
+  const [enteredNote, setNote] = useState('None');
   const [sinceEpoch, setsinceEpoch] = useState(0);
+  const [refetch, setRefetch] = useState(false);
+
 
   async function fetchSleepLogs() {
     const url = `${'/api/v1/sleeplogs/'+email}`;
@@ -23,6 +25,7 @@ function SleepMetrics() {
       const res = await response.json();
       res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
       setSleepLogs(res.sleepLogs);
+      setRefetch(false);
     } catch (e) {
       console.log(e);
     }
@@ -30,18 +33,42 @@ function SleepMetrics() {
 
   useEffect(() => {
     fetchSleepLogs()
-  }, []);
+  }, [refetch]);
 
 
-  const addSleepData = () => {
-    if (enteredDate && enteredHours && sinceEpoch && enteredNote) {
-      const newSleepData = [...sleepLogs, { date: {string: enteredDate, sinceEpoch }, hoursSlept: parseFloat(enteredHours), notes:enteredNote }];
-      newSleepData.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
-      setSleepLogs(newSleepData);
-      setDate('');
-      setHours('');
-      setNote('')
-      setsinceEpoch(0);
+  const addSleepData = async () => {
+    if (enteredDate && enteredHours && sinceEpoch) {
+      const url = '/api/v1/sleeplogs/new';
+  
+      const data = {
+        email: email,
+        date: { string: enteredDate, sinceEpoch: sinceEpoch },
+        hoursSlept: parseFloat(enteredHours),
+        optionalComment: enteredNote,
+      };
+  
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        setRefetch(true)
+  
+        setDate('');
+        setHours('');
+        setNote('None');
+        setsinceEpoch(0);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
@@ -102,7 +129,7 @@ function SleepMetrics() {
           <h2>Entered Data:</h2>
           <ul>
             {sleepLogs.map((entry, index) => (
-              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours, Note: ${entry.notes}`}</li>
+              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours, Optional note: ${entry.notes}`}</li>
             ))}
           </ul>
         </div>
