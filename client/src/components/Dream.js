@@ -32,6 +32,7 @@ function Dream() {
         });
   
         if (response.ok) {
+          fetchEntries();
           setMessage('Added new dream entry!');
         } 
         else {
@@ -54,7 +55,7 @@ function Dream() {
       const response = await fetch(url);
       if (response.ok) {
         const res = await response.json();
-      setEntries(res.dreams);
+        setEntries(res.dreams.sort((a, b) => parseFloat(a.date.sinceEpoch) - parseFloat(b.date.sinceEpoch)));
       }
     } catch (e) {
       setMessage(e);
