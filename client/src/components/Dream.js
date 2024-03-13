@@ -44,25 +44,27 @@ function Dream() {
     else {
       setMessage('Enter both username and password');
     }
-
-    useEffect(()=> {
-      const fetchEntries = async () => {
-        try {
-          const response = await fetch(`/api/v1/dreams/${email}`);
-          if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            setEntries(data);
-          }
-        } catch (error) {
-          setMessage('Error:', error);
-        }
-      }
-
-      fetchEntries();
-    }, []);
   
   };
+
+  async function fetchEntries() {
+    var email = JSON.parse(localStorage.getItem("token")).email;
+    const url = `/api/v1/dreams/${email}`;
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const res = await response.json();
+      setEntries(res.dreams);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    fetchEntries();
+    console.log(entries);
+  }, []);
   
     return (
     <>
@@ -85,10 +87,13 @@ function Dream() {
 
       <details>
         <summary>This section is for dream entries</summary>
-        <p>{entries}</p>
+        <section>{entries.map((entry)=> {return <section  key={entry.title}>
+            <p>{entry.title}</p>
+            <p>{entry.date.string}</p>
+            <p>{entry.description}</p>
+          </section>
+       })}</section>
       </details>
-
-      <section>{entries.map((entry)=> {return <p key={entry.title}>entry</p> })}</section>
     </>
   );
 }
