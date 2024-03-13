@@ -138,12 +138,12 @@ function DietPageFooter() {
         <div id="source-columns">
           <div id="source-col-1">
             <ul>
-            <li>Heart & Stroke: <a href="https://www.heartandstroke.ca/healthy-living/healthy-eating/healthy-eating-basics">Click</a></li>
+            <li>Heart & Stroke: <a target="_blank" href="https://www.heartandstroke.ca/healthy-living/healthy-eating/healthy-eating-basics">Click</a></li>
             </ul>
           </div>
           <div id="source-col-2">
             <ul>
-            <li>Harvard Nutrition: <a href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">Click</a></li>
+            <li>Harvard Nutrition: <a target="_blank" href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">Click</a></li>
             </ul>
           </div>
           <div id="source-col-3">
