@@ -120,6 +120,7 @@ function Navigation() {
           </section>
         </>
       );
+      setSelectedFooter(<HomePageFooter/>);
     }
   }
 
@@ -201,7 +202,7 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 onClick={() => { setDefaultComponent(); } }>
+          <h1 onClick={() => { setDefaultComponent(); setSelectedFooter(<HomePageFooter/>); } }>
             <span id="title">Dreamscape</span>
           </h1>
           <ul className="navigation">
