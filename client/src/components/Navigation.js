@@ -64,6 +64,7 @@ function Navigation() {
         setDefaultComponent={setDefaultComponent}
         />
     );
+    setSelectedFooter(defaultFooter);
   };
 
   //This ends the user's session and clears local storage so the token isn't there anymore
@@ -87,7 +88,8 @@ function Navigation() {
             <li onClick={() => handleSignup(true)}> Signup </li>
           </section>
         </>
-      )
+      );
+      setSelectedFooter(<HomePageFooter/>);
     }
   }
 
