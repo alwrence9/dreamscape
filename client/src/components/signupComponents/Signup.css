@@ -1,0 +1,46 @@
+#loginForm{
+    display: flex;
+    justify-content: center;
+}
+
+#loginForm > fieldset{
+    width: 30%;
+    border-color: rgb(103, 177, 182);
+}
+
+legend{
+    margin: auto;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+form > div{
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#label-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#input-container{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+#label-container > label, #input-container > input{
+    margin: 5px 0;
+}
+
+#input-container > input{
+    border: solid 1px rgb(103, 177, 182);
+    background-color:  	#17236a;
+    color: white;
+}

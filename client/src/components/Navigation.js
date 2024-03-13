@@ -6,7 +6,7 @@ import Profile from './Profile.js';
 import Mental from './Mental.js';
 import {HomePage, HomePageFooter} from './HomePage.js';
 import LoginForm from './loginComponents/Login.js';
-import SignupForm from './Signup.js';
+import SignupForm from './signupComponents/Signup.js';
 import Quiz from './sleepComponents/Quiz.js';
 import SleepInfo from './sleepComponents/SleepInfo.js';
 import SleepMetrics from './sleepComponents/SleepMetrics.js';
