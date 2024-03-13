@@ -1,10 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React from 'react';
+import './Diet.css';
+
 
 function Diet() {
 
     return (
-    <>
+    <section id="diet-container">
       <h1> Diet </h1>
       <h3>Why healthy diet?</h3>
       <p>Eating a healthy, balanced diet is one of the most important things you can do to protect 
@@ -123,13 +124,36 @@ function Diet() {
       should get each day from healthy sources of fat. In this way, the Healthy Eating Plate recommends the opposite <br></br>
        of the low-fat message promoted for decades by the USDA.
   </p>
-  <p>Source</p>
-  <ul>
-    <li><a href="https://www.heartandstroke.ca/healthy-living/healthy-eating/healthy-eating-basics">Heart & Stroke</a></li>
-    <li><a href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">Harvard</a></li>
-  </ul>
-  </>
+  </section>
   );
 }
 
-export default Diet;
+function DietPageFooter() {
+  return (
+    <div id="footer-content">
+      <h3>420-620-DW Web Development Project</h3>
+      <p>By: Hooman Afshari, Sila Ben Khelifa, Ashley Vu and Farhan Khandaker</p>
+      <div id="sources">
+        <h3>Sources & Attributions:</h3>
+        <div id="source-columns">
+          <div id="source-col-1">
+            <ul>
+            <li>Heart & Stroke: <a href="https://www.heartandstroke.ca/healthy-living/healthy-eating/healthy-eating-basics">Click</a></li>
+            </ul>
+          </div>
+          <div id="source-col-2">
+            <ul>
+            <li>Harvard Nutrition: <a href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">Click</a></li>
+            </ul>
+          </div>
+          <div id="source-col-3">
+            <ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export {Diet, DietPageFooter};

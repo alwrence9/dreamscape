@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sleep from './Sleep.js';
 import Dream from './Dream.js';
-import Diet from './Diet.js';
+import {Diet, DietPageFooter} from './dietComponents/Diet.js';
 import Profile from './Profile.js';
 import Mental from './Mental.js';
 import {HomePage, HomePageFooter} from './HomePage.js';
@@ -209,7 +209,7 @@ function Navigation() {
             {token && 
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
-            <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
+            <li onClick={() => {setSelectedComponent(<Diet />); setSelectedFooter(<DietPageFooter/>); } }>Diet</li>
             <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
             <li onClick={() => setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics}
               handleSupport={handleSupport} handleInfo={handleInfo} />)}>Sleep</li>
