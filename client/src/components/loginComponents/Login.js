@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import './Login.css';
 
 function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
@@ -41,38 +42,43 @@ function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   };
 
     return (
-    <>
-      <h1> Login </h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-        Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-      <p>{resultText}</p>
-
-      <div className="App">
-        <GoogleLogin
-          onSuccess={handleLogin}
-          onError={handleError}        
-        />
-      </div>
-    </>
+      <section id="loginForm">
+        <fieldset>
+          <legend><h1> Login </h1></legend>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div id="label-container">
+                <label>Email:</label>
+                <label>Password:</label>
+              </div>
+              <div id="input-container">
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div id="login-buttons">
+              <button type="submit">Submit</button>
+              <div className="App">
+                <GoogleLogin
+                  onSuccess={handleLogin}
+                  onError={handleError}        
+                />
+              </div>
+            </div>
+          </form>
+          <p>{resultText}</p>
+        </fieldset>
+    </section>
   );
 }
 

@@ -5,12 +5,35 @@ import Diet from './Diet.js';
 import Profile from './Profile.js';
 import Mental from './Mental.js';
 import {HomePage, HomePageFooter} from './HomePage.js';
-import LoginForm from './Login.js';
+import LoginForm from './loginComponents/Login.js';
 import SignupForm from './Signup.js';
 import Quiz from './sleepComponents/Quiz.js';
 import SleepInfo from './sleepComponents/SleepInfo.js';
 import SleepMetrics from './sleepComponents/SleepMetrics.js';
 import Support from './sleepComponents/Support.js';
+
+const defaultFooter = 
+  <div id="footer-content">
+    <h3>420-620-DW Web Development Project</h3>
+    <p>By: Hooman Afshari, Sila Ben Khelifa, Ashley Vu and Farhan Khandaker</p>
+    <div id="sources">
+      <h3>Sources & Attributions:</h3>
+      <div id="source-columns">
+        <div id="source-col-1">
+          <ul>
+          </ul>
+        </div>
+        <div id="source-col-2">
+          <ul>
+          </ul>
+        </div>
+        <div id="source-col-3">
+          <ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 function Navigation() {
 
@@ -19,15 +42,28 @@ function Navigation() {
   const handleLogin = () => {
     setLoginClicked(true);
     setSignupClicked(false);
-      setSelectedComponent(<LoginForm setToken={setToken} handleLogin={handleGoogleLogin} 
-        handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
+    setSelectedComponent(
+      <LoginForm 
+        setToken={setToken}
+        handleLogin={handleGoogleLogin}
+        handleError={handleError}
+        setDefaultComponent={setDefaultComponent}
+      />
+    );
+    setSelectedFooter(defaultFooter);
   };
 
   const handleSignup = () => {
     setSignupClicked(true);
     setLoginClicked(false);
-    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} 
-      handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
+    setSelectedComponent(
+      <SignupForm 
+        setToken={setToken} 
+        handleLogin={handleGoogleLogin} 
+        handleError={handleError}
+        setDefaultComponent={setDefaultComponent}
+        />
+    );
   };
 
   //This ends the user's session and clears local storage so the token isn't there anymore
@@ -46,11 +82,12 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <div className="homeItems">
+          <section className="homeItems">
             <li onClick={() => handleLogin(true)}> Login </li> 
             <li onClick={() => handleSignup(true)}> Signup </li>
-          </div>
-        </>)
+          </section>
+        </>
+      )
     }
   }
 
@@ -76,9 +113,9 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <div className="homeItems">
+          <section className="homeItems">
             <li onClick={() => handleLogout()}> Logout </li>
-          </div>
+          </section>
         </>
       );
     }
@@ -88,9 +125,10 @@ function Navigation() {
     alert("Error logging in");
   }
 
-  const defaultComponent = <>
+  const defaultComponent = 
+  <>
     <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-    <div className="homeItems">
+    <section className="homeItems">
     {!token && 
       <>
         <li onClick={() => handleLogin(true)}> Login </li> 
@@ -100,7 +138,7 @@ function Navigation() {
     {token && 
       <li onClick={() => handleLogout()}> Logout </li>
     }
-    </div>
+    </section>
   </>
 
   const setDefaultComponent = () => {
@@ -177,7 +215,9 @@ function Navigation() {
 
         </nav>
       </header>
-      <section>{selectedComponent}</section>
+      <main>
+        {selectedComponent}
+      </main>
       <footer>{selectedFooter}</footer>
     </div>
   );
