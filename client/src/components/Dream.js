@@ -33,6 +33,8 @@ function Dream() {
   
         if (response.ok) {
           fetchEntries();
+          setTitle('Title');
+          setDescription('Write all about your dreams here!')
           setMessage('Added new dream entry!');
         } 
         else {
