@@ -57,13 +57,12 @@ function Dream() {
       setEntries(res.dreams);
       }
     } catch (e) {
-      console.log(e);
+      setMessage(e);
     }
   }
 
   useEffect(() => {
     fetchEntries();
-    console.log(entries);
   }, []);
   
     return (
@@ -85,8 +84,10 @@ function Dream() {
         <button type="submit">Save</button>
       </form>
 
+      <p>{resultText}</p>
+
       <details>
-        <summary>This section is for dream entries</summary>
+        <summary>View past dream entries</summary>
         <section>{entries.map((entry)=> {return <section  key={entry.title}>
             <p>{entry.title}</p>
             <p>{entry.date.string}</p>
