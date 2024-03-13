@@ -20,7 +20,7 @@ function HomePageFooter() {
         <div id="source-columns">
           <div id="source-col-1">
             <ul>
-              <l1 className="source">GIF Source: <a target="_blank" href="https://www.reddit.com/r/gifs/comments/gnja95/calming_animation_i_did_for_school/"> Click</a></l1>
+              <l1 className="source">GIF Source: <a target="_blank" rel="noreferrer" href="https://www.reddit.com/r/gifs/comments/gnja95/calming_animation_i_did_for_school/"> Click</a></l1>
             </ul>
           </div>
           <div id="source-col-2">
