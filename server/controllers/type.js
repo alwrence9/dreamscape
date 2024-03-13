@@ -7,7 +7,7 @@ async function classifyQuestions(filePath) {
     // Extract individual type arrays
     const chronotypesQuestions = questionsObject['Chronotypes'] || [];
     const insomniaQuestions = questionsObject['Insomnia'] || [];
-    // Add more type arrays as needed
+
 
     return {
       chronotypesQuestions,

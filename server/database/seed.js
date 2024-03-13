@@ -1,7 +1,6 @@
 const DB = require("./db.js");
 const { config } = require('dotenv');
 const path = require('path');
-
 const currentFile = __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 const currentDirectory = __dirname || path.dirname(currentFile);
 const envPath = path.resolve(currentDirectory, '../.env');
