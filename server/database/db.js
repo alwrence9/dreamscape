@@ -150,6 +150,30 @@ const TarotSchema = mongoose.Schema({
 });
 const TarotCard = mongoose.model("TarotCard", TarotSchema, "TarotCard");
 
+const SPDschema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  dangerLVL: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  sightings: {
+    type: [String],
+    required: false
+  },
+  sightings: {
+    type: String,
+    required: false
+  }
+});
+const SPD = mongoose.model("SPDdirectory", SPDschema, "SPDdirectory");
+
 class DB{
   constructor(){
     if (!DB.instance){
@@ -298,6 +322,31 @@ class DB{
   console.log(`Deleted ${results.deletedCount} Tarot cards`);
   }
 
+
+
+  //Inserts and SPD into the database
+  async insertSPD({name, dangerLVL, description}){
+    const newSPD = new SPD({"name": name, "dangerLVL": dangerLVL, "description": description });
+    newSPD.save();
+  }
+
+  //Gets all SPD entries
+  async getAllSPD(){
+  const results = SPD.find({"name": { $regex: /.*/}});
+  return results;
+  }
+
+  //Gets SPD entries
+  async getSPD(id){
+  const results = SPD.find({"_id": id});
+  return results;
+  }
+
+  //Clear all SPD entries
+  async clearSPD(){
+  const results = await SPD.deleteMany({"name": { $regex: /.*/}});
+  console.log(`Deleted ${results.deletedCount} SPD entries`);
+  }
 }
 
 module.exports = DB;
