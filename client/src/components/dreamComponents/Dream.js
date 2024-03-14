@@ -69,7 +69,7 @@ function Dream() {
   }, []);
   
     return (
-    <>
+    <section id="dreams">
       <h1> Dream </h1>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
@@ -81,10 +81,10 @@ function Dream() {
           onChange={(e) => setDate(e.target.value)}
           required/>
 
-        <textarea value={optionalDescription} 
+        <textarea id="dream-desc" value={optionalDescription} 
           onChange={(e) => setDescription(e.target.value)}> </textarea>
 
-        <button type="submit">Save</button>
+        <button id="dream-submit" type="submit">Save</button>
       </form>
 
       <p>{resultText}</p>
@@ -98,7 +98,7 @@ function Dream() {
           </section>
        })}</section>
       </details>
-    </>
+    </section>
   );
 }
 

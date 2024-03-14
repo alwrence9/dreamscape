@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Sleep, ChronotypesFooter} from './Sleep.js';
-import Dream from './Dream.js';
+import Dream from './dreamComponents/Dream.js';
 import {Diet, DietPageFooter} from './dietComponents/Diet.js';
 import Profile from './Profile.js';
 import {Mental, MentalityPageFooter} from './mentalityComponents/Mental.js';
