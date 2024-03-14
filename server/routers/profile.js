@@ -33,7 +33,6 @@ async function createProfile(req, res) {
       }
       //store the user's info in the session
       req.session.user = email;
-      console.log(email);
     });
     return res.json((JSON.stringify({"email": email, "token": token })));
   }

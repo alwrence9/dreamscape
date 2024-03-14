@@ -163,12 +163,6 @@ function Quiz() {
         </fieldset>
         <button type="submit">Submit</button>
       </form>
-      <p>Source: <br/></p>
-      <ul>
-        <li><a href="https://psychcentral.com/quizzes/chronotype-quiz">Psych Central</a></li>
-        <li><a href="https://sleepdoctor.com/sleep-quizzes/chronotype-quiz/">Sleep Doctor</a></li>
-        <li><a href="https://sleepopolis.com/chronotypes-quiz/">Sleep Opolis</a></li>
-      </ul>
     </>
   );
 }
