@@ -72,20 +72,20 @@ server-test:
   allow_failure: false
 
 #deploy stage
-# deploy:
-#   stage: deploy
-#   image:  mcr.microsoft.com/azure-cli
-#   dependencies:
-#     - build-frontend
-#     - build-backend
-#   only:
-#     - main
-#     - staging
-#   before_script:
-#     - apk update
-#     - apk add zip
-#     - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
-#   script:
-#     - zip -r deploy.zip client/build server ./package.json
-#     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1' ATLAS_URI=$ATLAS_URI AZURE_SAS=$AZURE_SAS"
-#     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
+deploy:
+  stage: deploy
+  image:  mcr.microsoft.com/azure-cli
+  dependencies:
+    - build-frontend
+    - build-backend
+  only:
+    - main
+    - staging
+  before_script:
+    - apk update
+    - apk add zip
+    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+  script:
+    - zip -r deploy.zip client/build server ./package.json
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1' ATLAS_URI=$ATLAS_URI AZURE_SAS=$AZURE_SAS"
+    - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
