@@ -35,12 +35,38 @@ function Mental() {
          continued interaction with our team of professionals, or by connecting you with elite professionals and <br></br>
          care providers that understand your specific needs wherever you live.
       </p>
-      <p>Source:</p>
-      <ul>
-        <li><a href="https://seasonsbeachcottage.com/?gclid=EAIaIQobChMIlcXHgPu8hAMVbTrUAR0GQAoyEAAYASAAEgK-TfD_BwE"> Seasons Beach Cottage</a></li>
-      </ul>
     </>
   );
 }
 
-export default Mental;
+
+function MentalityPageFooter() {
+  return (
+    <div id="footer-content">
+      <h3>420-620-DW Web Development Project</h3>
+      <p>By: Hooman Afshari, Sila Ben Khelifa, Ashley Vu and Farhan Khandaker</p>
+      <div id="sources">
+        <h3>Sources & Attributions:</h3>
+        <div id="source-columns">
+          <div id="source-col-1">
+            <ul>
+              <li><a target="_blank" rel="noreferrer" href="https://seasonsbeachcottage.com/?gclid=EAIaIQobChMIlcXHgPu8hAMVbTrUAR0GQAoyEAAYASAAEgK-TfD_BwE"> Seasons Beach Cottage</a></li>
+            </ul>
+          </div>
+          <div id="source-col-2">
+            <ul>
+            </ul>
+          </div>
+          <div id="source-col-3">
+            <ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+export {Mental, MentalityPageFooter};

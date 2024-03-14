@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Sleep from './Sleep.js';
+import {Sleep, ChronotypesFooter} from './Sleep.js';
 import Dream from './Dream.js';
 import {Diet, DietPageFooter} from './dietComponents/Diet.js';
 import Profile from './Profile.js';
-import Mental from './Mental.js';
+import {Mental, MentalityPageFooter} from './mentalityComponents/Mental.js';
 import {HomePage, HomePageFooter} from './HomePage.js';
 import LoginForm from './loginComponents/Login.js';
 import SignupForm from './signupComponents/Signup.js';
@@ -159,6 +159,7 @@ function Navigation() {
     setInfoClicked(false);
     setSupportClicked(false);
     setSelectedComponent(<Quiz />);
+    setSelectedFooter(<ChronotypesFooter/>);
   };
 
   const handleMetrics = () => {
@@ -189,6 +190,7 @@ function Navigation() {
     setSignupClicked(false);
     setLoginClicked(false);
     setSelectedComponent(<SleepInfo />);
+    setSelectedFooter(<ChronotypesFooter/>);
   };
 
   const [loginClicked, setLoginClicked] = useState(false);
@@ -209,11 +211,14 @@ function Navigation() {
             {token && 
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
-            <li onClick={() => {setSelectedComponent(<Diet />); setSelectedFooter(<DietPageFooter/>); } }>Diet</li>
-            <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
-            <li onClick={() => setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics}
-              handleSupport={handleSupport} handleInfo={handleInfo} />)}>Sleep</li>
-            <li onClick={() => setSelectedComponent(<Mental />)}>Mentality</li>
+            <li onClick={() => { setSelectedComponent(<Diet />); setSelectedFooter(<DietPageFooter/>); } }>Diet</li>
+            <li onClick={() => { setSelectedComponent(<Dream />); setSelectedFooter(defaultFooter); } }>Dream</li>
+            <li onClick={() => { 
+              setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics} handleSupport={handleSupport} handleInfo={handleInfo} />);
+              setSelectedFooter(defaultFooter);
+              }}
+            >Sleep</li>
+            <li onClick={() => { setSelectedComponent(<Mental />), setSelectedFooter(<MentalityPageFooter/>); } }>Mentality</li>
           </ul>
 
         </nav>
