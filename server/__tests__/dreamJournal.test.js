@@ -64,8 +64,6 @@ test('It should create a new dream journal entry', async () => {
   jest.spyOn(DB.prototype, 'insertDreamJournal').mockImplementation(() => {});
   const response = await request(app).post('/api/v1/dreams/new').send(newEntry);
 
-  console.log(response.body.message);
-
   expect(response.status).toBe(201);
   expect(response.body.message).toBe('Successful');
 });
