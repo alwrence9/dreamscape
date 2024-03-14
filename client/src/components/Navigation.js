@@ -212,7 +212,7 @@ function Navigation() {
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
             <li onClick={() => { setSelectedComponent(<Diet />); setSelectedFooter(<DietPageFooter/>); } }>Diet</li>
-            <li onClick={() => { setSelectedComponent(<Dream />); setSelectedFooter(defaultFooter); } }>Dream</li>
+            { token && <li onClick={() => { setSelectedComponent(<Dream />); setSelectedFooter(defaultFooter); } }>Dream</li> }
             <li onClick={() => { 
               setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics} handleSupport={handleSupport} handleInfo={handleInfo} />);
               setSelectedFooter(defaultFooter);
