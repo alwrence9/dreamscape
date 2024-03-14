@@ -16,7 +16,8 @@ async function init_questions_db(){
 
   const result = await fs.readFile("./database/tarot-images.json");
   const json = JSON.parse(result);
-  get_card_images();
+  const images_path = '../archive/cards';
+  get_card_images(images_path);
 
   for(const card of json.cards){
     await db.insertTarotCard({"name": card.name, "number": Number(card.number), "arcana": card.arcana, "suit": card.suit, "description": "Temp", image: "Temp"});
@@ -25,31 +26,32 @@ async function init_questions_db(){
   console.log("Insert data complete.");
 }
 
-async function get_card_images() {
+async function get_card_images(images_path) {
   const images = [];
-  const images_path = '../../archive';
-  // Our starting point
   try {
-    // Get the files as an array
-    const files = await fs.promises.readdir(images_path);
+    // Files of directory in array
+    const files = await fs.readdir(images_path);
 
     // Loop them all with the new for...of
     for( const file of files ) {
       // Get the full paths
       const fromPath = path.join( images_path, file );
 
-      // Stat the file to see if we have a file or dir
-      const stat = await fs.promises.stat( images_path );
+      // To check if files are a directory
+      const stat = await fs.stat( images_path );
 
       if( stat.isFile() ) {
           console.log( "'%s' is a file.", fromPath );
-          const imageUrl = await fetch('/api/v1/images/new', {
+          const resp = await fetch('/api/v1/images/new', {
             method : 'POST',
             headers : {
             },
               body: stat
-          }).then(data => data.json())
-          images.push(imageUrl);
+          })
+          if (resp.ok) {
+            const imageUrl = await resp.json()
+            images.push(imageUrl);
+          }
       }
       else if( stat.isDirectory() )
           console.log( "'%s' is a directory.", fromPath );
@@ -57,8 +59,9 @@ async function get_card_images() {
   }
   catch( e ) {
     // Catch anything bad that happens
-    console.error( "We've thrown! Whoops!", e );
+    console.error( "ERROR:", e );
   }
+  return images;
 }
 
 db.connect(dbUrl).then( ()=> init_questions_db() );
