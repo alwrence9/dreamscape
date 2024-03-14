@@ -97,6 +97,15 @@ function SleepMetrics() {
     yaxis: { title: 'Sleep Hours' },
   };
 
+
+  function checkIsPreviousDay(pointedSE, sE) {
+    const pointedDate = new Date(pointedSE);
+    const dateBefore = new Date(sE + (24 * 60 * 60 * 1000));
+    pointedDate.setHours(0, 0, 0, 0);
+    dateBefore.setHours(0, 0, 0, 0);
+    return pointedDate.getTime() === dateBefore.getTime();
+  }
+
   function formatDate(str) {
     const d = new Date(str);
     setsinceEpoch(d.getTime());
