@@ -11,3 +11,4 @@ deploy.zip
 .DS_Store
 client/build/
 **/package-lock.json
+archive/

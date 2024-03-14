@@ -149,8 +149,7 @@ app.use( fileUpload({ createParentPath: true, }) );
 
 app.post('/api/v1/images/new', postImage);
 async function postImage(req, res) {
-  const username = req.body;
-  if (username && req.files) {
+  if (req.files) {
     const file = req.files.file;
     const blobName = file.name;
     const blobClient = containerClient.getBlockBlobClient(blobName);
@@ -161,9 +160,9 @@ async function postImage(req, res) {
     await blobClient.uploadData(file.data, options);
 
     //Store name & uri into mongodb
-    db.insertImage(username.username, containerClient.getBlockBlobClient(blobName).url);
+    return res.json(JSON.stringify(containerClient.getBlockBlobClient(blobName).url));
 
-    return res.status(200).send({ status: 200, message: 'Succesful' });
+    //return res.status(200).send({ status: 200, message: 'Succesful' });
   }
   return res.status(403).send({status: 403, message: 'Wrong comment format'})
 }
