@@ -8,6 +8,11 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 dotenv.config();
 
+const fileUpload = require('express-fileupload');
+const { BlobServiceClient} = require('@azure/storage-blob');
+const { config } = require('dotenv');
+const path = require('path');
+
 const db = new DB();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -123,6 +128,44 @@ async function login(req, res) {
     }
   }
   return res.status(401).json({ status: 401, message: 'Wrong comment format' });
+}
+
+
+//IMAGE UPLOAD STUFF 
+const currentFile = __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
+const currentDirectory = __dirname || path.dirname(currentFile);
+const envPath = path.resolve(currentDirectory, '../.env');
+config({ path: envPath });
+
+const sasToken = process.env.AZURE_SAS;
+const containerName = 'helloblob';
+const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
+const blobService = new BlobServiceClient(
+  `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
+);
+const containerClient = blobService.getContainerClient(containerName);
+
+app.use( fileUpload({ createParentPath: true, }) );
+
+app.post('/api/v1/images/new', postImage);
+async function postImage(req, res) {
+  const username = req.body;
+  if (username && req.files) {
+    const file = req.files.file;
+    const blobName = file.name;
+    const blobClient = containerClient.getBlockBlobClient(blobName);
+
+    //Set mimetype as determined from browser with file upload control
+    const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
+    //Upload image to blob storage account in azure
+    await blobClient.uploadData(file.data, options);
+
+    //Store name & uri into mongodb
+    db.insertImage(username.username, containerClient.getBlockBlobClient(blobName).url);
+
+    return res.status(200).send({ status: 200, message: 'Succesful' });
+  }
+  return res.status(403).send({status: 403, message: 'Wrong comment format'})
 }
 
 app.use("/api/v1/profile", profileRouter);
