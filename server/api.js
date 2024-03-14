@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const compression = require('compression');
 const DB = require("./database/db.js");
 const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
@@ -14,7 +15,7 @@ const { sleepRouter } = require("./routers/sleepLog.js");
 const { profileRouter } = require("./routers/profile.js");
 const { dreamRouter } = require("./routers/dreamJournal.js");
 const { questionsRouter } = require("./routers/quiz.js");
-
+const { tarotRouter } = require("./routers/tarotCard.js");
 
 app.use(express.static('../client/build'));
 app.use(express.json());
@@ -28,6 +29,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 })); 
+
+app.use(compression());
 
 app.post('/api/v1/googleLogin', async (req, res,) => {
   const {token} = req.body;
@@ -126,6 +129,7 @@ app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/sleeplogs", sleepRouter);
 app.use("/api/v1/dreams", dreamRouter);
 app.use("/api/v1/quiz", questionsRouter);
+app.use("/api/v1/tarot", tarotRouter);
 
 
 //TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done

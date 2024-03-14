@@ -56,7 +56,7 @@ async function init_db(){
       "email": "chadrew.brodzay@gmail.com",
       "date": { "string": "2-27-2024", "sinceEpoch": 1709010000000 },
       "hoursSlept": 10,
-      "notes": "I woke up at 1:00 because of a dream where my students worship me."
+      "notes": "I woke up at 1:00 because of the Key to the Misty Mountain."
     }
   );
 

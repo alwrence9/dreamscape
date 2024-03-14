@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import Sleep from './Sleep.js';
+import {Sleep, ChronotypesFooter} from './Sleep.js';
 import Dream from './Dream.js';
-import Diet from './Diet.js';
+import {Diet, DietPageFooter} from './dietComponents/Diet.js';
 import Profile from './Profile.js';
-import Mental from './Mental.js';
-import HomePage from './HomePage.js';
-import LoginForm from './Login.js';
-import SignupForm from './Signup.js';
+import {Mental, MentalityPageFooter} from './mentalityComponents/Mental.js';
+import {HomePage, HomePageFooter} from './HomePage.js';
+import LoginForm from './loginComponents/Login.js';
+import SignupForm from './signupComponents/Signup.js';
 import Quiz from './sleepComponents/Quiz.js';
 import SleepInfo from './sleepComponents/SleepInfo.js';
 import SleepMetrics from './sleepComponents/SleepMetrics.js';
 import Support from './sleepComponents/Support.js';
+
+const defaultFooter = 
+  <div id="footer-content">
+    <h3>420-620-DW Web Development Project</h3>
+    <p>By: Hooman Afshari, Sila Ben Khelifa, Ashley Vu and Farhan Khandaker</p>
+    <div id="sources">
+      <h3>Sources & Attributions:</h3>
+      <div id="source-columns">
+        <div id="source-col-1">
+          <ul>
+          </ul>
+        </div>
+        <div id="source-col-2">
+          <ul>
+          </ul>
+        </div>
+        <div id="source-col-3">
+          <ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 function Navigation() {
 
@@ -19,15 +42,29 @@ function Navigation() {
   const handleLogin = () => {
     setLoginClicked(true);
     setSignupClicked(false);
-      setSelectedComponent(<LoginForm setToken={setToken} handleLogin={handleGoogleLogin} 
-        handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
+    setSelectedComponent(
+      <LoginForm 
+        setToken={setToken}
+        handleLogin={handleGoogleLogin}
+        handleError={handleError}
+        setDefaultComponent={setDefaultComponent}
+      />
+    );
+    setSelectedFooter(defaultFooter);
   };
 
   const handleSignup = () => {
     setSignupClicked(true);
     setLoginClicked(false);
-    setSelectedComponent(<SignupForm setToken={setToken} handleLogin={handleGoogleLogin} 
-      handleError={handleError} setDefaultComponent={setDefaultComponent}/>);
+    setSelectedComponent(
+      <SignupForm 
+        setToken={setToken} 
+        handleLogin={handleGoogleLogin} 
+        handleError={handleError}
+        setDefaultComponent={setDefaultComponent}
+        />
+    );
+    setSelectedFooter(defaultFooter);
   };
 
   //This ends the user's session and clears local storage so the token isn't there anymore
@@ -46,11 +83,13 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <div className="homeItems">
+          <section className="homeItems">
             <li onClick={() => handleLogin(true)}> Login </li> 
             <li onClick={() => handleSignup(true)}> Signup </li>
-          </div>
-        </>)
+          </section>
+        </>
+      );
+      setSelectedFooter(<HomePageFooter/>);
     }
   }
 
@@ -73,9 +112,15 @@ function Navigation() {
       setToken(token);
       localStorage.setItem("token", token);
       //Redirect to home page once logged in
-      setSelectedComponent(<><HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-      <div className="homeItems">
-                  <li onClick={() => handleLogout()}> Logout </li> </div></>);
+      setSelectedComponent(
+        <>
+          <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
+          <section className="homeItems">
+            <li onClick={() => handleLogout()}> Logout </li>
+          </section>
+        </>
+      );
+      setSelectedFooter(<HomePageFooter/>);
     }
   }
 
@@ -83,9 +128,10 @@ function Navigation() {
     alert("Error logging in");
   }
 
-  const defaultComponent = <>
+  const defaultComponent = 
+  <>
     <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-    <div className="homeItems">
+    <section className="homeItems">
     {!token && 
       <>
         <li onClick={() => handleLogin(true)}> Login </li> 
@@ -95,7 +141,7 @@ function Navigation() {
     {token && 
       <li onClick={() => handleLogout()}> Logout </li>
     }
-    </div>
+    </section>
   </>
 
   const setDefaultComponent = () => {
@@ -103,6 +149,7 @@ function Navigation() {
   }
 
   const [selectedComponent, setSelectedComponent] = useState(defaultComponent);
+  const [selectedFooter, setSelectedFooter] = useState(<HomePageFooter/>);
 
   const handleQuiz = () => {
     setQuizClicked(true);
@@ -112,6 +159,7 @@ function Navigation() {
     setInfoClicked(false);
     setSupportClicked(false);
     setSelectedComponent(<Quiz />);
+    setSelectedFooter(<ChronotypesFooter/>);
   };
 
   const handleMetrics = () => {
@@ -142,6 +190,7 @@ function Navigation() {
     setSignupClicked(false);
     setLoginClicked(false);
     setSelectedComponent(<SleepInfo />);
+    setSelectedFooter(<ChronotypesFooter/>);
   };
 
   const [loginClicked, setLoginClicked] = useState(false);
@@ -155,25 +204,29 @@ function Navigation() {
     <div>
       <header>
         <nav>
-          <h1 onClick={() => { setDefaultComponent(); } }>
+          <h1 onClick={() => { setDefaultComponent(); setSelectedFooter(<HomePageFooter/>); } }>
             <span id="title">Dreamscape</span>
           </h1>
           <ul className="navigation">
             {token && 
               <li onClick={() => setSelectedComponent(<Profile />) }>Profile</li>
             }
-            <li onClick={() => setSelectedComponent(<Diet />)}>Diet</li>
-            {token && 
-              <li onClick={() => setSelectedComponent(<Dream />)}>Dream</li>
-            }
-            <li onClick={() => setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics}
-              handleSupport={handleSupport} handleInfo={handleInfo} />)}>Sleep</li>
-            <li onClick={() => setSelectedComponent(<Mental />)}>Mentality</li>
+            <li onClick={() => { setSelectedComponent(<Diet />); setSelectedFooter(<DietPageFooter/>); } }>Diet</li>
+            { token && <li onClick={() => { setSelectedComponent(<Dream />); setSelectedFooter(defaultFooter); } }>Dream</li> }
+            <li onClick={() => { 
+              setSelectedComponent(<Sleep handleQuiz={handleQuiz} handleMetrics={handleMetrics} handleSupport={handleSupport} handleInfo={handleInfo} />);
+              setSelectedFooter(defaultFooter);
+              }}
+            >Sleep</li>
+            <li onClick={() => { setSelectedComponent(<Mental />), setSelectedFooter(<MentalityPageFooter/>); } }>Mentality</li>
           </ul>
 
         </nav>
       </header>
-      <section>{selectedComponent}</section>
+      <main>
+        {selectedComponent}
+      </main>
+      <footer>{selectedFooter}</footer>
     </div>
   );
 }
