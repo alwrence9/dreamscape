@@ -1,8 +1,8 @@
 footer{
     padding: 5px 15px;
     background-color: #3a0b46b6;
-    border: 1px rgb(222, 59, 255) solid;
-    color: rgba(215, 235, 231, 0.829)
+    border: 1px rgb(222 59 255) solid;
+    color: rgb(215 235 231 / 82.9%)
 }
 
 #source-columns{
