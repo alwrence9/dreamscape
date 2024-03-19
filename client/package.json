@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/*.js"
+    "lint": "eslint ./src/*.js && npx stylelint **/*.css"
   },
   "browserslist": {
     "production": [
@@ -35,8 +35,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.23.4",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.0"
+    "eslint-plugin-react": "^7.34.0",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard-scss": "^13.0.0"
   }
 }
