@@ -25,7 +25,7 @@ lint-client:
   stage: lint 
   script:
     - cd client
-    - npm install && npm install @babel/plugin-proposal-private-property-in-object
+    - npm install
     - npm ci --cache .cache/client
     - npm run lint
   allow_failure: false
@@ -53,6 +53,6 @@ client-build:
   stage: test
   script:
     - cd client
-    - npm ci --omit=dev --cache .cache/client
+    - npm ci --cache .cache/client
     - npm run build
   allow_failure: false
