@@ -8,11 +8,24 @@ stages:
   - lint
   - test
 
+cache:
+    key:
+      files:
+        - ./server/package.json
+    paths:
+      - .cache/server
+    key:
+      files:
+        - ./client/package.json
+    paths:
+      - .cache/client
+
+
 lint-client:
   stage: lint 
   script:
     - cd client
-    - npm install
+    - npm ci --cache .cache/client
     - npm run lint
   allow_failure: false
 
@@ -21,7 +34,7 @@ lint-server:
   stage: lint 
   script:
     - cd server
-    - npm install
+    - npm ci --cache .cache/server
     - npm run lint
   allow_failure: false
 
@@ -29,7 +42,7 @@ server-test:
   stage: test
   script:
     - cd server
-    - npm install
+    - npm ci --cache .cache/server
     - npm run test
   allow_failure: false
 
@@ -37,6 +50,6 @@ client-build:
   stage: test
   script:
     - cd client
-    - npm install --omit=dev
+    - npm ci --omit=dev --cache .cache/client
     - npm run build
   allow_failure: false
