@@ -26,19 +26,19 @@ lint-client:
   script:
     - cd client
     - npm install eslint
-    - npm run lint
-    - npm install
     - npm ci --cache .cache/client
+    - npm run lint
   allow_failure: false
 
   
 lint-server:
   stage: lint 
   script:
-    - cd server
-    - npm install
-    - npm ci --cache .cache/server
+    - cd client
+    - npm install eslint
     - npm run lint
+    - npm install
+    - npm ci --cache .cache/client
   allow_failure: false
 
 server-test:
