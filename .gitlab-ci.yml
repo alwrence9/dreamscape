@@ -25,6 +25,7 @@ lint-client:
   stage: lint 
   script:
     - cd client
+    - npm install
     - npm ci --cache .cache/client
     - npm run lint
   allow_failure: false
@@ -34,6 +35,7 @@ lint-server:
   stage: lint 
   script:
     - cd server
+    - npm install
     - npm ci --cache .cache/server
     - npm run lint
   allow_failure: false
