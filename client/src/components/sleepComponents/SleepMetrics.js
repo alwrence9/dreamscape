@@ -24,12 +24,16 @@ function SleepMetrics() {
       const response = await fetch(url);
       const res = await response.json();
       res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
-      setSleepLogs(res.sleepLogs);
+      const copy = [];
+      checkIsPreviousDay(1707955200000, copy);
+      setSleepLogs(copy);
       setRefetch(false);
+      console.log(copy);
     } catch (e) {
       console.log(e);
     }
   }
+
 
   useEffect(() => {
     fetchSleepLogs()
@@ -97,17 +101,29 @@ function SleepMetrics() {
     yaxis: { title: 'Sleep Hours' },
   };
 
+  function checkIsPreviousDay(lastSE, copy) {
+    const listSE = sleepLogs.map((entry) => entry.date.sinceEpoch);
+    const lastDate = new Date(lastSE);
+    const prevDate = new Date(lastSE - (24 * 60 * 60 * 1000));
+    if (!listSE.includes(prevDate.getTime())) {
+      const log = { date:{string: `${prevDate.getMonth()+1}-${prevDate.getDate()}-${prevDate.getFullYear()}`, sinceEpoch: prevDate.getTime()}, 
+                    email:email ,
+                    hoursSlept:0,
+                    notes:"",
+                  }
+      copy.push(log);
+      console.log(copy);
+      if (prevDate.getFullYear()===2023) {
+          return 0;
+      }
+      checkIsPreviousDay(prevDate.getTime(), copy);
+    }
 
-  function checkIsPreviousDay(pointedSE, sE) {
-    const pointedDate = new Date(pointedSE);
-    const dateBefore = new Date(sE + (24 * 60 * 60 * 1000));
-    pointedDate.setHours(0, 0, 0, 0);
-    dateBefore.setHours(0, 0, 0, 0);
-    return pointedDate.getTime() === dateBefore.getTime();
   }
 
   function formatDate(str) {
     const d = new Date(str);
+    d.setHours(0);
     setsinceEpoch(d.getTime());
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
@@ -115,6 +131,7 @@ function SleepMetrics() {
     const formattedDate = `${month}-${day}-${year}`;
     return formattedDate;
   } 
+
 
   return (
     <div>
