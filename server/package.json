@@ -7,7 +7,7 @@
     "seed": "node database/seed.js && node database/questionSeed.js && node database/tarotSeed.js",
     "env": "touch .env && echo ATLAS_URI= > .env",
     "test": "jest",
-    "lint": "eslint **/*.js"
+    "lint": "eslint --ignore-path .eslintignore **/*.js"
   },
   "author": "",
   "license": "ISC",
