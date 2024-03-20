@@ -166,10 +166,6 @@ const SPDschema = mongoose.Schema({
   sightings: {
     type: [String],
     required: false
-  },
-  sightings: {
-    type: String,
-    required: false
   }
 });
 const SPD = mongoose.model("SPDdirectory", SPDschema, "SPDdirectory");
