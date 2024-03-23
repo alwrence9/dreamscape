@@ -14,9 +14,9 @@ const db = new DB();
 async function init_questions_db(){
   await db.clearTarotCards();
 
-  const result = await fs.readFile("./database/tarot-images.json");
+  const result = await fs.readFile("../../archive/tarot-images.json");
   const json = JSON.parse(result);
-  const images_path = '../archive/cards';
+  const images_path = '../../archive/cards';
   get_card_images(images_path);
 
   for(const card of json.cards){
@@ -32,7 +32,6 @@ async function get_card_images(images_path) {
     // Files of directory in array
     const files = await fs.readdir(images_path);
 
-    // Loop them all with the new for...of
     for( const file of files ) {
       // Get the full paths
       const fromPath = path.join( images_path, file );
@@ -52,14 +51,11 @@ async function get_card_images(images_path) {
             const imageUrl = await resp.json()
             images.push(imageUrl);
           }
-      }
-      else if( stat.isDirectory() )
-          console.log( "'%s' is a directory.", fromPath );
+        }
     } 
   }
   catch( e ) {
-    // Catch anything bad that happens
-    console.error( "ERROR:", e );
+    console.log( "ERROR:", e );
   }
   return images;
 }
