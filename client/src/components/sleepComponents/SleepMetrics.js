@@ -23,12 +23,12 @@ function SleepMetrics() {
     try {
       const response = await fetch(url);
       const res = await response.json();
-      res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch);
+      setSleepLogs(res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch));
       const copy = [];
-      checkIsPreviousDay(1707955200000, copy);
+      fillEmptyDates(sleepLogs[0].date.sinceEpoch, copy);
       setSleepLogs(copy);
       setRefetch(false);
-      console.log(copy);
+      //console.log(copy);
     } catch (e) {
       console.log(e);
     }
@@ -68,7 +68,7 @@ function SleepMetrics() {
   
         setDate('');
         setHours('');
-        setNote('None');
+        setNote('');
         setsinceEpoch(0);
       } catch (error) {
         console.error('Error:', error);
@@ -101,24 +101,31 @@ function SleepMetrics() {
     yaxis: { title: 'Sleep Hours' },
   };
 
-  function checkIsPreviousDay(lastSE, copy) {
+  function fillEmptyDates(firstSE, copy) {
+    console.log(sleepLogs);
     const listSE = sleepLogs.map((entry) => entry.date.sinceEpoch);
-    const lastDate = new Date(lastSE);
-    const prevDate = new Date(lastSE - (24 * 60 * 60 * 1000));
-    if (!listSE.includes(prevDate.getTime())) {
-      const log = { date:{string: `${prevDate.getMonth()+1}-${prevDate.getDate()}-${prevDate.getFullYear()}`, sinceEpoch: prevDate.getTime()}, 
+    const firstDate = new Date(firstSE);
+    const nextDate = new Date(firstSE + (24 * 60 * 60 * 1000));
+    if (!listSE.includes(nextDate.getTime())) {
+      const log = { date:{string: `${nextDate.getMonth()+1}-${nextDate.getDate()}-${nextDate.getFullYear()}`, sinceEpoch: nextDate.getTime()}, 
                     email:email ,
                     hoursSlept:0,
                     notes:"",
                   }
       copy.push(log);
-      console.log(copy);
-      if (prevDate.getFullYear()===2023) {
-          return 0;
-      }
-      checkIsPreviousDay(prevDate.getTime(), copy);
     }
-
+    else {
+      for (const log of sleepLogs) {
+        if (log.date.sinceEpoch === nextDate.getTime()) {
+          copy.push(log);
+          break;
+        }
+      }
+    }
+    if (nextDate.getFullYear()===2025) {
+      return 0;
+    }
+    fillEmptyDates(nextDate.getTime(), copy);
   }
 
   function formatDate(str) {
