@@ -7,6 +7,7 @@ function Quiz() {
   const [error, setError] = useState(null);
   const [chronotypeAnswers, setChronotypeAnswers] = useState({});
   const [insomniaAnswers, setInsomniaAnswers] = useState({});
+  const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
   const [result, setResult] = useState(null);
 
   useEffect(() => {
@@ -40,6 +41,11 @@ function Quiz() {
   };
 
   const handleSubmit = () => {
+    if (Object.keys(chronotypeAnswers).length < chronotypeData.questions.length || Object.keys(insomniaAnswers).length < insomniaData.questions.length) {
+      setSubmitErrorMessage("Answers all questions before submitting");
+      return;
+    }
+
     const calculateMostChosenType = (answers) => {
       const answerTypes = Object.values(answers);
       const answerCount = answerTypes.reduce((acc, type) => {
@@ -58,6 +64,7 @@ function Quiz() {
     setChronotypeAnswers({});
     setInsomniaAnswers({});
     setResult(null);
+    setSubmitErrorMessage(null);
     fetchData();
   };
 
@@ -116,6 +123,7 @@ function Quiz() {
               ))}
             </div>
         ))}
+        {submitErrorMessage && <p style={{color: 'red'}}>{submitErrorMessage}</p>}
         <button onClick={handleSubmit}>Submit</button>
       </>
   );
