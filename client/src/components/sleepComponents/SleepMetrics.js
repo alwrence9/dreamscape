@@ -16,6 +16,7 @@ function SleepMetrics() {
   const [enteredNote, setNote] = useState('None');
   const [sinceEpoch, setsinceEpoch] = useState(0);
   const [refetch, setRefetch] = useState(false);
+  const [firstLog, setFirst] = useState(null);
 
 
   async function fetchSleepLogs() {
@@ -25,7 +26,7 @@ function SleepMetrics() {
       const res = await response.json();
       setSleepLogs(res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch));
       const copy = [];
-      fillEmptyDates(sleepLogs[0].date.sinceEpoch, copy);
+      fillEmptyDates(1707868800000, copy);
       setSleepLogs(copy);
       setRefetch(false);
       //console.log(copy);
