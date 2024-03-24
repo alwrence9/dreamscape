@@ -132,7 +132,9 @@ function SleepMetrics() {
   }
 
   function formatDate(str) {
-    const d = new Date(str);
+    const prevD = new Date(str);
+    //Add one extra day
+    const d = new Date(prevD.getTime() + (24 * 60 * 60 * 1000));
     d.setHours(0);
     setsinceEpoch(d.getTime());
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
