@@ -11,11 +11,12 @@ function SleepMetrics() {
   }
 
   const [sleepLogs, setSleepLogs] = useState([]);
+  const [tempLogs, setTempLogs] = useState([]);
   const [enteredDate, setDate] = useState('');
   const [enteredHours, setHours] = useState('');
   const [enteredNote, setNote] = useState('None');
   const [sinceEpoch, setsinceEpoch] = useState(0);
-  const [refetch, setRefetch] = useState(false);
+  const [refetch, setRefetch] = useState(true);
   const [firstLog, setFirst] = useState(null);
 
 
@@ -24,12 +25,8 @@ function SleepMetrics() {
     try {
       const response = await fetch(url);
       const res = await response.json();
-      setSleepLogs(res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch));
-      const copy = [];
-      fillEmptyDates(1707868800000, copy);
-      setSleepLogs(copy);
+      setTempLogs(res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch));
       setRefetch(false);
-      //console.log(copy);
     } catch (e) {
       console.log(e);
     }
@@ -37,7 +34,12 @@ function SleepMetrics() {
 
 
   useEffect(() => {
-    fetchSleepLogs()
+    fetchSleepLogs();
+    console.log(tempLogs);
+    const copy = [];
+    fillEmptyDates(1707868800000, copy);
+    console.log(copy);
+    setSleepLogs(copy);
   }, [refetch]);
 
 
@@ -103,8 +105,8 @@ function SleepMetrics() {
   };
 
   function fillEmptyDates(firstSE, copy) {
-    console.log(sleepLogs);
-    const listSE = sleepLogs.map((entry) => entry.date.sinceEpoch);
+    console.log(tempLogs);
+    const listSE = tempLogs.map((entry) => entry.date.sinceEpoch);
     const firstDate = new Date(firstSE);
     const nextDate = new Date(firstSE + (24 * 60 * 60 * 1000));
     if (!listSE.includes(nextDate.getTime())) {
@@ -116,7 +118,7 @@ function SleepMetrics() {
       copy.push(log);
     }
     else {
-      for (const log of sleepLogs) {
+      for (const log of tempLogs) {
         if (log.date.sinceEpoch === nextDate.getTime()) {
           copy.push(log);
           break;
