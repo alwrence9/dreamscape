@@ -4,30 +4,32 @@ function Quiz() {
   const [chronotypeData, setChronotypeData] = useState(null);
   const [insomniaData, setInsomniaData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [chronotypeAnswers, setChronotypeAnswers] = useState({});
   const [insomniaAnswers, setInsomniaAnswers] = useState({});
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const chronotypeResponse = await fetch('/api/v1/quiz/chronotype/5');
-        const chronotypeJson = await chronotypeResponse.json();
-
-        const insomniaResponse = await fetch('/api/v1/quiz/insomnia/5');
-        const insomniaJson = await insomniaResponse.json();
-
-        setChronotypeData(chronotypeJson);
-        setInsomniaData(insomniaJson);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error:", error);
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const chronotypeResponse = await fetch('/api/v1/quiz/chronotype/5');
+      const chronotypeJson = await chronotypeResponse.json();
+
+      const insomniaResponse = await fetch('/api/v1/quiz/insomnia/5');
+      const insomniaJson = await insomniaResponse.json();
+
+      setChronotypeData(chronotypeJson);
+      setInsomniaData(insomniaJson);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setLoading(false);
+      setError("There was an error loading the webpage. Try again later.");
+    }
+  };
 
   const handleAnswerChange = (quizType, questionId, answerType) => {
     if (quizType === 'chronotype') {
@@ -52,8 +54,19 @@ function Quiz() {
     setResult({ chronotype: mostChosenChronotype, insomnia: mostChosenInsomniaType });
   };
 
+  const handleRetake = () => {
+    setChronotypeAnswers({});
+    setInsomniaAnswers({});
+    setResult(null);
+    fetchData();
+  };
+
   if (loading) {
     return <h2>loading</h2>
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
   }
 
   if (result) {
@@ -61,6 +74,7 @@ function Quiz() {
     <>
       <h1>You are a {result.chronotype}</h1>
       <h1>You have {result.insomnia} insomnia</h1>
+      <button onClick={handleRetake}>Retake Quiz</button>
     </>
     )
   }
