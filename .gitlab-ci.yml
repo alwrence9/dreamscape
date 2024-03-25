@@ -3,34 +3,40 @@ image: node:18.18.0
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
 #all stages
 stages:
-  - build
   - lint
+  - build
   - test
   - deploy
+  
+#linting phase
+lint-client:
+  stage: lint 
+  script:
+    - npm install && npm install eslint && npm install eslint-plugin-react
+    - cd client && npm run lint
+  allow_failure: false
 
-cache:
-    key:
-      files:
-        - ./server/package.json
-    paths:
-      - .cache/server
-    key:
-      files:
-        - ./client/package.json
-    paths:
-      - .cache/client
+lint-server:
+  stage: lint 
+  script:
+    - npm install && npm install eslint
+    - cd server && npm run lint
+  allow_failure: false
 
 #build phase
 build-frontend:
   stage: build
+  cache:
+    key:
+      prefix: 'frontend'
+      files:
+        - 'client/package-lock.json'
+    paths:
+      - 'client/node_modules/'
   script:
-    - cd client
-    - npm install
-    - npm ci --cache .cache/client
-    - npm run build
+    - cd client && npm install && CI=false npm run build
   only:
   artifacts:
     expire_in: 1 days
@@ -41,39 +47,27 @@ build-frontend:
 
 build-backend:
   stage: build
+  cache:
+    key:
+      prefix: 'backend'
+      files:
+        - 'server/package-lock.json'
+    paths:
+      - 'server/node_modules/'
   script:
-    - cd server
-    - npm install
-    - npm ci --cache .cache/server
+    - cd server && npm install
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - server
 
-#linting phase
-lint-client:
-  stage: lint 
-  script:
-    - cd client
-    - npm ci --cache .cache/client
-    - npm run lint
-  allow_failure: false
-
-lint-server:
-  stage: lint 
-  script:
-    - cd server
-    - npm ci --cache .cache/client
-    - npm run lint
-  allow_failure: false
-
 #test phase
 server-test:
   stage: test
   script:
     - cd server
-    - npm ci --cache .cache/server
+    - npm install
     - npm run test
   allow_failure: false
 
