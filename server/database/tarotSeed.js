@@ -18,10 +18,10 @@ async function init_questions_db(){
   const result = await fs.readFile("../../archive/tarot-images.json");
   const json = JSON.parse(result);
   const images_path = '../../archive/cards';
-  get_card_images(images_path);
+  const images_paths = await get_card_images(images_path);
 
-  for(const card of json.cards){
-    await db.insertTarotCard({"name": card.name, "number": Number(card.number), "arcana": card.arcana, "suit": card.suit, "description": "Temp", image: "Temp"});
+  for (let i = 0; i < json.cards.length; i++){
+    await db.insertTarotCard({"name": json.cards[i].name, "number": Number(json.cards[i].number), "arcana": json.cards[i].arcana, "suit": json.cards[i].suit, "description": JSON.stringify(json.cards[i].fortune_telling), image: images_paths[i]});
   }
 
   console.log("Insert data complete.");
@@ -82,4 +82,4 @@ async function postImage(file, fileName) {
 
 
 db.connect(dbUrl).then( ()=> init_questions_db() );
-setTimeout(db.close, 3000);
+setTimeout(db.close, 15000);
