@@ -4,10 +4,10 @@
   "description": "",
   "scripts": {
     "start": "node bin/www.js",
-    "seed": "node database/seed.js && node database/questionSeed.js ",
+    "seed": "node database/seed.js && node database/questionSeed.js && node database/tarotSeed.js",
     "env": "touch .env && echo ATLAS_URI= > .env",
     "test": "jest",
-    "lint": "eslint **/*.js"
+    "lint": "eslint bin/**/*.js && eslint database/**/*.js && eslint routers/**/*.js && eslint api.js"
   },
   "author": "",
   "license": "ISC",

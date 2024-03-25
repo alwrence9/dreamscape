@@ -83,7 +83,7 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <section className="homeItems">
+          <section className="home-items">
             <li onClick={() => handleLogin(true)}> Login </li> 
             <li onClick={() => handleSignup(true)}> Signup </li>
           </section>
@@ -115,7 +115,7 @@ function Navigation() {
       setSelectedComponent(
         <>
           <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-          <section className="homeItems">
+          <section className="home-items">
             <li onClick={() => handleLogout()}> Logout </li>
           </section>
         </>
@@ -131,7 +131,7 @@ function Navigation() {
   const defaultComponent = 
   <>
     <HomePage handleSignup={handleSignup} handleLogin={handleLogin} /> 
-    <section className="homeItems">
+    <section className="home-items">
     {!token && 
       <>
         <li onClick={() => handleLogin(true)}> Login </li> 

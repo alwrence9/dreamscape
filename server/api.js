@@ -21,6 +21,7 @@ const { profileRouter } = require("./routers/profile.js");
 const { dreamRouter } = require("./routers/dreamJournal.js");
 const { questionsRouter } = require("./routers/quiz.js");
 const { tarotRouter } = require("./routers/tarotCard.js");
+const { spdRouter } = require("./routers/SPD.js");
 
 app.use(express.static('../client/build'));
 app.use(express.json());
@@ -172,6 +173,7 @@ app.use("/api/v1/sleeplogs", sleepRouter);
 app.use("/api/v1/dreams", dreamRouter);
 app.use("/api/v1/quiz", questionsRouter);
 app.use("/api/v1/tarot", tarotRouter);
+app.use("/api/v1/spd", spdRouter);
 
 
 //TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done

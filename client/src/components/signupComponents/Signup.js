@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import './Signup.css';
 
 function SignupForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
@@ -41,7 +42,7 @@ function SignupForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   };
 
     return (
-      <section id="loginForm">
+      <section id="signup-form">
         <fieldset>
           <legend><h1> Signup </h1></legend>
           <form onSubmit={handleSubmit}>
