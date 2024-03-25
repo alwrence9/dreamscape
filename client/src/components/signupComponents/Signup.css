@@ -1,0 +1,48 @@
+#signup-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#signup-form > fieldset{
+    width: 30%;
+    border-color: rgb(103 177 182);
+}
+
+#signup-form > fieldset > legend{
+    margin: auto;
+}
+
+#signup-form > fieldset > form{
+    display: flex;
+    flex-direction: column;
+}
+
+#signup-form > fieldset > form > div{
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#label-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#input-container{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+#label-container > label{
+    margin: 5px 0;
+}
+
+#input-container > input{
+    border: solid 1px rgb(103 177 182);
+    background-color:  	#17236a;
+    color: white;
+    margin: 7px 0;
+}

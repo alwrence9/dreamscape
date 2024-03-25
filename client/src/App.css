@@ -1,38 +1,153 @@
-.App {
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+
+html{
+  height: 100%
+}
+
+body {
+  height: 100%;
+  background-color: black;
+}
+
+#root{
+  height: 100%
+}
+
+#root > div{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: auto;
+  background-color: rgb(7 3 66 / 45.9%);
+  color:rgb(103 177 182);
+  font-size: 20px;
+  border: 1px rgb(0 204 255) solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header {
+  border: 1px rgb(222 59 255) solid;
+  border-bottom: none;
+  background-color: #3a0b46b6;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+}
+
+nav > h1 {
+  text-align: center;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  color:rgb(222 59 255);
+  font-family:'Ms Madi', sans-serif;
+  font-weight: 400;
+  font-size: 45px;
+  font-style: normal;
+  cursor: pointer;
+}
+
+#title:hover {
+  padding: 0 2%;
+  background-color: rgb(222 59 255);
+  border-radius: 30px;
+  color: #212121;
+  box-shadow: 0 0 10px rgb(222 59 255), 0 0 50px rgb(222 59 255), 0 0 75px rgb(222 59 255),
+    0 0 100px rgb(222 59 255);;
+}
+
+.navigation  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 21px;
+  align-items: flex-end;
+  border: 3px rgb(248 73 225) solid;
+  border-left: none;
+  border-right: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation > li {
+  list-style-type: none;
+  width: 150px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  color: #03e9f4;
+  cursor: pointer;
+}
+
+.home-items {
+  padding-top: 30px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.home-items > li {
+  color:rgb(63 194 255);
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 16px;
+  border:rgb(0 204 255) 1px  solid; 
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.info-list-items > li {
+  color: rgb(215 235 231 / 82.9%);
+}
+
+.navigation > li:hover {
+  background-color: #03e9f4;
+  color: #212121;
+  border-radius: 30px;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 100px #03e9f4;
+}
+
+.home-items > li:hover {
+  background-color:rgb(63 194 255);
+  color:rgb(0 0 0);
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+  0 0 200px #03e9f4;
+}
+
+p, label {
+  color: rgb(215 235 231 / 82.9%);
+  font-size: 20px;
+}
+
+#gif {
+display: flex;
+justify-content: center;
+padding-top: 10px;
+}
+
+#gif > img {
+  width: 350px;
+  height: 310px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  color:rgb(103 177 182);
 }
