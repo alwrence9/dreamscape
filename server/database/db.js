@@ -325,6 +325,11 @@ class DB{
   return cards;
   }
 
+  async getRandomTarotCard(){
+  const cards = TarotCard.aggregate().sample(1);
+  return cards;
+  }
+
   //Clear all tarot cards
   async clearTarotCards(){
   const results = await TarotCard.deleteMany({"name": { $regex: /.*/}});

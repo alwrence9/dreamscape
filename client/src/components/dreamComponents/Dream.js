@@ -6,6 +6,8 @@ function Dream() {
 
   const [entries, setEntries] = useState([]);
 
+  const [currentCard, setCurrentCard] = useState([]);
+
   const [title, setTitle] = useState('Title');
   const [optionalDescription, setDescription] = useState('Write all about your dreams here!');
   const [dateValue, setDate] = useState('');
@@ -64,6 +66,20 @@ function Dream() {
     }
   }
 
+  async function fetchCard() {
+    const url = `/api/v1/tarot/randomCard`;
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const res = await response.json();
+        console.log(res.tarotCard[0]);
+        setCurrentCard(res.tarotCard[0]);
+      }
+    } catch (e) {
+      setMessage(e);
+    }
+  }
+
   useEffect(() => {
     fetchEntries();
   }, []);
@@ -94,6 +110,13 @@ function Dream() {
 
         <button id="dream-submit" type="submit">Save</button>
       </form>
+
+      <section id="tarot-section">
+        <button onClick={fetchCard}> Get your dreamly tarot card! </button>
+        { currentCard.image &&
+          <img src={currentCard.image} alt={currentCard.alt}/>
+        }
+      </section>
 
       <p>{resultText}</p>
 

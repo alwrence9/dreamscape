@@ -28,7 +28,6 @@ async function init_questions_db(){
 }
 
 async function get_card_images(images_path) {
-  console.log("HEre!")
   const images = [];
   try {
     // Files of directory in array
@@ -41,7 +40,7 @@ async function get_card_images(images_path) {
       console.log( "Adding '%s' as image", fromPath );
       const image =  await fs.readFile(fromPath);
 
-      //Need to fix this
+      //TO DO: Need to fix this
       const splitPath = fromPath.split("\\");
       const imageName = splitPath[splitPath.length-1]
 
@@ -55,15 +54,15 @@ async function get_card_images(images_path) {
   return images;
 }
 
-const sasToken = process.env.AZURE_SAS;
-const containerName = 'dreamscape';
-const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
-const blobService = new BlobServiceClient(
-  `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
-);
-const containerClient = blobService.getContainerClient(containerName);
-
 async function postImage(file, fileName) {
+  const sasToken = process.env.AZURE_SAS;
+  const containerName = 'dreamscape';
+  const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
+  const blobService = new BlobServiceClient(
+    `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
+  );
+  const containerClient = blobService.getContainerClient(containerName);
+
   if (file) {
     const blobName = fileName
     const blobClient = containerClient.getBlockBlobClient(blobName);
@@ -74,9 +73,7 @@ async function postImage(file, fileName) {
     await blobClient.uploadData(file, options);
 
     //Store name & uri into mongodb
-    return JSON.stringify(containerClient.getBlockBlobClient(blobName).url);
-
-    //return res.status(200).send({ status: 200, message: 'Succesful' });
+    return containerClient.getBlockBlobClient(blobName).url;
   }
 }
 
