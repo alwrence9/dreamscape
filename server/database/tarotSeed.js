@@ -35,30 +35,18 @@ async function get_card_images(images_path) {
     const files = await fs.readdir(images_path);
 
     for( const file of files ) {
-      // Get the full paths
+      //Get full path
       const fromPath = path.join( images_path, file );
 
-      // To check if files are a directory
-      //const stat = await fs.stat( images_path );
+      console.log( "Adding '%s' as image", fromPath );
+      const image =  await fs.readFile(fromPath);
 
-      //if( stat.isFile() ) {
-          console.log( "'%s' is a file.", fromPath );
-          // const resp = await fetch('localhost:3000/api/v1/images/new', {
-          //   method : 'POST',
-          //   headers : {
-          //   },
-          //     body: stat
-          // })
-          // if (resp.ok) {
-          //   const imageUrl = await resp.json()
-          //   images.push(imageUrl);
-          // }
-          const image =  await fs.readFile(fromPath);
-          const splitPath = fromPath.split("\\");
-          const imageName = splitPath[splitPath.length-1]
-          const imageUrl = await postImage(image, imageName);
-          images.push(imageUrl);
-        //}
+      //Need to fix this
+      const splitPath = fromPath.split("\\");
+      const imageName = splitPath[splitPath.length-1]
+
+      const imageUrl = await postImage(image, imageName);
+      images.push(imageUrl);
     } 
   }
   catch( e ) {
