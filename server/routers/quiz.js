@@ -5,10 +5,11 @@ const DB = require("../database/db.js");
 const db = new DB();
 
 //Gets the chronotype questions
-router.get('/chronotype', getChronotypeQuestion);
+router.get('/chronotype/:numQuestions?', getChronotypeQuestion);
 async function getChronotypeQuestion(req, res) {
+  const numQuestions = req.params.numQuestions;
   res.type('json');
-  const questions = await db.getChronotypeQuestion();
+  const questions = numQuestions ? await db.getRandomChronotypeQuestion(numQuestions) : await db.getChronotypeQuestion();
   if(questions){
     return res.json( {"questions": questions});
   }
@@ -18,10 +19,11 @@ async function getChronotypeQuestion(req, res) {
 }
 
 //Gets the insomnia questions
-router.get('/insomnia', getInsomniaQuestion);
+router.get('/insomnia/:numQuestions?', getInsomniaQuestion);
 async function getInsomniaQuestion(req, res) {
   res.type('json');
-  const questions = await db.getInsomniaQuestion();
+  const numQuestions = req.params.numQuestions;
+  const questions = numQuestions ? await db.getRandomInsomniaQuestion(numQuestions) : await db.getInsomniaQuestion();
   if(questions){
     return res.json( {"questions": questions});
   }
