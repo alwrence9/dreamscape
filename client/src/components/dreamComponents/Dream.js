@@ -71,6 +71,14 @@ function Dream() {
     return (
     <section id="dreams">
       <h1> Dream </h1>
+      <button onClick={(e)=> {
+        console.log(window.getSelection().toString());
+        const dreamDesc = document.getElementById("dream-desc");
+        const index = dreamDesc.textContent.indexOf("here!");
+        const substring = dreamDesc.textContent.substring(index);
+        const newString = "<b>" + substring + "</b>"
+        document.getElementById('dream-desc').textContent.replace(substring, newString);
+      }}>Bold</button>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
           value={title} 
