@@ -100,7 +100,7 @@ function SleepMetrics() {
     yaxis: { title: 'Sleep Hours' },
   };
 
-  //This should be fixed
+  //TODO This should be fixed
   function fillEmptyDates(firstSE, copy) {
     const listSE = sleepLogs.map((entry) => entry.date.sinceEpoch);
     const firstDate = new Date(firstSE);
