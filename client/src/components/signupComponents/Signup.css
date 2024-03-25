@@ -1,23 +1,24 @@
-#loginForm{
+#signup-form{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-#loginForm > fieldset{
+#signup-form > fieldset{
     width: 30%;
-    border-color: rgb(103, 177, 182);
+    border-color: rgb(103 177 182);
 }
 
-legend{
+#signup-form > fieldset > legend{
     margin: auto;
 }
 
-form{
+#signup-form > fieldset > form{
     display: flex;
     flex-direction: column;
 }
 
-form > div{
+#signup-form > fieldset > form > div{
     margin: 15px 0;
     display: flex;
     justify-content: center;
@@ -35,12 +36,13 @@ form > div{
     flex-direction: column;
 }
 
-#label-container > label, #input-container > input{
+#label-container > label{
     margin: 5px 0;
 }
 
 #input-container > input{
-    border: solid 1px rgb(103, 177, 182);
+    border: solid 1px rgb(103 177 182);
     background-color:  	#17236a;
     color: white;
+    margin: 7px 0;
 }

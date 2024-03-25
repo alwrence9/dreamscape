@@ -15,7 +15,7 @@ table {
 }
 
 td {
-  border: 1px rgb(0, 204, 255) solid;
+  border: 1px rgb(0 204 255) solid;
   padding: 50px;
   color: #2196f3;
   text-transform: uppercase;

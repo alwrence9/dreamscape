@@ -1,8 +1,4 @@
-/* stylelint-disable font-family-name-quotes */
-/* stylelint-disable font-family-no-missing-generic-family-keyword */
-
-/* -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); */
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 html{
   height: 100%
@@ -25,20 +21,19 @@ body {
 
 main {
   flex: auto;
-  background-color: rgba(7, 3, 66, 0.459);
-  color:rgb(103, 177, 182);
+  background-color: rgb(7 3 66 / 45.9%);
+  color:rgb(103 177 182);
   font-size: 20px;
-  border: 1px rgb(0, 204, 255) solid;
+  border: 1px rgb(0 204 255) solid;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 header {
-  border: 1px rgb(222, 59, 255) solid;
+  border: 1px rgb(222 59 255) solid;
   border-bottom: none;
   background-color: #3a0b46b6;
-
   display: flex;
   flex-direction: column;
 }
@@ -59,7 +54,7 @@ nav > h1 {
 }
 
 #title {
-  color:rgb(222, 59, 255);
+  color:rgb(222 59 255);
   font-family:'Ms Madi', sans-serif;
   font-weight: 400;
   font-size: 45px;
@@ -69,11 +64,11 @@ nav > h1 {
 
 #title:hover {
   padding: 0 2%;
-  background-color: rgb(222, 59, 255);
+  background-color: rgb(222 59 255);
   border-radius: 30px;
   color: #212121;
-  box-shadow: 0 0 10px rgb(222, 59, 255), 0 0 50px rgb(222, 59, 255), 0 0 75px rgb(222, 59, 255),
-    0 0 100px rgb(222, 59, 255);;
+  box-shadow: 0 0 10px rgb(222 59 255), 0 0 50px rgb(222 59 255), 0 0 75px rgb(222 59 255),
+    0 0 100px rgb(222 59 255);;
 }
 
 .navigation  {
@@ -82,7 +77,7 @@ nav > h1 {
   justify-content: space-around;
   font-size: 21px;
   align-items: flex-end;
-  border: 3px rgb(248, 73, 225) solid;
+  border: 3px rgb(248 73 225) solid;
   border-left: none;
   border-right: none;
   margin: 0;
@@ -94,9 +89,31 @@ nav > h1 {
   width: 150px;
   text-align: center;
   text-transform: uppercase;
-  font-family: "Roboto";
+  font-family: Roboto, sans-serif;
   color: #03e9f4;
   cursor: pointer;
+}
+
+.home-items {
+  padding-top: 30px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.home-items > li {
+  color:rgb(63 194 255);
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 16px;
+  border:rgb(0 204 255) 1px  solid; 
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.info-list-items > li {
+  color: rgb(215 235 231 / 82.9%);
 }
 
 .navigation > li:hover {
@@ -107,38 +124,16 @@ nav > h1 {
     0 0 100px #03e9f4;
 }
 
-.homeItems {
-  padding-top: 30px;
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.homeItems > li {
-  color:rgb(63, 194, 255);
-  list-style-type: none;
-  cursor: pointer;
-  font-size: 16px;
-  border:rgb(0, 204, 255) 1px  solid; 
-  padding: 20px;
-  text-transform: uppercase;
-}
-
-.homeItems > li:hover {
-  background-color:rgb(63, 194, 255);
-  color:rgb(0, 0, 0);
+.home-items > li:hover {
+  background-color:rgb(63 194 255);
+  color:rgb(0 0 0);
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
   0 0 200px #03e9f4;
 }
 
 p, label {
-  color: rgba(215, 235, 231, 0.829);
+  color: rgb(215 235 231 / 82.9%);
   font-size: 20px;
-}
-
-.infoLi > li {
-  color: rgba(215, 235, 231, 0.829);
 }
 
 #gif {
@@ -154,5 +149,5 @@ padding-top: 10px;
 }
 
 a {
-  color:rgb(103, 177, 182);
+  color:rgb(103 177 182);
 }

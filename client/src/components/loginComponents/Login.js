@@ -42,7 +42,7 @@ function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   };
 
     return (
-      <section id="loginForm">
+      <section id="login-form">
         <fieldset>
           <legend><h1> Login </h1></legend>
           <form onSubmit={handleSubmit}>
