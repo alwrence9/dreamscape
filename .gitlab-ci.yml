@@ -65,7 +65,7 @@ lint-server:
   script:
     - cd server
     - npm ci --cache .cache/client
-    - npm run lint
+    - eslint --ignore-path .eslintignore '**/*.js'
   allow_failure: false
 
 #test phase
@@ -86,7 +86,6 @@ deploy:
     - build-backend
   only:
     - main
-    - dev
   before_script:
     - apk update
     - apk add zip
