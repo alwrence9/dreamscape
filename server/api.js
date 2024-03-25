@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const compression = require('compression');
 const DB = require("./database/db.js");
 const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
@@ -13,7 +14,8 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { sleepRouter } = require("./routers/sleepLog.js");
 const { profileRouter } = require("./routers/profile.js");
 const { dreamRouter } = require("./routers/dreamJournal.js");
-
+const { questionsRouter } = require("./routers/quiz.js");
+const { tarotRouter } = require("./routers/tarotCard.js");
 
 app.use(express.static('../client/build'));
 app.use(express.json());
@@ -22,7 +24,13 @@ app.get('/', (req, res)=>{
 });
 
 // Use the session middleware, expires after 20 minutes
-app.use(session({secret: 'shhhhhhh'})); 
+app.use(session({
+  secret: 'shhhhhhh',
+  resave: false,
+  saveUninitialized: true,
+})); 
+
+app.use(compression());
 
 app.post('/api/v1/googleLogin', async (req, res,) => {
   const {token} = req.body;
@@ -119,7 +127,10 @@ async function login(req, res) {
 
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/sleeplogs", sleepRouter);
-app.use("/api/v1/entries", dreamRouter);
+app.use("/api/v1/dreams", dreamRouter);
+app.use("/api/v1/quiz", questionsRouter);
+app.use("/api/v1/tarot", tarotRouter);
+
 
 //TO-DO: These to be done in here and do the db questions as well, make sure the questions.json to be done
 //and functions to categorize sleepers into chronotypes and sleepers for insomnia

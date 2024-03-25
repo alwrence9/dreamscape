@@ -3,11 +3,14 @@ image: node:18.18.0
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
+#all stages
 stages:
   - lint
+  - build
   - test
-
+  - deploy
+  
+#linting phase
 lint-client:
   stage: lint 
   script:
@@ -15,7 +18,6 @@ lint-client:
     - cd client && npm run lint
   allow_failure: false
 
-  
 lint-server:
   stage: lint 
   script:
@@ -23,6 +25,44 @@ lint-server:
     - cd server && npm run lint
   allow_failure: false
 
+#build phase
+build-frontend:
+  stage: build
+  cache:
+    key:
+      prefix: 'frontend'
+      files:
+        - 'client/package-lock.json'
+    paths:
+      - 'client/node_modules/'
+  script:
+    - cd client && npm install && CI=false npm run build
+  only:
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - client/build
+      - client/node_modules
+
+build-backend:
+  stage: build
+  cache:
+    key:
+      prefix: 'backend'
+      files:
+        - 'server/package-lock.json'
+    paths:
+      - 'server/node_modules/'
+  script:
+    - cd server && npm install
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - server
+
+#test phase
 server-test:
   stage: test
   script:
@@ -30,3 +70,22 @@ server-test:
     - npm install
     - npm run test
   allow_failure: false
+
+#deploy stage
+deploy:
+  stage: deploy
+  image:  mcr.microsoft.com/azure-cli
+  dependencies:
+    - build-frontend
+    - build-backend
+  only:
+    - main
+    - staging
+  before_script:
+    - apk update
+    - apk add zip
+    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+  script:
+    - zip -r deploy.zip client/build server ./package.json
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1' ATLAS_URI=$ATLAS_URI AZURE_SAS=$AZURE_SAS"
+    - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"

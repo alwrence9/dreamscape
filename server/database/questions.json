@@ -1,0 +1,445 @@
+{
+    "questions": [
+      {
+        "type": "Chronotypes",
+        "question": "Are you naturally inclined to wake up early in the morning or stay up late at night?",
+        "choices": {
+          "Lion": "A. Early morning",
+          "Wolf": "B. Late night",
+          "Bear": "C. In between",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you have a family history of being either an early bird or a night owl?",
+        "choices": {
+          "Lion": "A. Yes, early bird",
+          "Wolf": "B. Yes, night owl",
+          "Bear": "C. No specific pattern",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "When do you feel most alert and energetic during the day - morning, afternoon, or evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Afternoon",
+          "Bear": "C. Evening",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you find it easy to wake up early and be productive in the morning?",
+        "choices": {
+          "Lion": "A. Yes",
+          "Wolf": "B. Somewhat",
+          "Bear": "C. No, prefer staying up late",
+          "Dolphin": "D. No, struggle with waking up early"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you experience difficulties falling asleep at night or waking up in the morning?",
+        "choices": {
+          "Lion": "A. Rarely",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Frequently",
+          "Dolphin": "D. Regularly"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Are you more comfortable with socializing in the morning or in the evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Evening",
+          "Bear": "C. Late evening",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "How well do you adapt to traditional office hours, starting early in the morning?",
+        "choices": {
+          "Lion": "A. Very well",
+          "Wolf": "B. Well",
+          "Bear": "C. Not well",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you prefer having meals and exercising in the morning or in the evening?",
+        "choices": {
+          "Lion": "A. Morning",
+          "Wolf": "B. Evening",
+          "Bear": "C. Either",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Have you noticed changes in your sleep patterns based on the seasons or geographical location?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Minor changes",
+          "Bear": "C. Significant changes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Would you describe yourself as open to trying new things and experiences?",
+        "choices": {
+          "Lion": "A. Yes, very open",
+          "Wolf": "B. Open, but cautious",
+          "Bear": "C. Somewhat resistant",
+          "Dolphin": "D. Not very open"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Are you generally organized, goal-oriented, and responsible in your daily life?",
+        "choices": {
+          "Lion": "A. Very much so",
+          "Wolf": "B. Moderately",
+          "Bear": "C. Not particularly",
+          "Dolphin": "D. It varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Would you say you are cooperative, friendly, and considerate towards others?",
+        "choices": {
+          "Lion": "A. Yes",
+          "Wolf": "B. Mostly",
+          "Bear": "C. Not particularly",
+          "Dolphin": "D. It varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you often experience high levels of anxiety or nervousness?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Yes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Do you find that you are more productive and alert during the late evening?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Occasionally",
+          "Bear": "C. Yes",
+          "Dolphin": "D. Varies"
+        }
+      },
+      {
+        "type": "Chronotypes",
+        "question": "Have you ever experienced difficulty sleeping or maintaining a regular sleep pattern?",
+        "choices": {
+          "Lion": "A. No",
+          "Wolf": "B. Rarely",
+          "Bear": "C. Occasionally",
+          "Dolphin": "D. Frequently"
+        }
+      },
+          {
+            "type": "Insomnia",
+            "question": "What time do you go to bed? What time is your final awakening?",
+            "choices": {
+              "Episodic": "A. Before 10 PM / After 7 AM",
+              "Persistent": "B. 10 PM - 12 AM / 5 AM - 7 AM",
+              "Recurrent": "C. After 12 AM / Before 5 AM"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How long does it take you to fall asleep?",
+            "choices": {
+              "Episodic": "A. Less than 15 minutes",
+              "Persistent": "B. 15-30 minutes",
+              "Recurrent": "C. More than 30 minutes"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you awaken during the night? If yes, how many times?",
+            "choices": {
+              "Episodic": "A. No",
+              "Persistent": "B. Once",
+              "Recurrent": "C. Multiple times"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How much total sleep time do you get?",
+            "choices": {
+              "Episodic": "A. 7-8 hours",
+              "Persistent": "B. 5-6 hours",
+              "Recurrent": "C. Less than 5 hours"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "What treatments have you tried for your sleep problem?",
+            "choices": {
+              "Episodic": "A. Lifestyle changes",
+              "Persistent": "B. Over-the-counter medications",
+              "Recurrent": "C. Professional help"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How do you sleep away from home (e.g., on vacation)?",
+            "choices": {
+              "Episodic": "A. Similar to at home",
+              "Persistent": "B. Worse than at home",
+              "Recurrent": "C. Better than at home"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you fall asleep more easily on the couch than in the bed?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you feel frustrated or tense when seeing your bed or bedroom?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you think about your sleep difficulty during the day?",
+            "choices": {
+              "Episodic": "A. Constantly",
+              "Persistent": "B. Occasionally",
+              "Recurrent": "C. Rarely"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you have any medical problems? (Review of systems)",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you watch television, read, work, or eat during the night? In bed?",
+            "choices": {
+              "Episodic": "A. Yes, in bed",
+              "Persistent": "B. Yes, but not in bed",
+              "Recurrent": "C. No"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Are you easily awakened by noise or light?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Was there a precipitating event when your insomnia first began?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you snore?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Have you felt depressed recently?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How is your appetite? Has your weight changed lately? How much?",
+            "choices": {
+              "Episodic": "A. Significant changes",
+              "Persistent": "B. Minor changes",
+              "Recurrent": "C. No changes"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you have any phobias? Panic attacks?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How is your marriage? Does your spouse understand the problems you have been having with your sleep?",
+            "choices": {
+              "Episodic": "A. Strained relationship",
+              "Persistent": "B. Supportive relationship",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you have an active sex life? Does this affect your ability to sleep?",
+            "choices": {
+              "Episodic": "A. Yes, negatively",
+              "Persistent": "B. Yes, positively",
+              "Recurrent": "C. No impact"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you have a stressful job? Stressful life?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you find it difficult to get out of bed in the morning?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you sleep later on weekends (or days off)?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "What are your work hours?",
+            "choices": {
+              "Episodic": "A. Irregular hours",
+              "Persistent": "B. Regular hours",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you ever change work shifts?",
+            "choices": {
+              "Episodic": "A. Frequently",
+              "Persistent": "B. Rarely",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How does poor sleep interfere with your performance the following day?",
+            "choices": {
+              "Episodic": "A. Significant interference",
+              "Persistent": "B. Moderate interference",
+              "Recurrent": "C. Minimal interference"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Is your job performance affected?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you fall asleep at unexpected times during the day?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "What would you like to see changed about your sleep?",
+            "choices": {
+              "Episodic": "A. Better duration",
+              "Persistent": "B. Improved quality",
+              "Recurrent": "C. Both"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "How would improved sleep affect your daytime functioning?",
+            "choices": {
+              "Episodic": "A. Significantly",
+              "Persistent": "B. Moderately",
+              "Recurrent": "C. Minimally"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do any family members have insomnia, excessive sleepiness, or another sleep disorder?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Do you and your bed partner have similar bedtimes?",
+            "choices": {
+              "Episodic": "A. No",
+              "Persistent": "B. Yes",
+              "Recurrent": "C. I don't know"
+            }
+          },
+          {
+            "type": "Insomnia",
+            "question": "Does your sleep ever improve under certain circumstances?",
+            "choices": {
+              "Episodic": "A. Yes",
+              "Persistent": "B. No",
+              "Recurrent": "C. I don't know"
+            }
+          }
+        ]
+      }
+
+
+  

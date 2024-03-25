@@ -1,175 +1,131 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 function Quiz() {
+  const [chronotypeData, setChronotypeData] = useState(null);
+  const [insomniaData, setInsomniaData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [chronotypeAnswers, setChronotypeAnswers] = useState({});
+  const [insomniaAnswers, setInsomniaAnswers] = useState({});
+  const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
+  const [result, setResult] = useState(null);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const chronotypeResponse = await fetch('/api/v1/quiz/chronotype/5');
+      const chronotypeJson = await chronotypeResponse.json();
+
+      const insomniaResponse = await fetch('/api/v1/quiz/insomnia/5');
+      const insomniaJson = await insomniaResponse.json();
+
+      setChronotypeData(chronotypeJson);
+      setInsomniaData(insomniaJson);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setLoading(false);
+      setError("There was an error loading the webpage. Try again later.");
+    }
+  };
+
+  const handleAnswerChange = (quizType, questionId, answerType) => {
+    if (quizType === 'chronotype') {
+      setChronotypeAnswers(prevAnswers => ({...prevAnswers, [questionId]: answerType}));
+    } else if (quizType === 'insomnia') {
+      setInsomniaAnswers(prevAnswers => ({...prevAnswers, [questionId]: answerType}));
+    }
+  };
+
+  const handleSubmit = () => {
+    if (Object.keys(chronotypeAnswers).length < chronotypeData.questions.length || Object.keys(insomniaAnswers).length < insomniaData.questions.length) {
+      setSubmitErrorMessage("Answers all questions before submitting");
+      return;
+    }
+
+    const calculateMostChosenType = (answers) => {
+      const answerTypes = Object.values(answers);
+      const answerCount = answerTypes.reduce((acc, type) => {
+        acc[type] = (acc[type] || 0) + 1;
+        return acc;
+      }, {});
+      return Object.keys(answerCount).reduce((a, b) => answerCount[a] > answerCount[b] ? a : b);
+    };
+
+    const mostChosenChronotype = calculateMostChosenType(chronotypeAnswers);
+    const mostChosenInsomniaType = calculateMostChosenType(insomniaAnswers);
+    setResult({ chronotype: mostChosenChronotype, insomnia: mostChosenInsomniaType });
+  };
+
+  const handleRetake = () => {
+    setChronotypeAnswers({});
+    setInsomniaAnswers({});
+    setResult(null);
+    setSubmitErrorMessage(null);
+    fetchData();
+  };
+
+  if (loading) {
+    return <h2>loading</h2>
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
+
+  if (result) {
     return (
     <>
-      <h1> Quiz </h1>
-      <form>
-        <fieldset>
-          <legend> What is your chronotype?</legend>
-          
-          <label>
-            1. Are you naturally inclined to wake up early in the morning or stay up late at night?
-            <br />
-            <input type="radio" name="q1" value="early" /> Early Bird
-            <input type="radio" name="q1" value="late" /> Night Owl
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            2. Do you have a family history of being either an early bird or a night owl?
-            <br />
-            <input type="radio" name="q2" value="yes" /> Yes
-            <input type="radio" name="q2" value="no" /> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            3. When do you feel most alert and energetic during the day - morning, afternoon, or evening?
-            <br />
-            <input type="radio" name="q3" value="morning" /> Morning
-            <input type="radio" name="q3" value="afternoon" /> Afternoon
-            <input type="radio" name="q3" value="evening" /> Evening
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            4. Do you find it easy to wake up early and be productive in the morning?
-            <br/>
-            <input type="radio" name="q4" value="yes"/> Yes
-            <input type="radio" name="q4" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            5. Do you experience difficulties falling asleep at night or waking up in the morning?
-            <br/>
-            <input type="radio" name="q5" value="yes"/> Yes
-            <input type="radio" name="q5" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            6. Are you more comfortable with socializing in the morning or in the evening?
-            <br/>
-            <input type="radio" name="q6" value="morning"/> Morning
-            <input type="radio" name="q6" value="evening"/> Evening
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            7. How well do you adapt to traditional office hours, starting early in the morning?
-            <br/>
-            <input type="radio" name="q7" value="well"/> Well
-            <input type="radio" name="q7" value="not-well"/> Not well
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            8. Do you prefer having meals and exercising in the morning or in the evening?
-            <br/>
-            <input type="radio" name="q8" value="morning"/> Morning
-            <input type="radio" name="q8" value="evening"/> Evening
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            9. Have you noticed changes in your sleep patterns based on the seasons or geographical location?
-            <br/>
-            <input type="radio" name="q9" value="yes"/> Yes
-            <input type="radio" name="q9" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            10. Would you describe yourself as open to trying new things and experiences?
-            <br/>
-            <input type="radio" name="q10" value="yes"/> Yes
-            <input type="radio" name="q10" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            11. Are you generally organized, goal-oriented, and responsible in your daily life?
-            <br/>
-            <input type="radio" name="q11" value="yes"/> Yes
-            <input type="radio" name="q11" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            12. Would you say you are cooperative, friendly, and considerate towards others?
-            <br/>
-            <input type="radio" name="q12" value="yes"/> Yes
-            <input type="radio" name="q12" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            13. Do you often experience high levels of anxiety or nervousness?
-            <br/>
-            <input type="radio" name="q13" value="yes"/> Yes
-            <input type="radio" name="q13" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            14. Do you find that you are more productive and alert during the late evening?
-            <br/>
-            <input type="radio" name="q14" value="yes"/> Yes
-            <input type="radio" name="q14" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-          <label>
-            15. Have you ever experienced difficulty sleeping or maintaining a regular sleep pattern?
-            <br/>
-            <input type="radio" name="q15" value="yes"/> Yes
-            <input type="radio" name="q15" value="no"/> No
-          </label>
-
-          <br />
-          <br />
-
-        </fieldset>
-        <button type="submit">Submit</button>
-      </form>
-      <p>Source: <br/></p>
-      <ul>
-        <li><a href="https://psychcentral.com/quizzes/chronotype-quiz">Psych Central</a></li>
-        <li><a href="https://sleepdoctor.com/sleep-quizzes/chronotype-quiz/">Sleep Doctor</a></li>
-        <li><a href="https://sleepopolis.com/chronotypes-quiz/">Sleep Opolis</a></li>
-      </ul>
+      <h1>You are a {result.chronotype}</h1>
+      <h1>You have {result.insomnia} insomnia</h1>
+      <button onClick={handleRetake}>Retake Quiz</button>
     </>
+    )
+  }
+
+  return (
+      <>
+        <h1>Quiz</h1>
+        <h2>Chronotype Quiz</h2>
+        {chronotypeData.questions.map(question => (
+            <div key={question._id}>
+              <p>{question.question}</p>
+              {Object.entries(question.choices).map(([type, text]) => (
+                  <label key={type}>
+                    <input
+                        type="radio"
+                        name={question._id}
+                        value={type}
+                        onChange={() => handleAnswerChange('chronotype', question._id, type)}
+                    />
+                    {text}
+                  </label>
+              ))}
+            </div>
+        ))}
+        <h2>Insomnia Quiz</h2>
+        {insomniaData.questions.map(question => (
+            <div key={question._id}>
+              <p>{question.question}</p>
+              {Object.entries(question.choices).map(([type, text]) => (
+                  <label key={type}>
+                    <input
+                        type="radio"
+                        name={question._id}
+                        value={type}
+                        onChange={() => handleAnswerChange('insomnia', question._id, type)}
+                    />
+                    {text}
+                  </label>
+              ))}
+            </div>
+        ))}
+        {submitErrorMessage && <p style={{color: 'red'}}>{submitErrorMessage}</p>}
+        <button onClick={handleSubmit}>Submit</button>
+      </>
   );
 }
 
