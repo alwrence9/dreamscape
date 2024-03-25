@@ -15,9 +15,12 @@ cache:
     key:
       files:
         - ./server/package.json
-        - ./client/package.json
     paths:
       - .cache/server
+    key:
+      files:
+        - ./client/package.json
+    paths:
       - .cache/client
 
 #build phase
@@ -62,7 +65,7 @@ lint-server:
   script:
     - cd server
     - npm ci --cache .cache/client
-    - npm run lint
+    - eslint --ignore-path .eslintignore '**/*.js'
   allow_failure: false
 
 #test phase
