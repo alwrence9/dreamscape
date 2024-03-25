@@ -81,7 +81,7 @@ async function postImage(file, fileName) {
     const blobClient = containerClient.getBlockBlobClient(blobName);
 
     //Set mimetype as determined from browser with file upload control
-    const options = { blobHTTPHeaders: { blobContentType: 'application/octet-stream' } };
+    const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
     //Upload image to blob storage account in azure
     await blobClient.uploadData(file, options);
 
