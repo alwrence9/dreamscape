@@ -72,7 +72,6 @@ function Dream() {
       const response = await fetch(url);
       if (response.ok) {
         const res = await response.json();
-        console.log(res.tarotCard[0]);
         setCurrentCard(res.tarotCard[0]);
       }
     } catch (e) {
@@ -112,10 +111,10 @@ function Dream() {
       </form>
 
       <section id="tarot-section">
-        <button onClick={fetchCard}> Get your dreamly tarot card! </button>
         { currentCard.image &&
-          <img src={currentCard.image} alt={currentCard.alt}/>
+          <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
         }
+        <button onClick={fetchCard}> Get your dreamly tarot card! </button>
       </section>
 
       <p>{resultText}</p>
