@@ -18,7 +18,13 @@ function SleepMetrics() {
   const [refetch, setRefetch] = useState(true);
 
   async function fetchSleepLogs() {
-    const url = `${'/api/v1/sleeplogs/'+email}`;
+    const today = Date.now()
+    const lastWeekDate = new Date(today - 7 * 24 * 60 * 60 * 1000)
+    const sevenDaysAgo = new Date(`${lastWeekDate.getMonth() + 1}-${lastWeekDate.getDate()}-${lastWeekDate.getFullYear()}`).getTime()
+
+    //?start=${sevenDaysAgo}&end=${today}
+
+    const url = `/api/v1/sleeplogs/${email}`;
     try {
       const response = await fetch(url);
       const res = await response.json();
@@ -98,6 +104,8 @@ function SleepMetrics() {
     title: 'Sleep Metrics Bar Chart',
     xaxis: { title: 'Date' },
     yaxis: { title: 'Sleep Hours' },
+    plot_bgcolor:"white",
+    paper_bgcolor:"white" 
   };
 
   //TODO This should be fixed
