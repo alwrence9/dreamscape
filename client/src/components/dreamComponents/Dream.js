@@ -110,11 +110,15 @@ function Dream() {
         <button id="dream-submit" type="submit">Save</button>
       </form>
 
-      <section id="tarot-section">
+      <section id="fortune-telling"> 
+        <h3> Do you wonder what the meaning of your dream is? </h3>
         { currentCard.image &&
           <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
         }
         <button onClick={fetchCard}> Get your dreamly tarot card! </button>
+
+        <h4> You got the {currentCard.name} of {currentCard.suit} </h4>
+        <p> {currentCard.description} </p>
       </section>
 
       <p>{resultText}</p>
