@@ -86,7 +86,7 @@ deploy:
     - build-backend
   only:
     - main
-    - staging
+    - dev
   before_script:
     - apk update
     - apk add zip
