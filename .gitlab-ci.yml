@@ -65,7 +65,7 @@ lint-server:
   script:
     - cd server
     - npm ci --cache .cache/client
-    - eslint --ignore-path .eslintignore '**/*.js'
+    - npm run lint
   allow_failure: false
 
 #test phase
