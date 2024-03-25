@@ -252,13 +252,17 @@ class DB{
     return questions;
   }
 
+  async getRandomChronotypeQuestion(numQuestions) {
+    numQuestions = parseInt(numQuestions) || 0;
+    const questions = await ChronotypeQuestion.aggregate([{ $sample: { size: numQuestions } }]);
+    return questions;
+  }
+
   //Clear all chronotype questions
   async clearChronotypeQuestion(){
   const results = await ChronotypeQuestion.deleteMany({"question": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} chronotype questions`);
   }
-
-
 
   //Inserts insomnia question into database
   async insertInsomniaQuestion({question, episodic, persistent, recurrent}){
@@ -270,6 +274,12 @@ class DB{
   async getInsomniaQuestion(){
   const questions = InsomniaQuestion.find({"question": { $regex: /.*/}});
   return questions;
+  }
+
+  async getRandomInsomniaQuestion(numQuestions) {
+    numQuestions = parseInt(numQuestions) || 0;
+    const questions = await InsomniaQuestion.aggregate([{ $sample: { size: numQuestions } }]);
+    return questions;
   }
 
   //Clear all insomnia questions
