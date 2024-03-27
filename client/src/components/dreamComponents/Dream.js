@@ -80,6 +80,30 @@ function Dream() {
     }
   }
 
+  function styling(style) {
+    const dreamDesc = document.getElementById("dream-desc");
+    const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
+    const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+    
+    let newString = "";
+    switch(style) {
+      case "bold":
+        newString = "  <b>" + substring + "</b>  "
+        break;
+      case "italics":
+        newString = "  <i>" + substring + "</i>  "
+        break;
+      case "highlight":
+        newString = "<mark>" + substring + "</mark>"
+        break;
+      default:
+        newString = substring
+        break;
+    }
+    const replacement = dreamDesc.innerHTML.replace(substring, newString);
+    dreamDesc.innerHTML = replacement;
+  }
+
   useEffect(() => {
     fetchEntries();
   }, []);
@@ -87,22 +111,9 @@ function Dream() {
     return (
     <section id="dreams">
       <h1> Dream </h1>
-      <button onClick={(e)=> {
-        const dreamDesc = document.getElementById("dream-desc");
-        const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
-        const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
-        const newString = " <b>" + substring + "</b> "
-        const replacement = dreamDesc.innerHTML.replace(substring, newString);
-        dreamDesc.innerHTML = replacement;
-      }}>Bold</button>
-      <button onClick={(e)=> {
-        const dreamDesc = document.getElementById("dream-desc");
-        const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
-        const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
-        const newString = " <em>" + substring + "</em> "
-        const replacement = dreamDesc.innerHTML.replace(substring, newString);
-        dreamDesc.innerHTML = replacement;
-      }}>Italics</button>
+      <button onClick={()=>{styling("bold");}}>Bold</button>
+      <button onClick={()=>{styling("italics");}}>Italics</button>
+      <button onClick={()=>{styling("highlight");}}>Highlight</button>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
           value={title} 
