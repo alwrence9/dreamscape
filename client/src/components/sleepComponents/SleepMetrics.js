@@ -17,25 +17,50 @@ function SleepMetrics() {
   const [sinceEpoch, setsinceEpoch] = useState(0);
   const [refetch, setRefetch] = useState(true);
 
+  const dayMiliseconds = 24 * 60 * 60 * 1000
+
   async function fetchSleepLogs() {
     const today = Date.now()
-    const lastWeekDate = new Date(today - 7 * 24 * 60 * 60 * 1000)
+    const lastWeekDate = new Date(today - 7 * dayMiliseconds)
     const sevenDaysAgo = new Date(`${lastWeekDate.getMonth() + 1}-${lastWeekDate.getDate()}-${lastWeekDate.getFullYear()}`).getTime()
 
-    //?start=${sevenDaysAgo}&end=${today}
-
-    const url = `/api/v1/sleeplogs/${email}`;
+    const url = `/api/v1/sleeplogs/${email}?start=${sevenDaysAgo}&end=${today}`;
     try {
       const response = await fetch(url);
       const res = await response.json();
-      setSleepLogs(res.sleepLogs.sort((a, b) => a.date.sinceEpoch - b.date.sinceEpoch));
-      console.log(res.sleepLogs);
+      const entries = fillEmptyDates(sevenDaysAgo, today, res.sleepLogs)
+      setSleepLogs(entries);
       setRefetch(false);
     } catch (e) {
       console.log(e);
     }
   }
 
+  function fillEmptyDates(start, end, entries) {
+    const sleepLogs = []
+
+    for (let ms = start; ms <= end; ms = ms + dayMiliseconds){
+      const date = new Date(ms)
+      const search = entries.find( (entry) => entry.date.sinceEpoch === ms );
+      if(search){
+        sleepLogs.push(search);
+      }
+      else{
+        const newEntry = {
+          "email" : email,
+          "date" : {
+            "string": `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`,
+            "sinceEpoch": ms
+          },
+          "hoursSlept": 0,
+          "notes": ""
+        };
+        sleepLogs.push(newEntry);
+      }
+    }
+
+    return sleepLogs;
+  }
 
   useEffect(() => {
     fetchSleepLogs();
@@ -107,33 +132,6 @@ function SleepMetrics() {
     plot_bgcolor:"white",
     paper_bgcolor:"white" 
   };
-
-  //TODO This should be fixed
-  function fillEmptyDates(firstSE, copy) {
-    const listSE = sleepLogs.map((entry) => entry.date.sinceEpoch);
-    const firstDate = new Date(firstSE);
-    const nextDate = new Date(firstSE + (24 * 60 * 60 * 1000));
-    if (!listSE.includes(nextDate.getTime())) {
-      const log = { date:{string: `${nextDate.getMonth()+1}-${nextDate.getDate()}-${nextDate.getFullYear()}`, sinceEpoch: nextDate.getTime()}, 
-                    email:email ,
-                    hoursSlept:0,
-                    notes:"",
-                  }
-      copy.push(log);
-    }
-    else {
-      for (const log of sleepLogs) {
-        if (log.date.sinceEpoch === nextDate.getTime()) {
-          copy.push(log);
-          break;
-        }
-      }
-    }
-    if (nextDate.getFullYear()===2025) {
-      return 0;
-    }
-    fillEmptyDates(nextDate.getTime(), copy);
-  }
 
   function formatDate(str) {
     const prevD = new Date(str);
