@@ -1,14 +1,15 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
+
 import './Spd.css';
 
 function Spd() {
-  const storedToken = localStorage.getItem("token");
-  const email = storedToken ? JSON.parse(storedToken).email : null
-  if (email===null) {
-    return(
-      <h4>You have to login first in order to use this service</h4>
-    );
-  }
+
+  const [spdEntries, setSpdEntries] = useState([]);
+  const [spdEntry, setSpdEntry] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDiscription] = useState('');
+  const [location, setsinceEpoch] = useState(0);
+  const [refetch, setRefetch] = useState(true);
   
   return(
   <>
