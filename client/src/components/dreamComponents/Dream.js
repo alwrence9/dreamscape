@@ -95,6 +95,14 @@ function Dream() {
         const replacement = dreamDesc.innerHTML.replace(substring, newString);
         dreamDesc.innerHTML = replacement;
       }}>Bold</button>
+      <button onClick={(e)=> {
+        const dreamDesc = document.getElementById("dream-desc");
+        const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
+        const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+        const newString = " <em>" + substring + "</em> "
+        const replacement = dreamDesc.innerHTML.replace(substring, newString);
+        dreamDesc.innerHTML = replacement;
+      }}>Italics</button>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
           value={title} 
