@@ -70,11 +70,12 @@ function SleepMetrics() {
 
   const addSleepData = async () => {
     if (enteredDate && enteredHours && sinceEpoch) {
+      console.log("tesyt")
       const url = '/api/v1/sleeplogs/new';
   
       const data = {
         email: email,
-        date: { string: enteredDate, sinceEpoch: sinceEpoch },
+        date: { string: formatDate(enteredDate), sinceEpoch: sinceEpoch },
         hoursSlept: parseFloat(enteredHours),
         optionalComment: enteredNote,
       };
@@ -95,7 +96,7 @@ function SleepMetrics() {
         setRefetch(true)
   
         setDate('');
-        setHours('');
+        setHours(0);
         setNote('');
         setsinceEpoch(0);
       } catch (error) {
@@ -136,7 +137,6 @@ function SleepMetrics() {
     //Add one extra day
     const d = new Date(prevD.getTime() + (24 * 60 * 60 * 1000));
     d.setHours(0);
-    setsinceEpoch(d.getTime());
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
     const year = d.getFullYear();
@@ -144,6 +144,13 @@ function SleepMetrics() {
     return formattedDate;
   } 
 
+  function formatSinceEPOCH(str) {
+    const prevD = new Date(str);
+    //Add one extra day
+    const d = new Date(prevD.getTime() + (24 * 60 * 60 * 1000));
+    d.setHours(0);
+    return d.getTime();
+  } 
 
   return (
     <section id="sleep-metrics">
@@ -163,17 +170,18 @@ function SleepMetrics() {
                 </div>
 
                 <div id ="input-column">
-                  <input type="date" value={enteredDate} onChange={(e) => setDate(formatDate(e.target.value))}/>
+                  <input type="date" value={enteredDate} onChange={(e) => { setDate(e.target.value); setsinceEpoch(formatSinceEPOCH(e.target.value)) }}/>
                   <input type="number" min="0" max="24" value={enteredHours} onChange={(e) => setHours(e.target.value)} />
                   <textarea placeholder="Notes" value={enteredNote} onChange={(e) => setNote(e.target.value)} />
                 </div>
               </div>
 
-              <div id="sleep-form-buttons">
-                <button onClick={addSleepData}>Add Sleep hours</button>
-              </div>
-
             </form>
+
+            <div id="sleep-form-buttons">
+              <button onClick={addSleepData}>Add Sleep hours</button>
+            </div>
+
           </fieldset>
         </div>
       </details>
