@@ -111,9 +111,6 @@ function Dream() {
     return (
     <section id="dreams">
       <h1> Dream </h1>
-      <button onClick={()=>{styling("bold");}}>Bold</button>
-      <button onClick={()=>{styling("italics");}}>Italics</button>
-      <button onClick={()=>{styling("highlight");}}>Highlight</button>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
           value={title} 
@@ -124,6 +121,12 @@ function Dream() {
           onChange={(e) => setDate(e.target.value)}
           required/>
 
+        <div className="styling-names">
+          <button onClick={()=>{styling("bold");}}>Bold</button>
+          <button onClick={()=>{styling("italics");}}>Italics</button>
+          <button onClick={()=>{styling("highlight");}}>Highlight</button>
+        </div>
+  
         <ContentEditable id="dream-desc" html={optionalDescription} onChange={(e) => setDescription(e.target.value)}/>
 
         <button id="dream-submit" type="submit">Save</button>

@@ -52,3 +52,17 @@
   width: 30%;
   margin-left: 5%;
 }
+
+.styling-names {
+  width: 30%;
+  margin-left: 9.5%;
+  margin-bottom: 0%;
+  display: inline;
+}
+
+.styling-names button {
+  margin-right: 1%;
+  background-color: rgb(222 59 255);
+  border-radius: 5px;
+  border-width: 0;
+}
