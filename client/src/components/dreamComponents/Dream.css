@@ -25,10 +25,12 @@
 }
 
 .tarot {
-  width: 15%;
+  display: block;
+  max-height:250px;
+  width: auto;
   height: auto;
   margin-bottom: 2%;
-}
+} 
 
 #fortune-telling {
   display: flex;
