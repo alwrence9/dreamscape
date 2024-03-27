@@ -147,7 +147,7 @@ function Dream() {
           <h4> You got the {currentCard.name} </h4>
         </>
         }
-        <button onClick={fetchCard}> Do you wonder what the meaning of your dream is? </button>
+        <button onClick={fetchCard} className="tarot-button"> Do you wonder what the meaning of your dream is? </button>
         
       </section>
       }
