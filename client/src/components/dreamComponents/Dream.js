@@ -110,16 +110,25 @@ function Dream() {
         <button id="dream-submit" type="submit">Save</button>
       </form>
 
+      { optionalDescription !== 'Write all about your dreams here!' &&
       <section id="fortune-telling"> 
-        <h3> Do you wonder what the meaning of your dream is? </h3>
         { currentCard.image &&
-          <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
+        <>
+          <div className="img-desc-container">
+            <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
+            {<script> console.log(currentCard.description) </script>}
+            <p className="tarot-desc"> {currentCard.description} </p>
+            {/* <ul>
+                {currentCard.description.map((desc)=>{return <li key={desc}>{desc}</li>})}
+            </ul> */}
+          </div>
+          <h4> You got the {currentCard.name} </h4>
+        </>
         }
-        <button onClick={fetchCard}> Get your dreamly tarot card! </button>
-
-        <h4> You got the {currentCard.name} of {currentCard.suit} </h4>
-        <p> {currentCard.description} </p>
+        <button onClick={fetchCard}> Do you wonder what the meaning of your dream is? </button>
+        
       </section>
+      }
 
       <p>{resultText}</p>
 
