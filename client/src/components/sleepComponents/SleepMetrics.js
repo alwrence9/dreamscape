@@ -21,15 +21,15 @@ function SleepMetrics() {
   const dayMiliseconds = 24 * 60 * 60 * 1000
 
   async function fetchSleepLogs() {
-    const today = Date.now()
-    const lastWeekDate = new Date(today - 7 * dayMiliseconds)
+    const date = new Date(Date.now());
+    const lastWeekDate = new Date(date - 7 * dayMiliseconds)
     const sevenDaysAgo = new Date(`${lastWeekDate.getMonth() + 1}-${lastWeekDate.getDate()}-${lastWeekDate.getFullYear()}`).getTime()
 
-    const url = `/api/v1/sleeplogs/${email}?start=${sevenDaysAgo}&end=${today}`;
+    const url = `/api/v1/sleeplogs/${email}?start=${sevenDaysAgo}&end=${date}`;
     try {
       const response = await fetch(url);
       const res = await response.json();
-      const entries = fillEmptyDates(sevenDaysAgo, today, res.sleepLogs)
+      const entries = fillEmptyDates(sevenDaysAgo, date, res.sleepLogs)
       setSleepLogs(entries);
       setRefetch(false);
     } catch (e) {
@@ -152,6 +152,13 @@ function SleepMetrics() {
     return d.getTime();
   } 
 
+  function getStartOfWeek(date){
+    const formattedDate = new Date(formatDate(date));
+    const daysFromMonday = formattedDate.getDay() !== 0 ? formattedDate.getDay() - 1 : 6;
+    const monday = new Date(formattedDate.getTime() - (daysFromMonday * dayMiliseconds) );
+    console.log(monday)
+  }
+
   return (
     <section id="sleep-metrics">
       <h1>Sleep Metrics</h1>
@@ -185,6 +192,7 @@ function SleepMetrics() {
           </fieldset>
         </div>
       </details>
+      <input type="date" value={enteredDate} onChange={(e) => { setViewedWeek(getStartOfWeek(e.target.value)); } }/>
       {sleepLogs.length > 0 && (
         <div>
           <div id="sleep-metrics-container">
