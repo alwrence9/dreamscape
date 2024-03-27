@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
+import './SleepMetrics.css';
 
 function SleepMetrics() {
   const storedToken = localStorage.getItem("token");
@@ -12,7 +13,7 @@ function SleepMetrics() {
 
   const [sleepLogs, setSleepLogs] = useState([]);
   const [enteredDate, setDate] = useState('');
-  const [enteredHours, setHours] = useState('');
+  const [enteredHours, setHours] = useState(0);
   const [enteredNote, setNote] = useState('');
   const [sinceEpoch, setsinceEpoch] = useState(0);
   const [refetch, setRefetch] = useState(true);
@@ -64,9 +65,6 @@ function SleepMetrics() {
 
   useEffect(() => {
     fetchSleepLogs();
-    //const copy = [];
-    //fillEmptyDates(1707868800000, copy);
-    //setSleepLogs(copy);
   }, [refetch]);
 
 
@@ -111,7 +109,7 @@ function SleepMetrics() {
     y: Array(sleepLogs.length).fill(8),
     type: 'scatter',
     mode: 'lines',
-    name: 'Ideal Number of Sleep Hours',
+    name: 'Ideal Sleep Hours',
     line: { color: 'red', dash: 'dash' }, 
   };
 
@@ -119,18 +117,18 @@ function SleepMetrics() {
     x: sleepLogs.map((entry) => entry.date.string),
     y: sleepLogs.map((entry) => entry.hoursSlept),
     type: 'bar',
-    name: 'Your Number of Sleep Hours',
+    name: 'Hours Slept',
     marker: { color: 'rgba(75, 192, 192, 0.6)' },
   };
 
   const data = [userSleepData, idealSleepData];
 
   const layout = {
-    title: 'Sleep Metrics Bar Chart',
+    title: 'Sleep Metrics Chart',
     xaxis: { title: 'Date' },
-    yaxis: { title: 'Sleep Hours' },
-    plot_bgcolor:"white",
-    paper_bgcolor:"white" 
+    yaxis: { title: 'Hours Slept' },
+    plot_bgcolor:"#C0C0C0",
+    paper_bgcolor:"#C0C0C0" 
   };
 
   function formatDate(str) {
@@ -148,40 +146,63 @@ function SleepMetrics() {
 
 
   return (
-    <div>
+    <section id="sleep-metrics">
       <h1>Sleep Metrics</h1>
-      <div>
-        <label>Date:</label>
-        <input type="date" value={enteredDate} onChange={(e) => setDate(formatDate(e.target.value))}/>
-      </div>
-      <div>
-        <label>Sleep Hours:</label>
-        <input type="number" value={enteredHours} onChange={(e) => setHours(e.target.value)} />
-      </div>
-      <div>
-        <label>Descrption:</label>
-        <input type="text" value={enteredNote} onChange={(e) => setNote(e.target.value)} />
-      </div>
-      <button onClick={addSleepData}>Add Sleep hours</button>
+      <details>
+          <summary>Enter a new sleep log!</summary>
+          <div id="sleep-form-container">
+          <fieldset>
+            <legend><h1>New Sleep Log Entry</h1></legend>
+            <form>
+              <div id="sleep-form">
 
+                <div id ="label-column">
+                  <label>Date:</label>
+                  <label>Sleep Hours:</label>
+                  <label>Descrption:</label>
+                </div>
+
+                <div id ="input-column">
+                  <input type="date" value={enteredDate} onChange={(e) => setDate(formatDate(e.target.value))}/>
+                  <input type="number" min="0" max="24" value={enteredHours} onChange={(e) => setHours(e.target.value)} />
+                  <textarea placeholder="Notes" value={enteredNote} onChange={(e) => setNote(e.target.value)} />
+                </div>
+              </div>
+
+              <div id="sleep-form-buttons">
+                <button onClick={addSleepData}>Add Sleep hours</button>
+              </div>
+
+            </form>
+          </fieldset>
+        </div>
+      </details>
       {sleepLogs.length > 0 && (
         <div>
-          <h2>Entered Data:</h2>
-          <ul>
-            {sleepLogs.map((entry, index) => (
-              <li key={index}>{`${entry.date.string}: ${entry.hoursSlept} hours, Optional note: ${entry.notes}`}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+          <div id="sleep-metrics-container">
+            <div id="sleep-notes">
+              <h2>Previous Sleep Logs:</h2>
+              <ul>
+                {
+                sleepLogs.map((entry, index) => {
+                  const date = new Date(entry.date.string)
+                  return <li key={index}>{`${date.toDateString()}:`}<br/>{`${entry.notes? entry.notes: "None"}`}</li>
+                })
+                }
+              </ul>
+            </div>
 
-      {sleepLogs.length > 0 && (
-        <div>
-          <h2>Result:</h2>
-          <Plot data={data} layout={layout} />
+            <div id="chart-container">
+            {
+            sleepLogs.length > 0 && (
+              <Plot data={data} layout={layout} />
+            )}
+            </div>
+
+          </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

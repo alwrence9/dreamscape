@@ -45,3 +45,9 @@
     color: white;
     margin: 7px 0;
 }
+
+#sleep-form-buttons{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
