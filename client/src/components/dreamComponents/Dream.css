@@ -10,6 +10,9 @@
   align-self: center;
   margin-bottom: 2%;
   background-color: #B4D2DC;
+  text-align:start;
+  color: black;
+  font-size: 0.8em;
 }
 
 #dreams > form > input {

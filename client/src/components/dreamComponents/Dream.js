@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ContentEditable from 'react-contenteditable'
 import './Dream.css';
 
 function Dream() {
@@ -87,12 +88,12 @@ function Dream() {
     <section id="dreams">
       <h1> Dream </h1>
       <button onClick={(e)=> {
-        console.log(window.getSelection().toString());
         const dreamDesc = document.getElementById("dream-desc");
-        const index = dreamDesc.textContent.indexOf("here!");
-        const substring = dreamDesc.textContent.substring(index);
-        const newString = "<b>" + substring + "</b>"
-        document.getElementById('dream-desc').textContent.replace(substring, newString);
+        const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
+        const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+        const newString = " <b>" + substring + "</b> "
+        const replacement = dreamDesc.innerHTML.replace(substring, newString);
+        dreamDesc.innerHTML = replacement;
       }}>Bold</button>
       <form onSubmit={handleSubmit} className="journal-entry">
         <input type="text" 
@@ -104,8 +105,7 @@ function Dream() {
           onChange={(e) => setDate(e.target.value)}
           required/>
 
-        <textarea id="dream-desc" value={optionalDescription} 
-          onChange={(e) => setDescription(e.target.value)}> </textarea>
+        <ContentEditable id="dream-desc" html={optionalDescription} onChange={(e) => setDescription(e.target.value)}/>
 
         <button id="dream-submit" type="submit">Save</button>
       </form>
