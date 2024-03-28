@@ -44,7 +44,7 @@ async function createSleepLog(req, res) {
     return res.status(401).json({ status: 401, message: 'Sleep log missing date.' });
   }
 
-  if (date.string && date.sinceEpoch && email && hoursSlept != undefined) {
+  if (date.string && date.sinceEpoch && email && hoursSlept !== undefined) {
     db.insertSleepLog({
       "email": email,
       "date": date,
