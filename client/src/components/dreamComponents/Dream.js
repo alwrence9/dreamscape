@@ -81,14 +81,32 @@ function Dream() {
   }
 
   function styling(style) {
+    let newString = '';
     const dreamDesc = document.getElementById('dream-desc');
     const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
     const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+    //TO DO: find the substring in the actual innerhtml 
+    // check the indeces after and right before the substring to check if there is a text styling tag there
+    // if found, then do the replacing thing
     if (!substring) {
       return '';
     }
+    else if (substring.includes('<b>')) {
+      style = 'other';
+      newString = substring.replace('<b>', '');
+      newString = substring.replace('</b>', '');
+    }
+    else if (substring.includes('<i>')) {
+      style = 'other';
+      newString = substring.replace('<i>', '');
+      newString = substring.replace('</i>', '');
+    }
+    else if (substring.includes('<mark>')) {
+      style = 'other';
+      newString = substring.replace('<mark>', '');
+      newString = substring.replace('</mark>', '');
+    }
 
-    let newString = '';
     switch(style) {
       case 'bold':
         newString = '  <b>' + substring + '</b>  '
@@ -144,9 +162,6 @@ function Dream() {
             <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
             {<script> console.log(currentCard.description) </script>}
             <p className="tarot-desc"> {currentCard.description} </p>
-            {/* <ul>
-                {currentCard.description.map((desc)=>{return <li key={desc}>{desc}</li>})}
-            </ul> */}
           </div>
         </>
         }

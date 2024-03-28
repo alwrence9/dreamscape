@@ -12,6 +12,7 @@ config({ path: envPath });
 const dbUrl = process.env.ATLAS_URI;
 const db = new DB();
 
+//IMPORTANT: Need to unzip the archive and have it in root of project for this
 async function init_questions_db(){
   await db.clearTarotCards();
 
@@ -21,7 +22,8 @@ async function init_questions_db(){
   const images_paths = await get_card_images(images_path);
 
   for (let i = 0; i < json.cards.length; i++){
-    await db.insertTarotCard({"name": json.cards[i].name, "number": Number(json.cards[i].number), "arcana": json.cards[i].arcana, "suit": json.cards[i].suit, "description": JSON.stringify(json.cards[i].fortune_telling), image: images_paths[i]});
+    const description = json.cards[i].fortune_telling[0];
+    await db.insertTarotCard({"name": json.cards[i].name, "number": Number(json.cards[i].number), "arcana": json.cards[i].arcana, "suit": json.cards[i].suit, description, image: images_paths[i]});
   }
 
   console.log("Insert data complete.");
