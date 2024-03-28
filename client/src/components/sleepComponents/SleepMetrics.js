@@ -200,7 +200,7 @@ function SleepMetrics() {
                 {
                 sleepLogs.map((entry, index) => {
                   const date = new Date(entry.date.string)
-                  return <li key={index}>{`${date.toDateString()}:`}<br/>{`${entry.notes? entry.notes: "None"}`}</li>
+                  return <li key={index}>{`${date.toDateString()}:`}<br/>{`${entry.notes? entry.notes: "Empty"}`}</li>
                 })
                 }
               </ul>
