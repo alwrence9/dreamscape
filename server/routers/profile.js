@@ -2,14 +2,26 @@ const express = require('express');
 const router = express.Router();
 const DB = require("../database/db.js");
 const jwt = require('jsonwebtoken');
+const cache = require('memory-cache');
 
 const db = new DB();
 
 //Gets the profile of a user for when they login
 router.get('/:email', getProfile);
 async function getProfile(req, res) {
+  const email = req.params.email;
   res.type('json');
-  const profile = await db.getProfile( req.params.email );
+
+  let profile = cache.get(`${email}-profile`)
+  if(!profile){
+    profile = await db.getProfile( email );
+    cache.put(`${email}-profile`, JSON.strongify(profile))
+  }
+  else{
+    profile = JSON.parse(profile);
+  }
+
+
   if(profile){
     return res.json( {"profile": profile});
   }
