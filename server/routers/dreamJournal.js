@@ -26,7 +26,7 @@ async function createEntry(req, res) {
   if (email && date.string && date.sinceEpoch && title) {
 
     db.insertDreamJournal({"email": email, "date": date, "title": title, "description": description});
-    cache.del(`${email}`);
+    cache.del(`${email}-dream`);
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Dream journal entry missing information' });
@@ -40,11 +40,11 @@ async function getEntry(req, res) {
   const end = Number(req.query.end);
   const date = req.query.date;
 
-  let results = cache.get(`${email}`);
+  let results = cache.get(`${email}-dream`);
   console.log(results);
   if(!results){
     results = await db.getDreamJournals( email );
-    cache.put(`${email}`, JSON.stringify(results));
+    cache.put(`${email}-dream`, JSON.stringify(results));
   }
   else{
     results = JSON.parse(results);
