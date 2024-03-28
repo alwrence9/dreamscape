@@ -10,7 +10,7 @@
   align-self: center;
   margin-bottom: 2%;
   background-color: #B4D2DC;
-  text-align:start;
+  text-align:left;
   color: black;
   font-size: 0.8em;
 }
@@ -66,6 +66,7 @@
   border-radius: 5px;
   border-width: 0;
   color: #B4D2DC;
+  margin-bottom: 3%;
 }
 
 .tarot-button {

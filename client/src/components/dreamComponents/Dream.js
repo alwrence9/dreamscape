@@ -122,9 +122,9 @@ function Dream() {
           required/>
 
         <div className="styling-names">
-          <button onClick={()=>{styling("bold");}}>Bold</button>
-          <button onClick={()=>{styling("italics");}}>Italics</button>
-          <button onClick={()=>{styling("highlight");}}>Highlight</button>
+          <button type="button" onClick={()=>{styling("bold");}}>Bold</button>
+          <button type="button" onClick={()=>{styling("italics");}}>Italics</button>
+          <button type="button" onClick={()=>{styling("highlight");}}>Highlight</button>
         </div>
   
         <ContentEditable id="dream-desc" html={optionalDescription} onChange={(e) => setDescription(e.target.value)}/>
@@ -136,6 +136,7 @@ function Dream() {
       <section id="fortune-telling"> 
         { currentCard.image &&
         <>
+          <h4> You got the {currentCard.name} </h4>
           <div className="img-desc-container">
             <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
             {<script> console.log(currentCard.description) </script>}
@@ -144,7 +145,6 @@ function Dream() {
                 {currentCard.description.map((desc)=>{return <li key={desc}>{desc}</li>})}
             </ul> */}
           </div>
-          <h4> You got the {currentCard.name} </h4>
         </>
         }
         <button onClick={fetchCard} className="tarot-button"> Do you wonder what the meaning of your dream is? </button>
