@@ -21,7 +21,9 @@
         "eqeqeq": "warn",
         "no-const-assign": "error",
         "no-unused-vars": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-cond-assign": "error",
+        "no-unreachable": "error"
     },
     "settings": {
         "react": {
