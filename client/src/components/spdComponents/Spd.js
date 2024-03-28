@@ -28,14 +28,45 @@ function Spd() {
     fetchSpdEntries();
   }, [refetch]);
 
-
+  const addSpdEntry = async () => {
+    const url = '/api/v1/spd/new';
+    if (name !=='' && level!=='') {
+      const data = {
+        name: name,
+        level: level,
+        optionalDescription: description,
+      };
+  
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        setRefetch(true)
+  
+        setName('');
+        setLevel(0);
+        setDescription('');
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
   
   return(
   <>
-    <h1>Add your SPD Experience</h1>
+    <h3>Add your SPD Experience</h3>
     <div>
       <label>Name:</label>
-      <input type="text" value={name} onChange={(e) => setName()}/>
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
     </div>
     <div>
       <label>Danger Level</label>
