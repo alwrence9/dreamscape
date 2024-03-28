@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import './SleepMetrics.css';
 
+const dayMiliseconds = 24 * 60 * 60 * 1000
+
 function SleepMetrics() {
   const storedToken = localStorage.getItem("token");
   const email = storedToken ? JSON.parse(storedToken).email : null
@@ -16,28 +18,25 @@ function SleepMetrics() {
   const [enteredHours, setHours] = useState(0);
   const [enteredNote, setNote] = useState('');
   const [sinceEpoch, setsinceEpoch] = useState(0);
-  const [refetch, setRefetch] = useState(true);
-
-  const dayMiliseconds = 24 * 60 * 60 * 1000
+  const [viewedWeek, setViewedWeek] = useState(getStartOfNextWeek(new Date(new Date(Date.now()).toLocaleDateString())));
+  const [refetch, setRefetch] = useState(false);
 
   async function fetchSleepLogs() {
-    const date = new Date(Date.now());
-    const lastWeekDate = new Date(date - 7 * dayMiliseconds)
-    const sevenDaysAgo = new Date(`${lastWeekDate.getMonth() + 1}-${lastWeekDate.getDate()}-${lastWeekDate.getFullYear()}`).getTime()
+    const sevenDaysAgo = viewedWeek - (7 * dayMiliseconds);
 
-    const url = `/api/v1/sleeplogs/${email}?start=${sevenDaysAgo}&end=${date}`;
-    try {
-      const response = await fetch(url);
-      const res = await response.json();
-      const entries = fillEmptyDates(sevenDaysAgo, date, res.sleepLogs)
-      setSleepLogs(entries);
-      setRefetch(false);
-    } catch (e) {
-      console.log(e);
-    }
+    const url = `/api/v1/sleeplogs/${email}?start=${sevenDaysAgo}&end=${viewedWeek}`;
+
+    const response = await fetch(url);
+    const res = await response.json();
+    const entries = fillEmptyDates(sevenDaysAgo, viewedWeek, res.sleepLogs)
+    setSleepLogs(entries);
+    setRefetch(false)
   }
 
   function fillEmptyDates(start, end, entries) {
+    if(!entries){
+      entries = []
+    }
     const sleepLogs = []
 
     for (let ms = start; ms <= end; ms = ms + dayMiliseconds){
@@ -65,12 +64,11 @@ function SleepMetrics() {
 
   useEffect(() => {
     fetchSleepLogs();
-  }, [refetch]);
+  }, [viewedWeek, refetch]);
 
 
   const addSleepData = async () => {
     if (enteredDate && enteredHours && sinceEpoch) {
-      console.log("tesyt")
       const url = '/api/v1/sleeplogs/new';
   
       const data = {
@@ -93,12 +91,12 @@ function SleepMetrics() {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
   
-        setRefetch(true)
-  
         setDate('');
         setHours(0);
         setNote('');
         setsinceEpoch(0);
+        setViewedWeek(getStartOfNextWeek(new Date(new Date(enteredDate).toLocaleDateString())));
+        setRefetch(true);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -152,11 +150,11 @@ function SleepMetrics() {
     return d.getTime();
   } 
 
-  function getStartOfWeek(date){
-    const formattedDate = new Date(formatDate(date));
-    const daysFromMonday = formattedDate.getDay() !== 0 ? formattedDate.getDay() - 1 : 6;
-    const monday = new Date(formattedDate.getTime() - (daysFromMonday * dayMiliseconds) );
-    console.log(monday)
+  function getStartOfNextWeek(date){
+    const formattedDate = new Date(date);
+    const daysFromMonday = formattedDate.getDay() >= 2 ? 8 - formattedDate.getDay() : 1 - formattedDate.getDay();
+    const monday = new Date(formattedDate.getTime() + (daysFromMonday * dayMiliseconds) );
+    return monday.getTime();
   }
 
   return (
@@ -177,7 +175,7 @@ function SleepMetrics() {
                 </div>
 
                 <div id ="input-column">
-                  <input type="date" value={enteredDate} onChange={(e) => { setDate(e.target.value); setsinceEpoch(formatSinceEPOCH(e.target.value)) }}/>
+                  <input type="date" onChange={(e) => { setDate(e.target.value); setsinceEpoch(formatSinceEPOCH(e.target.value)) }}/>
                   <input type="number" min="0" max="24" value={enteredHours} onChange={(e) => setHours(e.target.value)} />
                   <textarea placeholder="Notes" value={enteredNote} onChange={(e) => setNote(e.target.value)} />
                 </div>
@@ -192,12 +190,12 @@ function SleepMetrics() {
           </fieldset>
         </div>
       </details>
-      <input type="date" value={enteredDate} onChange={(e) => { setViewedWeek(getStartOfWeek(e.target.value)); } }/>
       {sleepLogs.length > 0 && (
         <div>
           <div id="sleep-metrics-container">
             <div id="sleep-notes">
               <h2>Previous Sleep Logs:</h2>
+              <input id="week-picker" type="date" onChange={(e) => { setViewedWeek(getStartOfNextWeek(formatDate(e.target.value))) } }/>
               <ul>
                 {
                 sleepLogs.map((entry, index) => {
