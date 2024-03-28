@@ -30,4 +30,29 @@ async function getSPD(req, res) {
   }
 }
 
+//Insert new SPD entry
+router.get('/new', createSPD);
+async function createSPD(req, res) {
+  const { name, level, optionalDescription } = req.body;
+
+  let description
+  if(!optionalDescription){
+    description = "";
+  }
+  else{
+    description = optionalDescription;
+  }
+
+  if (name && level) {
+    db.insertSleepLog({
+      "name": name, 
+      "dangerLVL": level, 
+      "description": description
+    });
+    return res.status(201).json({ status: 201, message: 'Successful' });
+  }
+  return res.status(500).json({ status: 500, message: 'SPD was not added to the database' });
+
+}
+
 module.exports = {"spdRouter": router};

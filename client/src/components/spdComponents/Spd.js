@@ -7,7 +7,8 @@ function Spd() {
   const [spdEntries, setSpdEntries] = useState([]);
   const [spdEntry, setSpdEntry] = useState('');
   const [name, setName] = useState('');
-  const [description, setDiscription] = useState('');
+  const [level, setLevel] = useState(0);
+  const [description, setDescription] = useState('');
   const [location, setsinceEpoch] = useState(0);
   const [refetch, setRefetch] = useState(true);
 
@@ -26,9 +27,25 @@ function Spd() {
   useEffect(() => {
     fetchSpdEntries();
   }, [refetch]);
+
+
   
   return(
   <>
+    <h1>Add your SPD Experience</h1>
+    <div>
+      <label>Name:</label>
+      <input type="text" value={name} onChange={(e) => setName()}/>
+    </div>
+    <div>
+      <label>Danger Level</label>
+        <input type="number" value={level} onChange={(e) => setLevel(e.target.value)} />
+      </div>
+      <div>
+        <label>Descrption:</label>
+        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+      </div>
+      <button onClick={addSpdEntry}>Add SPD Experience</button>
     <details>
       <summary>Entered SPDs</summary>
       <ul>
