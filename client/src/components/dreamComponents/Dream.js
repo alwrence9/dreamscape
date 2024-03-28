@@ -81,20 +81,23 @@ function Dream() {
   }
 
   function styling(style) {
-    const dreamDesc = document.getElementById("dream-desc");
+    const dreamDesc = document.getElementById('dream-desc');
     const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
     const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
-    
-    let newString = "";
+    if (!substring) {
+      return '';
+    }
+
+    let newString = '';
     switch(style) {
-      case "bold":
-        newString = "  <b>" + substring + "</b>  "
+      case 'bold':
+        newString = '  <b>' + substring + '</b>  '
         break;
-      case "italics":
-        newString = "  <i>" + substring + "</i>  "
+      case 'italics':
+        newString = '  <i>' + substring + '</i>  '
         break;
-      case "highlight":
-        newString = "<mark>" + substring + "</mark>"
+      case 'highlight':
+        newString = '<mark>' + substring + '</mark>'
         break;
       default:
         newString = substring
@@ -122,9 +125,9 @@ function Dream() {
           required/>
 
         <div className="styling-names">
-          <button type="button" onClick={()=>{styling("bold");}}>Bold</button>
-          <button type="button" onClick={()=>{styling("italics");}}>Italics</button>
-          <button type="button" onClick={()=>{styling("highlight");}}>Highlight</button>
+          <button type="button" onClick={()=>{styling('bold');}}>Bold</button>
+          <button type="button" onClick={()=>{styling('italics');}}>Italics</button>
+          <button type="button" onClick={()=>{styling('highlight');}}>Highlight</button>
         </div>
   
         <ContentEditable id="dream-desc" html={optionalDescription} onChange={(e) => setDescription(e.target.value)}/>
