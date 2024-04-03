@@ -49,8 +49,8 @@ async function getEntry(req, res) {
     results = JSON.parse(results);
   }
   
-  if (results.length == 0){
-    return res.status(404).send({status: '404', message: 'No entries found for that user'});;
+  if (results.length === 0){
+    return res.status(404).send({status: '404', message: 'No entries found for that user'});
   }
 
   if(date){
