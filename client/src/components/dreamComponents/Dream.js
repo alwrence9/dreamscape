@@ -84,8 +84,8 @@ function Dream() {
     let newString = '';
     const dreamDesc = document.getElementById('dream-desc');
     const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
-    let substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
-    const substringIfStyled = dreamDesc.innerHTML.substring(index-3, index + window.getSelection().toString().length+4);
+    let substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length).trim(' ');
+    const substringIfStyled = dreamDesc.innerHTML.substring(index-3, index + window.getSelection().toString().length+4).trim(' ');
     //TO DO: find the substring in the actual innerhtml 
     // check the indeces after and right before the substring to check if there is a text styling tag there
     // if found, then do the replacing thing
