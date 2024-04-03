@@ -1,0 +1,16 @@
+#profile-container{
+    display: flex;
+    justify-content: center;
+}
+
+#profile-box{
+    width: 40%;
+    background-color: #C0C0C0;
+    border: solid 3px rgb(103 177 182);
+    border-radius: 30px;
+    padding: 20px;
+}
+
+#profile-box > p{
+    color: black;
+}

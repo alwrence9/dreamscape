@@ -66,9 +66,6 @@ app.post('/api/v1/googleLogin', async (req, res,) => {
 
     return res.json((JSON.stringify({"email": email, "token": token })));
   }
-  // TODO: you may want to upsert (update or insert if new) the user's name, email and picture in the database - step 4
-
-  //TODO: create a session cookie send it back to the client - step 5
 
 );
 
