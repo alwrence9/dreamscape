@@ -9,6 +9,7 @@ router.get('/chronotype/:numQuestions?', getChronotypeQuestion);
 async function getChronotypeQuestion(req, res) {
   const numQuestions = req.params.numQuestions;
   res.type('json');
+  
   const questions = numQuestions ? await db.getRandomChronotypeQuestion(numQuestions) : await db.getChronotypeQuestion();
   if(questions){
     return res.json( {"questions": questions});
@@ -22,6 +23,7 @@ async function getChronotypeQuestion(req, res) {
 router.get('/insomnia/:numQuestions?', getInsomniaQuestion);
 async function getInsomniaQuestion(req, res) {
   res.type('json');
+
   const numQuestions = req.params.numQuestions;
   const questions = numQuestions ? await db.getRandomInsomniaQuestion(numQuestions) : await db.getInsomniaQuestion();
   if(questions){

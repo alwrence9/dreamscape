@@ -45,13 +45,13 @@ test('It should respond with 1 dream journal entry', async () => {
   expect(response.body.dreams[0].description).toEqual("My students keep sending me soup pictures and the Key to the Misty Mountain.");
 });
 
-test('It should respond with 0 dream journal entries, 404', async () => {
+test('It should respond with 0 dream journal entries, 200', async () => {
   jest.spyOn(DB.prototype, 'getDreamJournals').mockResolvedValue(data);
   const start = new Date("3-27-2024");
   const end = new Date("3-29-2024");
   const response = await request(app).get(`/api/v1/dreams/chadrew.brodzay@gmail.com?start=${start.getTime()}&end=${end.getTime()}`);
-  expect(response.status).toBe(404);
-  expect(response.body.message).toEqual("No entries found for that user");
+  expect(response.status).toBe(200);
+  expect(response.body.message).toEqual("No entries found for that time frame");
 });
 
 test('It should create a new dream journal entry', async () => {
