@@ -84,42 +84,44 @@ function Dream() {
     let newString = '';
     const dreamDesc = document.getElementById('dream-desc');
     const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
-    const substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+    let substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length);
+    const substringIfStyled = dreamDesc.innerHTML.substring(index-3, index + window.getSelection().toString().length+4);
     //TO DO: find the substring in the actual innerhtml 
     // check the indeces after and right before the substring to check if there is a text styling tag there
     // if found, then do the replacing thing
     if (!substring) {
       return '';
     }
-    else if (substring.includes('<b>')) {
-      style = 'other';
-      newString = substring.replace('<b>', '');
-      newString = substring.replace('</b>', '');
+    else if (substringIfStyled.includes('<b>')) {
+      substring = substringIfStyled;
+      newString = substringIfStyled.replace('<b>', '');
+      newString = newString.replace('</b>', '');
     }
-    else if (substring.includes('<i>')) {
-      style = 'other';
-      newString = substring.replace('<i>', '');
-      newString = substring.replace('</i>', '');
+    else if (substringIfStyled.includes('<i>')) {
+      substring = substringIfStyled;
+      newString = substringIfStyled.replace('<i>', '');
+      newString = newString.replace('</i>', '');
     }
-    else if (substring.includes('<mark>')) {
-      style = 'other';
-      newString = substring.replace('<mark>', '');
-      newString = substring.replace('</mark>', '');
+    else if (substringIfStyled.includes('<mark>')) {
+      substring = substringIfStyled;
+      newString = substringIfStyled.replace('<mark>', '');
+      newString = newString.replace('</mark>', '');
     }
-
-    switch(style) {
-      case 'bold':
-        newString = '  <b>' + substring + '</b>  '
-        break;
-      case 'italics':
-        newString = '  <i>' + substring + '</i>  '
-        break;
-      case 'highlight':
-        newString = '<mark>' + substring + '</mark>'
-        break;
-      default:
-        newString = substring
-        break;
+    else {
+      switch(style) {
+        case 'bold':
+          newString = '  <b>' + substring + '</b>  '
+          break;
+        case 'italics':
+          newString = '  <i>' + substring + '</i>  '
+          break;
+        case 'highlight':
+          newString = '<mark>' + substring + '</mark>'
+          break;
+        default:
+          newString = substring
+          break;
+      }
     }
     const replacement = dreamDesc.innerHTML.replace(substring, newString);
     dreamDesc.innerHTML = replacement;

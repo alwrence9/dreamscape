@@ -139,7 +139,7 @@ const envPath = path.resolve(currentDirectory, '../.env');
 config({ path: envPath });
 
 const sasToken = process.env.AZURE_SAS;
-const containerName = 'helloblob';
+const containerName = 'dreamscape';
 const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
 const blobService = new BlobServiceClient(
   `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
