@@ -15,7 +15,7 @@ async function getProfile(req, res) {
   let profile = cache.get(`${email}-profile`)
   if(!profile){
     profile = await db.getProfile( email );
-    cache.put(`${email}-profile`, JSON.strongify(profile))
+    cache.put(`${email}-profile`, JSON.stringify(profile))
   }
   else{
     profile = JSON.parse(profile);

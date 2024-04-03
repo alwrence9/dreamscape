@@ -41,7 +41,6 @@ async function getEntry(req, res) {
   const date = req.query.date;
 
   let results = cache.get(`${email}-dream`);
-  console.log(results);
   if(!results){
     results = await db.getDreamJournals( email );
     cache.put(`${email}-dream`, JSON.stringify(results));
