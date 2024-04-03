@@ -96,3 +96,11 @@
   border-radius: 30px;
   border-width: 0;
 }
+
+.past-dreams {
+  border: 1px solid rgb(63 194 255);
+}
+
+.past-dreams p {
+  margin-left: 10px;
+}
