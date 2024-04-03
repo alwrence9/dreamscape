@@ -1,6 +1,7 @@
 const DB = require("./db.js");
 const { config } = require('dotenv');
 const path = require('path');
+const SHA256 = require('crypto-js/sha256');
 
 const currentFile = __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 const currentDirectory = __dirname || path.dirname(currentFile);
@@ -19,7 +20,7 @@ async function init_db(){
   await db.insertProfile(
     {
       "email": "chadrew.brodzay@gmail.com",
-      "password": "bestest",
+      "password": SHA256("bestest").toString(),
       "firstName": "Chadrew",
       "lastName": "Brodzay"
     }

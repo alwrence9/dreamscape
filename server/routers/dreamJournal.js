@@ -65,6 +65,10 @@ async function getEntry(req, res) {
     );
   }
 
+  if (results.length === 0){
+    return res.status(200).send({status: '200', message: 'No entries found for that time frame'});
+  }
+
   return res.json({"dreams": results});
 }
 
