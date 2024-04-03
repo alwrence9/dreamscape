@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+// need to edit this according to the paper as the logic is there,
+//should be done in 1-2 day
 function Profile() {
 
   const [first, setFirst] = useState("");
@@ -30,6 +31,9 @@ function Profile() {
       <h5> Email: <p> {email} </p> </h5>
       <h5> First Name: <p> {first} </p> </h5>
       <h5> Last Name: <p> {last} </p> </h5>
+      <h5> Default user profile image goes here</h5>
+      <img src="dog.jpg" width="500" height="600"></img>
+      
     </>
   );
 }
