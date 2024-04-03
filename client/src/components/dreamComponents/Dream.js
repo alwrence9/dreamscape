@@ -102,9 +102,9 @@ function Dream() {
       newString = substringIfStyled.replace('<i>', '');
       newString = newString.replace('</i>', '');
     }
-    else if (substringIfStyled.includes('<mark>')) {
-      substring = substringIfStyled;
-      newString = substringIfStyled.replace('<mark>', '');
+    else if (dreamDesc.innerHTML.substring(index-6, index + window.getSelection().toString().length+7).trim(' ').includes('<mark>')) {
+      substring = dreamDesc.innerHTML.substring(index-6, index + window.getSelection().toString().length+7).trim(' ');
+      newString = substring.replace('<mark>', '');
       newString = newString.replace('</mark>', '');
     }
     else {
