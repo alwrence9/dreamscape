@@ -179,7 +179,7 @@ function Dream() {
         <section>{entries.map((entry)=> {return <section className="past-dreams" key={entry.title}>
             <p>{entry.title}</p>
             <p>{entry.date.string}</p>
-            <p>{entry.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: entry.description }}></p>
           </section>
        })}</section>
       </details>
