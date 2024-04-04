@@ -10,11 +10,11 @@ function Spd() {
   const [name, setName] = useState('');
   const [level, setLevel] = useState(0);
   const [description, setDescription] = useState('');
-  const [location, setsinceEpoch] = useState(0);
+  const [location, setLocation] = useState('Canada');
   const [countryNames, setCountryNames] = useState([]);
   const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
-
+  
   const fetchAllCountries = async () => {
     try {
       const response = await fetch('https://restcountries.com/v3.1/all');
@@ -87,14 +87,22 @@ function Spd() {
       <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
     </div>
     <div>
+      <label>Select Country</label>
+      <select value={location} onChange={(e) => setLocation(e.target.value)}>
+        {countryNames.map((country, index) => (
+          <option key={index} value={country}>{country}</option>
+        ))}
+      </select>
+    </div>
+    <div>
       <label>Danger Level</label>
         <input type="number" value={level} onChange={(e) => setLevel(e.target.value)} />
-      </div>
-      <div>
+    </div>
+    <div>
         <label>Descrption:</label>
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-      </div>
-      <button onClick={addSpdEntry}>Add SPD Experience</button>
+    </div>
+    <button onClick={addSpdEntry}>Add SPD Experience</button>
     <details>
       <summary>Entered SPDs</summary>
       <ul>
