@@ -177,7 +177,7 @@ function Dream() {
       <details>
         <summary>View past dream entries</summary>
         <section>{entries.map((entry)=> {return <section className="past-dreams" key={entry.title}>
-            <p>{entry.title}</p>
+            <h4>{entry.title}</h4>
             <p>{entry.date.string}</p>
             <p dangerouslySetInnerHTML={{ __html: entry.description }}></p>
           </section>
