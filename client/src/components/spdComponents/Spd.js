@@ -11,7 +11,21 @@ function Spd() {
   const [level, setLevel] = useState(0);
   const [description, setDescription] = useState('');
   const [location, setsinceEpoch] = useState(0);
+  const [countryNames, setCountryNames] = useState([]);
+  const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
+
+  const fetchAllCountries = async () => {
+    try {
+      const response = await fetch('https://restcountries.com/v3.1/all');
+      const data = await response.json();
+      const countries = data.map(country => country.name.common);
+      setCountryNames(countries);
+      setCountryFetch(true);
+    } catch (error) {
+      console.error('Error fetching country names:', error);
+    }
+  };
 
   async function fetchSpdEntries() {
     const url = '/api/v1/spd';
@@ -27,6 +41,9 @@ function Spd() {
 
   useEffect(() => {
     fetchSpdEntries();
+    if(countriesFetched===false) {
+      fetchAllCountries();
+    }
   }, [refetch]);
 
   const addSpdEntry = async () => {
@@ -61,7 +78,7 @@ function Spd() {
       }
     }
   };
-  
+
   return(
   <>
     <h3>Add your SPD Experience</h3>
