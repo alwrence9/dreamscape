@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import './SleepMetrics.css';
 
-const dayMiliseconds = 24 * 60 * 60 * 1000
+const dayMiliseconds = 24 * 60 * 60 * 1000;
 
 function SleepMetrics() {
   const storedToken = localStorage.getItem("token");
@@ -150,8 +150,8 @@ function SleepMetrics() {
     return d.getTime();
   } 
 
-  function getStartOfNextWeek(date){
-    const formattedDate = new Date(date);
+  function getStartOfNextWeek(dateInMiliseconds){
+    const formattedDate = new Date(dateInMiliseconds);
     const daysFromMonday = formattedDate.getDay() >= 2 ? 8 - formattedDate.getDay() : 1 - formattedDate.getDay();
     const monday = new Date(formattedDate.getTime() + (daysFromMonday * dayMiliseconds) );
     return monday.getTime();
