@@ -41,10 +41,7 @@ async function get_card_images(images_path) {
 
       console.log( "Adding '%s' as image", fromPath );
       const image =  await fs.readFile(fromPath);
-
-      //TO DO: Need to fix this
-      const splitPath = fromPath.split("\\");
-      const imageName = splitPath[splitPath.length-1]
+      const imageName = path.basename(fromPath);
 
       const imageUrl = await postImage(image, imageName);
       images.push(imageUrl);
