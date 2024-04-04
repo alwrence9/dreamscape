@@ -14,6 +14,8 @@ function Spd() {
   const [countryNames, setCountryNames] = useState([]);
   const [coordinates, setCoordinates] = useState([0,0]);
 
+  const[allCoordinates, setAllCoordinates] = useState([]);
+
   const [coordinatesChanged, setCoordinatesChanged] = useState(false);
   const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
@@ -41,6 +43,7 @@ function Spd() {
       const data = await response.json();
       console.log(data[0].lat);
       setCoordinates([data[0].lat,data[0].lon]);
+      allCoordinates.push([data[0].lat,data[0].lon]);
     } catch (error) {
       console.error('Error fetching coordinates:', error);
     }
@@ -147,11 +150,11 @@ function Spd() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {coordinatesChanged === true && (
-      <Marker position={coordinates}>
+      {coordinatesChanged && allCoordinates.map((coordinates, index) => (
+      <Marker key={index} position={coordinates}>
         <Popup>{location}</Popup>
       </Marker>
-    )}
+    ))}
     </MapContainer>
     </div>
   </>
