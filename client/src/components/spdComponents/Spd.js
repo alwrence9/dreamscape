@@ -12,10 +12,18 @@ function Spd() {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('Canada');
   const [countryNames, setCountryNames] = useState([]);
+  const [coordinates, setCoordinates] = useState([0,0]);
+
+  const [coordinatesChanged, setCoordinatesChanged] = useState(false);
   const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
+
+  function handleLocationChange(e) {
+    setLocation(e.target.value);
+    setCoordinatesChanged(true);
+  }
   
-  const fetchAllCountries = async () => {
+  async function fetchAllCountries() {
     try {
       const response = await fetch('https://restcountries.com/v3.1/all');
       const data = await response.json();
@@ -25,7 +33,18 @@ function Spd() {
     } catch (error) {
       console.error('Error fetching country names:', error);
     }
-  };
+  }
+
+  async function fetchCoordinates() {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`);
+      const data = await response.json();
+      console.log(data[0].lat);
+      setCoordinates([data[0].lat,data[0].lon]);
+    } catch (error) {
+      console.error('Error fetching coordinates:', error);
+    }
+  }
 
   async function fetchSpdEntries() {
     const url = '/api/v1/spd';
@@ -45,6 +64,10 @@ function Spd() {
       fetchAllCountries();
     }
   }, [refetch]);
+
+  useEffect(()=> {
+    fetchCoordinates();
+  }, [location]);
 
   const addSpdEntry = async () => {
     const url = '/api/v1/spd/new';
@@ -82,27 +105,33 @@ function Spd() {
   return(
   <>
     <h3>Add your SPD Experience</h3>
+
     <div>
       <label>Name:</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
     </div>
+
     <div>
       <label>Select Country</label>
-      <select value={location} onChange={(e) => setLocation(e.target.value)}>
+      <select value={location} onChange={(e) => handleLocationChange(e)}>
         {countryNames.map((country, index) => (
           <option key={index} value={country}>{country}</option>
         ))}
       </select>
     </div>
+
     <div>
       <label>Danger Level</label>
         <input type="number" value={level} onChange={(e) => setLevel(e.target.value)} />
     </div>
+
     <div>
         <label>Descrption:</label>
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
     </div>
+
     <button onClick={addSpdEntry}>Add SPD Experience</button>
+
     <details>
       <summary>Entered SPDs</summary>
       <ul>
@@ -111,17 +140,18 @@ function Spd() {
             ))}
       </ul>
     </details>
+
     <div id="map">
     <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+      {coordinatesChanged === true && (
+      <Marker position={coordinates}>
+        <Popup>{location}</Popup>
       </Marker>
+    )}
     </MapContainer>
     </div>
   </>
