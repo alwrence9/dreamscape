@@ -69,7 +69,9 @@ function Spd() {
   }, [refetch]);
 
   useEffect(()=> {
-    fetchCoordinates();
+    if (coordinatesChanged) {
+      fetchCoordinates();
+    }
   }, [location]);
 
   const addSpdEntry = async () => {
