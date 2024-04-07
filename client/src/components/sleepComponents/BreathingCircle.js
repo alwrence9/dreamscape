@@ -35,6 +35,18 @@ const BreathingCircle = () => {
     return () => clearInterval(breathingInterval);
   }, [isInhaling, circleSize, breathingStarted, breathCount, totalBreaths]);
 
+  const startBreathing = () => {
+    updateBreathingStarted(true);
+  };
+
+  const increaseBreaths = () => {
+    updateTotalBreaths(previousBreaths => previousBreaths + 1);
+  };
+
+  const decreaseBreaths = () => {
+    updateTotalBreaths(previousBreaths => previousBreaths > 0 ? previousBreaths - 1 : 0);
+  };
+
   return (
     <div>
       <div style={{
@@ -59,6 +71,10 @@ const BreathingCircle = () => {
           {isInhaling ? 'Inhale' : 'Exhale'}
         </div>
       </div>
+      {!breathingStarted && <button onClick={increaseBreaths}>Increase Repetitions</button>}
+      {!breathingStarted && <button onClick={decreaseBreaths}>Decrease Repetitions</button>}
+      {!breathingStarted && <button onClick={startBreathing}>Start</button>}
+      <p>Repetitions: {totalBreaths}</p>
     </div>
   );
 };
