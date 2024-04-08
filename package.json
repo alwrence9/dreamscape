@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "cd client && npm install && npm run build && cd ../server && npm install",
-    "start": "cd server && npm run start"
+    "start": "cd server && npm run start",
+    "lint": "cd client && npm run lint && cd ../server && npm run lint"
   },
   "author": "",
   "license": "ISC"
