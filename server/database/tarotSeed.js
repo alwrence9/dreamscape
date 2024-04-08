@@ -16,9 +16,9 @@ const db = new DB();
 async function init_questions_db(){
   await db.clearTarotCards();
 
-  const result = await fs.readFile("../../archive/tarot-images.json");
+  const result = await fs.readFile("../archive/tarot-images.json");
   const json = JSON.parse(result);
-  const images_path = '../../archive/cards';
+  const images_path = '../archive/cards';
   const images_paths = await get_card_images(images_path);
 
   for (let i = 0; i < json.cards.length; i++){
