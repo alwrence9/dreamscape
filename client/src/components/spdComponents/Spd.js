@@ -152,9 +152,11 @@ function Spd() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      { coordinates[0]!==0 && coordinates[1]!==0 &&
       <Marker position={coordinates}>
         <Popup>{location}</Popup>
       </Marker>
+      }
     </MapContainer>
     </div>
   </>
