@@ -43,8 +43,8 @@ function Spd() {
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`);
       const data = await response.json();
-      console.log(data[0].lat);
       setCoordinates([data[0].lat,data[0].lon]);
+      console.log([data[0].lat,data[0].lon]);
       allCoordinates.push([data[0].lat,data[0].lon]);
     } catch (error) {
       console.error('Error fetching coordinates:', error);
@@ -57,6 +57,10 @@ function Spd() {
       const response = await fetch(url);
       const res = await response.json();
       setSpdEntries(res.SPDentries);
+      for (var entry of spdEntries) {
+        allCoordinates.push(entry.coordinates.split(','))
+      }
+      console.log(allCoordinates);
       setRefetch(false);
     } catch (e) {
       console.log(e);
@@ -78,11 +82,13 @@ function Spd() {
 
   const addSpdEntry = async () => {
     const url = '/api/v1/spd/new';
+    const coordinatesString = coordinates.toString(); 
     if (name !=='' && level!=='') {
       const data = {
         name: name,
         level: level,
         optionalDescription: description,
+        coordinates: coordinatesString,
       };
   
       try {
@@ -103,6 +109,7 @@ function Spd() {
         setName('');
         setLevel(0);
         setDescription('');
+        setCoordinates([0,0])
       } catch (error) {
         console.error('Error:', error);
       }
@@ -159,6 +166,11 @@ function Spd() {
         <Popup>{location}</Popup>
       </Marker>
       }
+      {allCoordinates.map((coordinates, index) => (
+      <Marker key={index} position={coordinates}>
+        <Popup>{location}</Popup>
+      </Marker>
+    ))}
     </MapContainer>
     </div>
   </>

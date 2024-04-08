@@ -33,7 +33,7 @@ async function getSPD(req, res) {
 //Insert new SPD entry
 router.post('/new', createSPD);
 async function createSPD(req, res) {
-  const { name, level, optionalDescription } = req.body;
+  const { name, level, optionalDescription, coordinates } = req.body;
   let description
   if(!optionalDescription){
     description = "nothing";
@@ -41,11 +41,12 @@ async function createSPD(req, res) {
   else{
     description = optionalDescription;
   }
-  if (name && level) {
+  if (name && level && coordinates) {
     db.insertSPD({
       "name": name, 
       "dangerLVL": level, 
-      "description": description
+      "description": description,
+      "coordinates": coordinates
     });
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
