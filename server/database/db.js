@@ -66,6 +66,10 @@ const ProfileSchema = mongoose.Schema({
   lastName: {
     type: String,
     required: true
+  },
+  picture: {
+    type: String,
+    required: false
   }
 });
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
