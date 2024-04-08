@@ -11,6 +11,8 @@ import Quiz from './sleepComponents/Quiz.js';
 import SleepInfo from './sleepComponents/SleepInfo.js';
 import SleepMetrics from './sleepComponents/SleepMetrics.js';
 import Support from './sleepComponents/Support.js';
+import Spd from './spdComponents/Spd.js';
+
 
 const defaultFooter = 
   <div id="footer-content">
@@ -219,6 +221,7 @@ function Navigation() {
               }}
             >Sleep</li>
             <li onClick={() => { setSelectedComponent(<Mental />), setSelectedFooter(<MentalityPageFooter/>); } }>Mentality</li>
+            <li id="spd" onClick={() => { setSelectedComponent(<Spd />);} }>Spd</li>
           </ul>
 
         </nav>
