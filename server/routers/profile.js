@@ -4,17 +4,17 @@ const router = express.Router();
 const DB = require("../database/db.js");
 const jwt = require('jsonwebtoken');
 const fileUpload = require('express-fileupload');
-// const { BlobServiceClient} = require('@azure/storage-blob');
+const { BlobServiceClient} = require('@azure/storage-blob');
 
 const db = new DB();
 
-// const sasToken = process.env.AZURE_SAS;
-// const containerName = 'helloblob';
-// const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
-// const blobService = new BlobServiceClient(
-//   `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
-// );
-// const containerClient = blobService.getContainerClient(containerName);
+const sasToken = process.env.AZURE_SAS;
+const containerName = 'helloblob';
+const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
+const blobService = new BlobServiceClient(
+  `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
+);
+const containerClient = blobService.getContainerClient(containerName);
 
 router.use( fileUpload({ createParentPath: true, }) );
 
@@ -54,26 +54,26 @@ async function createProfile(req, res) {
 }
 
 // TODO fix this route to upload images, azure package does not install
-// router.post('/picture', postImage);
-// async function postImage(req, res) {
-//   const username = req.body;
-//   if (username && req.files) {
-//     const file = req.files.file;
-//     const blobName = file.name;
-//     const blobClient = containerClient.getBlockBlobClient(blobName);
+router.post('/picture', postImage);
+async function postImage(req, res) {
+  const username = req.body;
+  if (username && req.files) {
+    const file = req.files.file;
+    const blobName = file.name;
+    const blobClient = containerClient.getBlockBlobClient(blobName);
 
-//     //Set mimetype as determined from browser with file upload control
-//     const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
-//     //Upload image to blob storage account in azure
-//     await blobClient.uploadData(file.data, options);
+    //Set mimetype as determined from browser with file upload control
+    const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
+    //Upload image to blob storage account in azure
+    await blobClient.uploadData(file.data, options);
 
-//     //Store name & uri into mongodb
-//     db.insertImage(username.email, containerClient.getBlockBlobClient(blobName).url);
+    //Store name & uri into mongodb
+    db.insertImage(username.email, containerClient.getBlockBlobClient(blobName).url);
 
-//     return res.status(200).send({ status: 200, message: 'Succesful' });
-//   }
-//   return res.status(403).send({status: 403, message: 'Wrong format'})
-// }
+    return res.status(200).send({ status: 200, message: 'Successful' });
+  }
+  return res.status(403).send({status: 403, message: 'Wrong format'})
+}
 
 
 module.exports = {"profileRouter": router};
