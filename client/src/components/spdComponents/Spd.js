@@ -10,7 +10,7 @@ function Spd() {
   const [name, setName] = useState('');
   const [level, setLevel] = useState(0);
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('Canada');
+  const [location, setLocation] = useState('- Select a country -');
   const [countryNames, setCountryNames] = useState([]);
   const [coordinates, setCoordinates] = useState([0,0]);
 
@@ -30,6 +30,8 @@ function Spd() {
       const response = await fetch('https://restcountries.com/v3.1/all');
       const data = await response.json();
       const countries = data.map(country => country.name.common);
+      countries.sort();
+      countries.unshift('- Select a country -')
       setCountryNames(countries);
       setCountryFetch(true);
     } catch (error) {
