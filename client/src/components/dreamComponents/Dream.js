@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import ContentEditable from 'react-contenteditable'
 import './Dream.css';
 
 function Dream() {
   const [resultText, setMessage] = useState('');
 
   const [entries, setEntries] = useState([]);
+
+  const [currentCard, setCurrentCard] = useState([]);
 
   const [title, setTitle] = useState('Title');
   const [optionalDescription, setDescription] = useState('Write all about your dreams here!');
@@ -64,6 +67,66 @@ function Dream() {
     }
   }
 
+  async function fetchCard() {
+    const url = `/api/v1/tarot/randomCard`;
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const res = await response.json();
+        setCurrentCard(res.tarotCard[0]);
+      }
+    } catch (e) {
+      setMessage(e);
+    }
+  }
+
+  function styling(style) {
+    let newString = '';
+    const dreamDesc = document.getElementById('dream-desc');
+    const index = dreamDesc.innerHTML.indexOf(window.getSelection().toString());
+    let substring = dreamDesc.innerHTML.substring(index, index + window.getSelection().toString().length).trim(' ');
+    const substringIfStyled = dreamDesc.innerHTML.substring(index-3, index + window.getSelection().toString().length+4).trim(' ');
+    //TO DO: find the substring in the actual innerhtml 
+    // check the indeces after and right before the substring to check if there is a text styling tag there
+    // if found, then do the replacing thing
+    if (!substring) {
+      return '';
+    }
+    else if (substringIfStyled.includes('<b>')) {
+      substring = substringIfStyled;
+      newString = substringIfStyled.replace('<b>', '');
+      newString = newString.replace('</b>', '');
+    }
+    else if (substringIfStyled.includes('<i>')) {
+      substring = substringIfStyled;
+      newString = substringIfStyled.replace('<i>', '');
+      newString = newString.replace('</i>', '');
+    }
+    else if (dreamDesc.innerHTML.substring(index-6, index + window.getSelection().toString().length+7).trim(' ').includes('<mark>')) {
+      substring = dreamDesc.innerHTML.substring(index-6, index + window.getSelection().toString().length+7).trim(' ');
+      newString = substring.replace('<mark>', '');
+      newString = newString.replace('</mark>', '');
+    }
+    else {
+      switch(style) {
+        case 'bold':
+          newString = '  <b>' + substring + '</b>  '
+          break;
+        case 'italics':
+          newString = '  <i>' + substring + '</i>  '
+          break;
+        case 'highlight':
+          newString = '<mark>' + substring + '</mark>'
+          break;
+        default:
+          newString = substring
+          break;
+      }
+    }
+    const replacement = dreamDesc.innerHTML.replace(substring, newString);
+    dreamDesc.innerHTML = replacement;
+  }
+
   useEffect(() => {
     fetchEntries();
   }, []);
@@ -81,20 +144,42 @@ function Dream() {
           onChange={(e) => setDate(e.target.value)}
           required/>
 
-        <textarea id="dream-desc" value={optionalDescription} 
-          onChange={(e) => setDescription(e.target.value)}> </textarea>
+        <div className="styling-names">
+          <button type="button" onClick={()=>{styling('bold');}}>Bold</button>
+          <button type="button" onClick={()=>{styling('italics');}}>Italics</button>
+          <button type="button" onClick={()=>{styling('highlight');}}>Highlight</button>
+        </div>
+  
+        <ContentEditable id="dream-desc" html={optionalDescription} onChange={(e) => setDescription(e.target.value)}/>
 
         <button id="dream-submit" type="submit">Save</button>
       </form>
+
+      { optionalDescription !== 'Write all about your dreams here!' &&
+      <section id="fortune-telling"> 
+        { currentCard.image &&
+        <>
+          <h4> You got the {currentCard.name} </h4>
+          <div className="img-desc-container">
+            <img src={currentCard.image} alt={currentCard.alt} className="tarot"/>
+            {<script> console.log(currentCard.description) </script>}
+            <p className="tarot-desc"> {currentCard.description} </p>
+          </div>
+        </>
+        }
+        <button onClick={fetchCard} className="tarot-button"> Do you wonder what the meaning of your dream is? </button>
+        
+      </section>
+      }
 
       <p>{resultText}</p>
 
       <details>
         <summary>View past dream entries</summary>
-        <section>{entries.map((entry)=> {return <section  key={entry.title}>
-            <p>{entry.title}</p>
+        <section>{entries.map((entry)=> {return <section className="past-dreams" key={entry.title}>
+            <h4>{entry.title}</h4>
             <p>{entry.date.string}</p>
-            <p>{entry.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: entry.description }}></p>
           </section>
        })}</section>
       </details>
