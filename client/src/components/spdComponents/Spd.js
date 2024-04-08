@@ -57,6 +57,7 @@ function Spd() {
       const response = await fetch(url);
       const res = await response.json();
       setSpdEntries(res.SPDentries);
+      console.log(res.SPDentries)
       for (var entry of spdEntries) {
         allCoordinates.push(entry.coordinates.split(','))
       }
