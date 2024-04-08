@@ -1,0 +1,29 @@
+.quiz-container{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#quiz-box, #quiz-results{
+    width: 40%;
+    padding: 20px;
+    background-color: #B4D2DC;
+    color: black;
+    border: solid 3px  rgb(103 177 182);
+    border-radius: 30px;
+}
+
+.question-options > label, .questions > p{
+    color: black;
+}
+
+#quiz-submit, #retake-quiz{
+    padding: 20px;
+    border: solid 1px  black;
+    border-radius: 30px;
+}
+
+.quiz-button-container{
+    display: flex;
+    justify-content: center;
+}
