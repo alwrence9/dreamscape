@@ -17,5 +17,16 @@ async function getCards(req, res) {
   }
 }
 
+router.get('/randomCard', getRandomCard);
+async function getRandomCard(req, res) {
+  res.type('json');
+  const card = await db.getRandomTarotCard();
+  if(card){
+    return res.json( {"tarotCard": card});
+  }
+  else{
+    return res.status(404).send({status: '404', message: "No tarot cards found"});
+  }
+}
 
 module.exports = {"tarotRouter": router};
