@@ -5,20 +5,23 @@
   "scripts": {
     "start": "node bin/www.js",
     "seed": "node database/seed.js && node database/questionSeed.js && node database/tarotSeed.js",
-    "env": "touch .env && echo ATLAS_URI= > .env",
     "test": "jest",
     "lint": "eslint bin/**/*.js && eslint database/**/*.js && eslint routers/**/*.js && eslint api.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@azure/storage-blob": "^12.17.0",
     "compression": "^1.7.4",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
     "express-session": "^1.18.0",
     "fs": "^0.0.1-security",
     "google-auth-library": "^9.6.3",
     "jsonwebtoken": "^9.0.2",
+    "memory-cache": "^0.2.0",
     "mongoose": "^8.1.3",
     "supertest": "^6.3.4"
   },

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cache = require('memory-cache');
 const DB = require("../database/db.js");
 
 const db = new DB();
@@ -25,6 +26,7 @@ async function createEntry(req, res) {
   if (email && date.string && date.sinceEpoch && title) {
 
     db.insertDreamJournal({"email": email, "date": date, "title": title, "description": description});
+    cache.del(`${email}-dream`);
     return res.status(201).json({ status: 201, message: 'Successful' });
   }
   return res.status(401).json({ status: 401, message: 'Dream journal entry missing information' });
@@ -33,11 +35,23 @@ async function createEntry(req, res) {
 //Gets the journal entry for a specified user
 router.get('/:email', getEntry);
 async function getEntry(req, res) {
+  const email = req.params.email
   const start = Number(req.query.start);
   const end = Number(req.query.end);
   const date = req.query.date;
 
-  let results = await db.getDreamJournals( req.params.email );
+  let results = cache.get(`${email}-dream`);
+  if(!results){
+    results = await db.getDreamJournals( email );
+    cache.put(`${email}-dream`, JSON.stringify(results));
+  }
+  else{
+    results = JSON.parse(results);
+  }
+  
+  if (results.length === 0){
+    return res.status(404).send({status: '404', message: 'No entries found for that user'});
+  }
 
   if(date){
     results = results.filter(
@@ -50,10 +64,12 @@ async function getEntry(req, res) {
       (journalEntry) => {return start <= journalEntry.date.sinceEpoch && journalEntry.date.sinceEpoch <= end}
     );
   }
-  if (results.length !== 0){
-    return res.json({"dreams": results});
+
+  if (results.length === 0){
+    return res.status(200).send({status: '200', message: 'No entries found for that time frame'});
   }
-  return res.status(404).send({status: '404', message: 'No entries found for that user'});
+
+  return res.json({"dreams": results});
 }
 
 module.exports = {"dreamRouter": router};
