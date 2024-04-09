@@ -48,7 +48,7 @@ const BreathingCircle = () => {
   };
 
   return (
-    <div>
+    <div id="circle-container">
       <div style={{
         width: '200px',
         height: '200px',
