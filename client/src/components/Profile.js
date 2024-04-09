@@ -35,7 +35,7 @@ function Profile() {
   const uploadFile = (e) => 
   {
       e.preventDefault();
-      var formData = new FormData();
+      const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('email', email)
       updateImage(formData);

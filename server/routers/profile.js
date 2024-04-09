@@ -9,8 +9,8 @@ const { BlobServiceClient} = require('@azure/storage-blob');
 const db = new DB();
 
 const sasToken = process.env.AZURE_SAS;
-const containerName = 'helloblob';
-const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
+const containerName = 'images';
+const storageAccountName = process.env.storagereousrcename || "dreamscapestorageashley";
 const blobService = new BlobServiceClient(
   `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
 );
@@ -56,8 +56,8 @@ async function createProfile(req, res) {
 // TODO fix this route to upload images, azure package does not install
 router.post('/picture', postImage);
 async function postImage(req, res) {
-  const username = req.body;
-  if (username && req.files) {
+  const body = req.body;
+  if (body.email && req.files) {
     const file = req.files.file;
     const blobName = file.name;
     const blobClient = containerClient.getBlockBlobClient(blobName);
@@ -68,7 +68,7 @@ async function postImage(req, res) {
     await blobClient.uploadData(file.data, options);
 
     //Store name & uri into mongodb
-    db.insertImage(username.email, containerClient.getBlockBlobClient(blobName).url);
+    db.insertImage(body.email, containerClient.getBlockBlobClient(blobName).url);
 
     return res.status(200).send({ status: 200, message: 'Successful' });
   }

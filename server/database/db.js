@@ -360,6 +360,14 @@ class DB{
   const results = await SPD.deleteMany({"name": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} SPD entries`);
   }
+
+  async insertImage(email, image) {
+      await Profile.findOneAndUpdate(
+          { email: email }, // find a document with that filter
+          { picture: image }, // document to insert when nothing was found
+          { upsert: true, new: true, runValidators: true } // options
+      );
+  }
 }
 
 module.exports = DB;
