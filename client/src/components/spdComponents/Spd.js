@@ -15,7 +15,7 @@ function Spd() {
   const [countryData, setcountryData] = useState([]);
   const [coordinates, setCoordinates] = useState([0,0]);
   
-  const [allCoordinates, setAllCoordinates] = useState([]);
+  const [retrievedSpds, setRetrievedSpds] = useState([]);
 
   const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
@@ -40,7 +40,6 @@ function Spd() {
     try {
       const response = await fetch('https://restcountries.com/v3.1/all?fields=name,latlng');
       const data = await response.json();
-      console.log(data);
       const formattedData = data.map(item => ({
           country: item.name.common,
           lat: item.latlng[0],
@@ -68,11 +67,23 @@ function Spd() {
       const res = await response.json();
       setSpdEntries(res.SPDentries);
       for (var entry of spdEntries) {
-        allCoordinates.push(entry.coordinates.split(','))
+        const coords = entry.coordinates.split(',')
+        const loc = findCountry(coords[0],coords[1]);
+        retrievedSpds.push({country: loc, lat: coords[0], lon: coords[1], 
+                            name: entry.name, dangerLVL: entry.dangerLVL});
       }
+      setRetrievedSpds(retrievedSpds);
       setRefetch(false);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+    }
+  }
+
+  function findCountry(lat,lon) {
+    for(var data of countryData ) {
+      if (data.lat===parseFloat(lat) && data.lon===parseFloat(lon)) {
+        return data.country;
+      }
     }
   }
 
@@ -166,12 +177,15 @@ function Spd() {
       />
       { coordinates[0]!==0 && coordinates[1]!==0 &&
       <Marker position={coordinates} icon={customIcon}>
-        <Popup>{location}</Popup>
+        <Popup>Selected Country: <br/> {location}</Popup>
       </Marker>
       }
-      {allCoordinates.map((coordinates, index) => (
-      <Marker key={index} position={coordinates}>
-        <Popup>{location}</Popup>
+      {retrievedSpds.map((spd, index) => (
+      <Marker key={index} position={[spd.lat , spd.lon]}>
+        <Popup><h4>Name: </h4>{spd.name}<br/>
+              <h4>Country: </h4>{spd.country}<br/>
+              <h4>DangerLVL: </h4>{spd.dangerLVL}
+        </Popup>
       </Marker>
     ))}
     </MapContainer>
