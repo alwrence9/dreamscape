@@ -163,9 +163,9 @@ const SPDschema = mongoose.Schema({
     type: String,
     required: true
   },
-  sightings: {
+  coordinates: {
     type: String,
-    required: false
+    required: true
   }
 });
 const SPD = mongoose.model("SPDdirectory", SPDschema, "SPDdirectory");
