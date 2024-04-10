@@ -151,7 +151,7 @@ function Spd() {
 
   return(
   <>
-    <h3>Sleep Paralysis Demon</h3>
+    <h2>Sleep Paralysis Demon</h2>
     <details>
           <summary>Enter a new SPD!</summary>
           <div id="spd-form-container">
