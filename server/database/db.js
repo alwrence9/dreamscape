@@ -163,9 +163,9 @@ const SPDschema = mongoose.Schema({
     type: String,
     required: true
   },
-  sightings: {
-    type: [String],
-    required: false
+  coordinates: {
+    type: String,
+    required: true
   }
 });
 const SPD = mongoose.model("SPDdirectory", SPDschema, "SPDdirectory");
@@ -339,8 +339,8 @@ class DB{
 
 
   //Inserts and SPD into the database
-  async insertSPD({name, dangerLVL, description}){
-    const newSPD = new SPD({"name": name, "dangerLVL": dangerLVL, "description": description });
+  async insertSPD({name, dangerLVL, description, coordinates}){
+    const newSPD = new SPD({"name": name, "dangerLVL": dangerLVL, "description": description, "coordinates": coordinates});
     newSPD.save();
   }
 

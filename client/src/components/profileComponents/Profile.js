@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./profile.css";
 
 function Profile() {
 
@@ -26,11 +27,12 @@ function Profile() {
   }, []);
 
     return (
-    <>
-      <h5> Email: <p> {email} </p> </h5>
-      <h5> First Name: <p> {first} </p> </h5>
-      <h5> Last Name: <p> {last} </p> </h5>
-    </>
+    <section id="profile-container">
+      <div id="profile-box">
+        <p> {first}, {last} </p>
+        <p> Email: {email} </p>
+      </div>
+    </section>
   );
 }
 

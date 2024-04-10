@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Sleep, ChronotypesFooter} from './Sleep.js';
 import Dream from './dreamComponents/Dream.js';
 import {Diet, DietPageFooter} from './dietComponents/Diet.js';
-import Profile from './Profile.js';
+import Profile from './profileComponents/Profile.js';
 import {Mental, MentalityPageFooter} from './mentalityComponents/Mental.js';
 import {HomePage, HomePageFooter} from './HomePage.js';
 import LoginForm from './loginComponents/Login.js';
@@ -11,6 +11,8 @@ import Quiz from './sleepComponents/Quiz.js';
 import SleepInfo from './sleepComponents/SleepInfo.js';
 import SleepMetrics from './sleepComponents/SleepMetrics.js';
 import Support from './sleepComponents/Support.js';
+import Spd from './spdComponents/Spd.js';
+
 
 const defaultFooter = 
   <div id="footer-content">
@@ -219,6 +221,7 @@ function Navigation() {
               }}
             >Sleep</li>
             <li onClick={() => { setSelectedComponent(<Mental />), setSelectedFooter(<MentalityPageFooter/>); } }>Mentality</li>
+            <li id="spd" onClick={() => { setSelectedComponent(<Spd />);} }>Spd</li>
           </ul>
 
         </nav>

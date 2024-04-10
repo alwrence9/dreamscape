@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import './Quiz.css'
 
 function Quiz() {
     const [chronotypeData, setChronotypeData] = useState(null);
@@ -78,54 +79,67 @@ function Quiz() {
 
     if (result) {
         return (
-            <>
-                <h1>You are a {result.chronotype}</h1>
-                <h1>You have {result.insomnia} insomnia</h1>
-                <button onClick={handleRetake}>Retake Quiz</button>
-            </>
+            <section className="quiz-container">
+                <div id="quiz-results">
+                    <h2>You are a {result.chronotype}.</h2>
+                    <h2>You have {result.insomnia} insomnia.</h2>
+
+                    <div className="quiz-button-container">
+                        <button id="retake-quiz" onClick={handleRetake}>Retake Quiz</button>
+                    </div>
+                </div>
+            </section>
         )
     }
 
     return (
-        <>
-            <h1>Quiz</h1>
-            <h2>Chronotype Quiz</h2>
-            {chronotypeData.questions.map(question => (
-                <div key={question._id}>
-                    <p>{question.question}</p>
-                    {Object.entries(question.choices).map(([type, text]) => (
-                        <label key={type}>
-                            <input
-                                type="radio"
-                                name={question._id}
-                                value={type}
-                                onChange={() => handleAnswerChange('chronotype', question._id, type)}
-                            />
-                            {text}
-                        </label>
-                    ))}
+        <section className="quiz-container">
+            <div id="quiz-box">
+                <h1>Quiz</h1>
+                <h2>Chronotype Quiz</h2>
+                {chronotypeData.questions.map(question => (
+                    <div className="questions" key={question._id}>
+                        <p>{question.question}</p>
+                        {Object.entries(question.choices).map(([type, text]) => (
+                            <div className="question-options" key={type}>
+                                <input
+                                    type="radio"
+                                    name={question._id}
+                                    value={type}
+                                    onChange={() => handleAnswerChange('chronotype', question._id, type)}
+                                />
+                                <label>
+                                    {text}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+                <h2>Insomnia Quiz</h2>
+                {insomniaData.questions.map(question => (
+                    <div className="questions" key={question._id}>
+                        <p>{question.question}</p>
+                        {Object.entries(question.choices).map(([type, text]) => (
+                            <div className="question-options" key={type}>
+                                <input
+                                    type="radio"
+                                    name={question._id}
+                                    value={type}
+                                    onChange={() => handleAnswerChange('insomnia', question._id, type)}
+                                />
+                                <label>
+                                    {text}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+                {submitErrorMessage && <p style={{color: 'red'}}>{submitErrorMessage}</p>}
+                <div className="quiz-button-container">
+                    <button id="quiz-submit" onClick={handleSubmit}>Submit</button>
                 </div>
-            ))}
-            <h2>Insomnia Quiz</h2>
-            {insomniaData.questions.map(question => (
-                <div key={question._id}>
-                    <p>{question.question}</p>
-                    {Object.entries(question.choices).map(([type, text]) => (
-                        <label key={type}>
-                            <input
-                                type="radio"
-                                name={question._id}
-                                value={type}
-                                onChange={() => handleAnswerChange('insomnia', question._id, type)}
-                            />
-                            {text}
-                        </label>
-                    ))}
-                </div>
-            ))}
-            {submitErrorMessage && <p style={{color: 'red'}}>{submitErrorMessage}</p>}
-            <button onClick={handleSubmit}>Submit</button>
-        </>
+            </div>
+        </section>
     );
 }
 
