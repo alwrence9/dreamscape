@@ -14,6 +14,7 @@ function Spd() {
   const [location, setLocation] = useState('- Select a country -');
   const [countryData, setcountryData] = useState([]);
   const [coordinates, setCoordinates] = useState([0,0]);
+  const[info, setInfo] = useState('');
   
   const [retrievedSpds, setRetrievedSpds] = useState([]);
 
@@ -70,7 +71,7 @@ function Spd() {
         const coords = entry.coordinates.split(',')
         const loc = findCountry(coords[0],coords[1]);
         retrievedSpds.push({country: loc, lat: coords[0], lon: coords[1], 
-                            name: entry.name, dangerLVL: entry.dangerLVL});
+                            name: entry.name, dangerLVL: entry.dangerLVL, description: entry.description});
       }
       setRetrievedSpds(retrievedSpds);
       setRefetch(false);
@@ -171,10 +172,7 @@ function Spd() {
       <details>
         <summary>Entered SPDs</summary>
         <ul id="entered-spd">
-              {spdEntries?.map((entry, index) => (
-                <li key={index}><span>Name: </span>{entry.name} → <span>Danger Level: </span>{entry.dangerLVL} <br/><br/>
-                <span>Description: </span>{entry.description}</li>
-              ))}
+              {info}
         </ul>
       </details>
 
@@ -189,14 +187,23 @@ function Spd() {
             <Popup>Selected Country: <br/> {location}</Popup>
           </Marker>
           }
-          {retrievedSpds.map((spd, index) => (
-          <Marker key={index} position={[spd.lat , spd.lon]}>
-            <Popup><h4>Name: </h4>{spd.name}<br/>
-                  <h4>Country: </h4>{spd.country}<br/>
-                  <h4>DangerLVL: </h4>{spd.dangerLVL}
+           {retrievedSpds.map((spd, index) => (
+          <Marker 
+            key={index} 
+            position={[spd.lat, spd.lon]} 
+            eventHandlers={{
+              click: () => {
+                setInfo(spd.description);
+              },
+            }}
+          >
+            <Popup>
+              <h4>Name: </h4>{spd.name}<br />
+              <h4>Country: </h4>{spd.country}<br />
+              <h4>DangerLVL: </h4>{spd.dangerLVL}
             </Popup>
           </Marker>
-          ))}
+        ))}
         </MapContainer>
       </div>
   </>
