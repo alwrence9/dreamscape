@@ -1,6 +1,7 @@
 # Dreamscape
 
 ## Website url:
+https://dreamscape-project.azurewebsites.net/
 
 ## Setup Steps
 

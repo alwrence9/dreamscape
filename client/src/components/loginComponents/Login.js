@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import './Login.css';
+import SHA256 from 'crypto-js/sha256';
+
+function hash(text){
+  return SHA256(text).toString()
+}
+
 
 function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
   const [email, setEmail] = useState('');
@@ -18,7 +24,7 @@ function LoginForm({setToken, handleLogin, handleError, setDefaultComponent}) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ "email": email, "password": hash(password) }),
         });
   
         if (response.ok) {

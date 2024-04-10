@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import BreathingCircle from './BreathingCircle'
 
 function Support() {
 
     return (
     <>
       <h1> Support </h1>
+
+      <BreathingCircle />
+
       <iframe width="560" height="315" src="https://www.youtube.com/embed/aSdc1pKnqDY" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
       <iframe width="560" height="315" src="https://www.youtube.com/embed/aEqlQvczMJQ" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

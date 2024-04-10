@@ -1,0 +1,10 @@
+.leaflet-container {
+    width: 75%;
+    height: 100vh;
+  }
+
+  #map {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
