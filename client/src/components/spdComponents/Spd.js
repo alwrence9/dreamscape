@@ -21,7 +21,7 @@ function Spd() {
   const [refetch, setRefetch] = useState(true);
 
   const customIcon = new L.Icon({
-    iconUrl: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png',
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Devil_Skull_Icon.svg/1200px-Devil_Skull_Icon.svg.png',
     iconSize: [41, 41], // Size of the icon
     iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
     popupAnchor: [1, -34] // Point from which the popup should open relative to the iconAnchor
@@ -170,9 +170,10 @@ function Spd() {
 
       <details>
         <summary>Entered SPDs</summary>
-        <ul>
+        <ul id="entered-spd">
               {spdEntries?.map((entry, index) => (
-                <li key={index}>{`Name: ${entry.name}, Danger Level: ${entry.dangerLVL}, Description: ${entry.description}`}</li>
+                <li key={index}><span>Name: </span>{entry.name} → <span>Danger Level: </span>{entry.dangerLVL} <br/> 
+                <span>Description: </span>{entry.description}</li>
               ))}
         </ul>
       </details>
@@ -180,9 +181,9 @@ function Spd() {
       <div id="map">
         <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+        attribution='&copy; <a href="https://carto.com/attributions">CartoDB</a> | Tiles © <a href="https://leafletjs.com/">Leaflet</a>'
+        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+      />
           { coordinates[0]!==0 && coordinates[1]!==0 &&
           <Marker position={coordinates} icon={customIcon}>
             <Popup>Selected Country: <br/> {location}</Popup>

@@ -53,3 +53,16 @@
   display: flex;
   justify-content: center;
 }
+
+span {
+  color: rgb(175, 0, 0);
+}
+
+#entered-spd {
+  width: 50%;
+}
+
+#entered-spd > li {
+  border: 1px solid rgb(117, 30, 30);
+  padding: 10px;
+}
