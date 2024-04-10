@@ -66,6 +66,10 @@ const ProfileSchema = mongoose.Schema({
   lastName: {
     type: String,
     required: true
+  },
+  picture: {
+    type: String,
+    required: false
   }
 });
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
@@ -360,6 +364,14 @@ class DB{
   async clearSPD(){
   const results = await SPD.deleteMany({"name": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} SPD entries`);
+  }
+
+  async insertImage(email, image) {
+      await Profile.findOneAndUpdate(
+          { email: email }, // find a document with that filter
+          { picture: image }, // document to insert when nothing was found
+          { upsert: true, new: true, runValidators: true } // options
+      );
   }
 }
 

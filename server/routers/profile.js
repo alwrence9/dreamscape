@@ -1,27 +1,28 @@
+// *** TODO Azure package does not want to install, test once that is figured out
 const express = require('express');
 const router = express.Router();
 const DB = require("../database/db.js");
 const jwt = require('jsonwebtoken');
-const cache = require('memory-cache');
+const fileUpload = require('express-fileupload');
+const { BlobServiceClient} = require('@azure/storage-blob');
 
 const db = new DB();
+
+const sasToken = process.env.AZURE_SAS;
+const containerName = 'images';
+const storageAccountName = process.env.storagereousrcename || "dreamscapestorageashley";
+const blobService = new BlobServiceClient(
+  `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
+);
+const containerClient = blobService.getContainerClient(containerName);
+
+router.use( fileUpload({ createParentPath: true, }) );
 
 //Gets the profile of a user for when they login
 router.get('/:email', getProfile);
 async function getProfile(req, res) {
-  const email = req.params.email;
   res.type('json');
-
-  let profile = cache.get(`${email}-profile`)
-  if(!profile){
-    profile = await db.getProfile( email );
-    cache.put(`${email}-profile`, JSON.stringify(profile))
-  }
-  else{
-    profile = JSON.parse(profile);
-  }
-
-
+  const profile = await db.getProfile( req.params.email );
   if(profile){
     return res.json( {"profile": profile});
   }
@@ -51,5 +52,28 @@ async function createProfile(req, res) {
   return res.status(401).json({ status: 401, message: 'Profile missing information' });
   
 }
+
+// TODO fix this route to upload images, azure package does not install
+router.post('/picture', postImage);
+async function postImage(req, res) {
+  const body = req.body;
+  if (body.email && req.files) {
+    const file = req.files.file;
+    const blobName = file.name;
+    const blobClient = containerClient.getBlockBlobClient(blobName);
+
+    //Set mimetype as determined from browser with file upload control
+    const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
+    //Upload image to blob storage account in azure
+    await blobClient.uploadData(file.data, options);
+
+    //Store name & uri into mongodb
+    db.insertImage(body.email, containerClient.getBlockBlobClient(blobName).url);
+
+    return res.status(200).send({ status: 200, message: 'Successful' });
+  }
+  return res.status(403).send({status: 403, message: 'Wrong format'})
+}
+
 
 module.exports = {"profileRouter": router};
