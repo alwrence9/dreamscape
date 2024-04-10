@@ -221,7 +221,7 @@ function Navigation() {
               }}
             >Sleep</li>
             <li onClick={() => { setSelectedComponent(<Mental />), setSelectedFooter(<MentalityPageFooter/>); } }>Mentality</li>
-            <li id="spd" onClick={() => { setSelectedComponent(<Spd />);} }>Spd</li>
+            <li id="spd" onClick={() => { setSelectedComponent(<Spd />), setSelectedFooter(<HomePageFooter/>);} }>Spd</li>
           </ul>
 
         </nav>

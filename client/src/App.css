@@ -1,3 +1,4 @@
+/* stylelint-disable */
 @import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 html{
@@ -28,6 +29,24 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 150%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    width: 150%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    width: 142%;
+  }
 }
 
 header {
