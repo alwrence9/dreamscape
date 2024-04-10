@@ -1,4 +1,3 @@
-// *** TODO Azure package does not want to install, test once that is figured out
 const express = require('express');
 const router = express.Router();
 const DB = require("../database/db.js");
@@ -9,8 +8,8 @@ const { BlobServiceClient} = require('@azure/storage-blob');
 const db = new DB();
 
 const sasToken = process.env.AZURE_SAS;
-const containerName = 'images';
-const storageAccountName = process.env.storagereousrcename || "dreamscapestorageashley";
+const containerName = 'dreamscape';
+const storageAccountName = process.env.storagereousrcename || "azuretest2135666";
 const blobService = new BlobServiceClient(
   `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
 );
@@ -53,7 +52,6 @@ async function createProfile(req, res) {
   
 }
 
-// TODO fix this route to upload images, azure package does not install
 router.post('/picture', postImage);
 async function postImage(req, res) {
   const body = req.body;
