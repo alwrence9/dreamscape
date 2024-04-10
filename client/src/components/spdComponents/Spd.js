@@ -18,7 +18,7 @@ function Spd() {
   const [coordinates, setCoordinates] = useState([0,0]);
 
   //Description of the clicked marker
-  const[clickedInfo, setClickedInfo] = useState('');
+  const[clickedInfo, setClickedInfo] = useState('Click on a marker to see the description');
   const [infoLevel, setInfoLevel] = useState(0);
   
   const [retrievedSpds, setRetrievedSpds] = useState([]);
