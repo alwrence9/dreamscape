@@ -161,12 +161,14 @@ function Spd() {
               <div id="spd-form">
 
                 <div id ="label-column">
+                  <label>Name:</label>
                   <label>Country:</label>
                   <label>DangerLVL:</label>
                   <label>Descrption:</label>
                 </div>
 
                 <div id ="input-column">
+                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} required/>
                   <select value={location} onChange={(e) => handleLocationChange(e)}>
                     {countryData.map((country, index) => (
                     <option key={index} value={country.country}>{country.country}</option>

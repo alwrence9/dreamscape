@@ -57,6 +57,7 @@
 #entered-spd {
   width: 50%;
   margin: 0 auto; 
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 .green {
@@ -68,5 +69,5 @@
 }
 
 .red {
-  color: red;
+  color: rgba(255, 0, 0, 0.678);
 }
