@@ -132,64 +132,72 @@ function Spd() {
 
   return(
   <>
-    <h3>Add your SPD Experience</h3>
-
-    <div>
-      <label>Name:</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-    </div>
-
-    <div>
-      <label>Select Country</label>
-      <select value={location} onChange={(e) => handleLocationChange(e)}>
-        {countryData.map((country, index) => (
-          <option key={index} value={country.country}>{country.country}</option>
-        ))}
-      </select>
-    </div>
-
-    <div>
-      <label>Danger Level</label>
-        <input type="number" value={level} onChange={(e) => setLevel(e.target.value)} />
-    </div>
-
-    <div>
-        <label>Descrption:</label>
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-    </div>
-
-    <button onClick={addSpdEntry}>Add SPD Experience</button>
-
+    <h3>Sleep Paralysis Demon</h3>
     <details>
-      <summary>Entered SPDs</summary>
-      <ul>
-            {spdEntries?.map((entry, index) => (
-              <li key={index}>{`Name: ${entry.name}, Danger Level: ${entry.dangerLVL}, Description: ${entry.description}`}</li>
-            ))}
-      </ul>
-    </details>
+          <summary>Enter a new SPD!</summary>
+          <div id="spd-form-container">
+          <fieldset>
+            <legend><h2>New SPD</h2></legend>
+            <form>
+              <div id="spd-form">
 
-    <div id="map">
-    <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      { coordinates[0]!==0 && coordinates[1]!==0 &&
-      <Marker position={coordinates} icon={customIcon}>
-        <Popup>Selected Country: <br/> {location}</Popup>
-      </Marker>
-      }
-      {retrievedSpds.map((spd, index) => (
-      <Marker key={index} position={[spd.lat , spd.lon]}>
-        <Popup><h4>Name: </h4>{spd.name}<br/>
-              <h4>Country: </h4>{spd.country}<br/>
-              <h4>DangerLVL: </h4>{spd.dangerLVL}
-        </Popup>
-      </Marker>
-    ))}
-    </MapContainer>
-    </div>
+                <div id ="label-column">
+                  <label>Country:</label>
+                  <label>DangerLVL:</label>
+                  <label>Descrption:</label>
+                </div>
+
+                <div id ="input-column">
+                  <select value={location} onChange={(e) => handleLocationChange(e)}>
+                    {countryData.map((country, index) => (
+                    <option key={index} value={country.country}>{country.country}</option>
+                    ))}
+                  </select>
+                  <input type="number" value={level} min="0" max="5" onChange={(e) => setLevel(e.target.value)} />
+                  <textarea placeholder="Notes" value={description} onChange={(e) => setDescription(e.target.value)} />
+                </div>
+              </div>
+
+            </form>
+
+            <div id="spd-form-buttons">
+            <button onClick={addSpdEntry}>Add SPD Experience</button>
+            </div>
+
+          </fieldset>
+        </div>
+      </details>
+
+      <details>
+        <summary>Entered SPDs</summary>
+        <ul>
+              {spdEntries?.map((entry, index) => (
+                <li key={index}>{`Name: ${entry.name}, Danger Level: ${entry.dangerLVL}, Description: ${entry.description}`}</li>
+              ))}
+        </ul>
+      </details>
+
+      <div id="map">
+        <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          { coordinates[0]!==0 && coordinates[1]!==0 &&
+          <Marker position={coordinates} icon={customIcon}>
+            <Popup>Selected Country: <br/> {location}</Popup>
+          </Marker>
+          }
+          {retrievedSpds.map((spd, index) => (
+          <Marker key={index} position={[spd.lat , spd.lon]}>
+            <Popup><h4>Name: </h4>{spd.name}<br/>
+                  <h4>Country: </h4>{spd.country}<br/>
+                  <h4>DangerLVL: </h4>{spd.dangerLVL}
+            </Popup>
+          </Marker>
+          ))}
+        </MapContainer>
+      </div>
   </>
   );
 }
