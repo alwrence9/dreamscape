@@ -49,7 +49,8 @@ function Navigation() {
         setToken={setToken}
         handleLogin={handleGoogleLogin}
         handleError={handleError}
-        setDefaultComponent={setDefaultComponent}
+        setComponent={setSelectedComponent}
+        handleLogout={handleLogout}
       />
     );
     setSelectedFooter(defaultFooter);
@@ -63,7 +64,8 @@ function Navigation() {
         setToken={setToken} 
         handleLogin={handleGoogleLogin} 
         handleError={handleError}
-        setDefaultComponent={setDefaultComponent}
+        setComponent={setSelectedComponent}
+        handleLogout={handleLogout}
         />
     );
     setSelectedFooter(defaultFooter);
