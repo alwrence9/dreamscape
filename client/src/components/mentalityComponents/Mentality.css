@@ -1,9 +1,9 @@
 #mentality-container{
-    margin: 5px 0;
-    display : flex;
-    justify-content: center;
+  margin: 5px 0;
+  display : flex;
+  justify-content: center;
 }
 
 #mentality-container > div{
-    width: 50%
+  width: 50%
 }
