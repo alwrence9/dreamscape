@@ -1,0 +1,24 @@
+#support{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#videos{
+    width: 100%;
+}
+
+#breating-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 3px rgb(103 177 182);
+    border-radius: 30px;
+    width: 40%;
+}
+
+#circle-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import './Signup.css';
+import {HomePage} from '../HomePage.js';
+import SHA256 from 'crypto-js/sha256';
 
-function SignupForm({setToken, handleLogin, handleError, setDefaultComponent}) {
+function hash(text){
+  return SHA256(text).toString()
+}
+
+function SignupForm({setToken, handleLogin, handleError, setComponent, handleLogout}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -20,7 +26,7 @@ function SignupForm({setToken, handleLogin, handleError, setDefaultComponent}) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, firstname, lastname }),
+          body: JSON.stringify({ email, "password": hash(password), firstname, lastname }),
         });
   
         if (response.ok) {
@@ -28,7 +34,10 @@ function SignupForm({setToken, handleLogin, handleError, setDefaultComponent}) {
           const token = await response.json();
           localStorage.setItem("token", token);
           setToken(token);
-          setDefaultComponent();
+          setComponent(<><HomePage /> 
+          <section className="home-items">
+           <li onClick={() => handleLogout()}> Logout </li>
+          </section> </>);
         } else {
           setMessage('Failed to sign up');
         }

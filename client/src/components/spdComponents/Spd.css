@@ -1,0 +1,84 @@
+/* stylelint-disable */
+.leaflet-container {
+  width: 85%;
+  height: 100vh;
+}
+
+#map {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#spd-form-container{
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  #spd-form-container {
+    width: 100%;
+  }
+}
+
+#spd-form-container > fieldset{
+  width: 30%;
+  border-color: rgb(103 177 182);
+}
+
+#spd-form-container > fieldset > legend{
+  color: rgb(103 177 182);
+  margin: auto
+}
+
+#spd-form{
+  display: flex;
+}
+
+#spd-form > #label-column{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#spd-form > #input-column{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+#input-column > input, #input-column > textarea, select{
+  margin: 2px 0;
+  border: solid 1px rgb(103 177 182);
+  background-color:  	#17236a;
+  color: white;
+}
+
+#spd-form-buttons{
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#entered-spd {
+  width: 50%;
+  margin: 0 auto; 
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+details > p {
+  text-align: center;
+}
+
+.green {
+  color: green;
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: rgba(255, 0, 0, 0.7);
+}

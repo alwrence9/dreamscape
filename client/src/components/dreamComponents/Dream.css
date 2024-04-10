@@ -2,6 +2,13 @@
   width: 10%;
   align-self: end;
   margin-right: 10%;
+  color:rgb(63 194 255);
+  cursor: pointer;
+  font-size: 16px; 
+  padding: 10px;
+  background-color: rgb(104 8 123);
+  border-radius: 30px;
+  border-width: 0;
 }
 
 #dream-desc {
@@ -10,6 +17,9 @@
   align-self: center;
   margin-bottom: 2%;
   background-color: #B4D2DC;
+  text-align:left;
+  color: black;
+  font-size: 0.8em;
 }
 
 #dreams > form > input {
@@ -22,4 +32,72 @@
 #dreams > form {
   display: flex;
   flex-direction: column;
+}
+
+.tarot {
+  display: block;
+  max-height:250px;
+  width: auto;
+  height: auto;
+  margin-bottom: 2%;
+} 
+
+#fortune-telling {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-desc-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.tarot-desc {
+  width: 30%;
+  margin-left: 5%;
+}
+
+.styling-names {
+  width: 30%;
+  margin-left: 9.5%;
+  margin-bottom: 0%;
+  display: inline;
+}
+
+.styling-names button {
+  margin-right: 1%;
+  background-color: rgb(104 8 123);
+  border-radius: 5px;
+  border-width: 0;
+  color: #B4D2DC;
+  margin-bottom: 3%;
+}
+
+.tarot-button {
+  color:rgb(63 194 255);
+  cursor: pointer;
+  font-size: 16px; 
+  padding: 10px;
+  background-color: #3a0b46b6;
+  border-radius: 30px;
+  border-width: 0;
+}
+
+.tarot-button:hover {
+  background-color: #03e9f4;
+  color: #212121;
+  border-radius: 30px;
+  box-shadow: 0 0 5px #03e9f4, 0 0 13px #03e9f4, 0 0 25px #03e9f4,
+    0 0 100px #03e9f4;
+}
+
+.past-dreams {
+  border: 1px solid rgb(63 194 255);
+}
+
+.past-dreams p, h4 {
+  margin-left: 10px;
 }

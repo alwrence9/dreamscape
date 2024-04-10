@@ -66,6 +66,10 @@ const ProfileSchema = mongoose.Schema({
   lastName: {
     type: String,
     required: true
+  },
+  picture: {
+    type: String,
+    required: false
   }
 });
 const Profile = mongoose.model("Profile", ProfileSchema, "Profiles");
@@ -163,9 +167,9 @@ const SPDschema = mongoose.Schema({
     type: String,
     required: true
   },
-  sightings: {
-    type: [String],
-    required: false
+  coordinates: {
+    type: String,
+    required: true
   }
 });
 const SPD = mongoose.model("SPDdirectory", SPDschema, "SPDdirectory");
@@ -286,10 +290,23 @@ class DB{
     newQuestion.save();
   }
 
+
+  async getRandomChronotypeQuestion(numQuestions) {
+    numQuestions = parseInt(numQuestions) || 0;
+    const questions = await ChronotypeQuestion.aggregate([{ $sample: { size: numQuestions } }]);
+    return questions;
+  }
+
   //Gets insomnia questions
   async getInsomniaQuestion(){
   const questions = InsomniaQuestion.find({"question": { $regex: /.*/}});
   return questions;
+  }
+
+  async getRandomInsomniaQuestion(numQuestions) {
+    numQuestions = parseInt(numQuestions) || 0;
+    const questions = await InsomniaQuestion.aggregate([{ $sample: { size: numQuestions } }]);
+    return questions;
   }
 
   //Clear all insomnia questions
@@ -312,6 +329,11 @@ class DB{
   return cards;
   }
 
+  async getRandomTarotCard(){
+  const cards = TarotCard.aggregate().sample(1);
+  return cards;
+  }
+
   //Clear all tarot cards
   async clearTarotCards(){
   const results = await TarotCard.deleteMany({"name": { $regex: /.*/}});
@@ -321,8 +343,8 @@ class DB{
 
 
   //Inserts and SPD into the database
-  async insertSPD({name, dangerLVL, description}){
-    const newSPD = new SPD({"name": name, "dangerLVL": dangerLVL, "description": description });
+  async insertSPD({name, dangerLVL, description, coordinates}){
+    const newSPD = new SPD({"name": name, "dangerLVL": dangerLVL, "description": description, "coordinates": coordinates});
     newSPD.save();
   }
 
@@ -342,6 +364,14 @@ class DB{
   async clearSPD(){
   const results = await SPD.deleteMany({"name": { $regex: /.*/}});
   console.log(`Deleted ${results.deletedCount} SPD entries`);
+  }
+
+  async insertImage(email, image) {
+      await Profile.findOneAndUpdate(
+          { email: email }, // find a document with that filter
+          { picture: image }, // document to insert when nothing was found
+          { upsert: true, new: true, runValidators: true } // options
+      );
   }
 }
 
