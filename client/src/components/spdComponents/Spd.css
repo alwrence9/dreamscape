@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .leaflet-container {
   width: 85%;
   height: 100vh;
@@ -73,5 +74,5 @@ details > p {
 }
 
 .red {
-  color: rgba(255, 0, 0, 0.678);
+  color: rgba(255, 0, 0, 0.7);
 }
