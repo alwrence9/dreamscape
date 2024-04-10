@@ -12,21 +12,39 @@ function Spd() {
   const [level, setLevel] = useState(0);
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('- Select a country -');
+  //Contains country name, lat, and lon
   const [countryData, setcountryData] = useState([]);
+  //Selected coordinates
   const [coordinates, setCoordinates] = useState([0,0]);
-  const[info, setInfo] = useState('');
+
+  //Description of the clicked marker
+  const[clickedInfo, setClickedInfo] = useState('');
+  const [infoLevel, setInfoLevel] = useState(0);
   
   const [retrievedSpds, setRetrievedSpds] = useState([]);
 
   const [countriesFetched, setCountryFetch] = useState(false);
   const [refetch, setRefetch] = useState(true);
 
+  //Demon Icon
   const customIcon = new L.Icon({
     iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Devil_Skull_Icon.svg/1200px-Devil_Skull_Icon.svg.png',
     iconSize: [41, 41], // Size of the icon
     iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
     popupAnchor: [1, -34] // Point from which the popup should open relative to the iconAnchor
   });
+
+  let infoColorClass;
+  if (infoLevel >= 0 && infoLevel <= 1) {
+    infoColorClass = 'green';
+  } else if (infoLevel >= 2 && infoLevel <= 3) {
+    infoColorClass = 'orange';
+  } else if (infoLevel >= 4 && infoLevel <= 5) {
+    infoColorClass = 'red';
+  } else {
+    // Default color class or handle other cases
+    infoColorClass = '';
+  }
 
   function handleLocationChange(e) {
     for(var data of countryData ) {
@@ -170,11 +188,11 @@ function Spd() {
       </details>
 
       <details>
-        <summary>Entered SPDs</summary>
-        <ul id="entered-spd">
-              {info}
-        </ul>
-      </details>
+      <summary>Entered SPDs</summary>
+      <ul id="entered-spd" className={infoColorClass}>
+        {clickedInfo}
+      </ul>
+    </details>
 
       <div id="map">
         <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
@@ -193,7 +211,8 @@ function Spd() {
             position={[spd.lat, spd.lon]} 
             eventHandlers={{
               click: () => {
-                setInfo(spd.description);
+                setClickedInfo(spd.description);
+                setInfoLevel(spd.dangerLVL);
               },
             }}
           >
