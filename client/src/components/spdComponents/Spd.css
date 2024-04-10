@@ -16,6 +16,12 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  #spd-form-container {
+    width: 100%;
+  }
+}
+
 #spd-form-container > fieldset{
   width: 30%;
   border-color: rgb(103 177 182);

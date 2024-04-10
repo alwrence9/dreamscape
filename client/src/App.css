@@ -31,6 +31,24 @@ main {
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  main {
+    width: 150%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    width: 150%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    width: 142%;
+  }
+}
+
 header {
   border: 1px rgb(222 59 255) solid;
   border-bottom: none;
