@@ -194,6 +194,7 @@ function Spd() {
       <ul id="entered-spd" className={infoColorClass}>
         {clickedInfo}
       </ul>
+      <p>Safety Colors: 🟢 Danger lvl 0-1 | 🟠 Danger lvl 2-3 | 🔴 Danger lvl 4-5</p>
     </details>
 
       <div id="map">
