@@ -172,7 +172,7 @@ function Spd() {
         <summary>Entered SPDs</summary>
         <ul id="entered-spd">
               {spdEntries?.map((entry, index) => (
-                <li key={index}><span>Name: </span>{entry.name} → <span>Danger Level: </span>{entry.dangerLVL} <br/> 
+                <li key={index}><span>Name: </span>{entry.name} → <span>Danger Level: </span>{entry.dangerLVL} <br/><br/>
                 <span>Description: </span>{entry.description}</li>
               ))}
         </ul>
